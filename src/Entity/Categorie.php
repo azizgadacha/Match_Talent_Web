@@ -19,11 +19,12 @@ class Categorie
     #[ORM\Column(length: 50)]
     private ?string $nomCategorie = null;
     #[ORM\OneToMany(mappedBy: 'categorieAnnonce', targetEntity: Annonce::class, orphanRemoval: true)]
-    private Collection $listeAnnonce;
+    private Collection $listeAnnonceInCategorie;
 
     public function __construct()
     {
         $this->listeAnnonce = new ArrayCollection();
+        $this->listeAnnonceInCategorie = new ArrayCollection();
     }
 
     public function getIdCategorie(): ?int
@@ -67,6 +68,36 @@ class Categorie
             // set the owning side to null (unless already changed)
             if ($listeAnnonce->getCategorieAnnonce() === $this) {
                 $listeAnnonce->setCategorieAnnonce(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getListeAnnonceInCategorie(): Collection
+    {
+        return $this->listeAnnonceInCategorie;
+    }
+
+    public function addListeAnnonceInCategorie(Annonce $listeAnnonceInCategorie): self
+    {
+        if (!$this->listeAnnonceInCategorie->contains($listeAnnonceInCategorie)) {
+            $this->listeAnnonceInCategorie->add($listeAnnonceInCategorie);
+            $listeAnnonceInCategorie->setCategorieAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListeAnnonceInCategorie(Annonce $listeAnnonceInCategorie): self
+    {
+        if ($this->listeAnnonceInCategorie->removeElement($listeAnnonceInCategorie)) {
+            // set the owning side to null (unless already changed)
+            if ($listeAnnonceInCategorie->getCategorieAnnonce() === $this) {
+                $listeAnnonceInCategorie->setCategorieAnnonce(null);
             }
         }
 

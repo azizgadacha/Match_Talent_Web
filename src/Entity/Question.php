@@ -32,7 +32,7 @@ class Question
 
 
     #[ORM\ManyToOne(inversedBy:'listeQuestion' )]
-
+    #[ORM\JoinColumn(name: 'id_quiz', referencedColumnName: 'id_quiz')]
     private ?Quiz $QuizAssocier=null;
 
     public function getIdQuestion(): ?int

@@ -22,7 +22,8 @@ class ReponseReclamation
     private ?\DateTimeInterface $date = null;
 
 
-    #[ORM\OneToOne(mappedBy:'reponseReclamation' ,cascade:['persist','remove'])]
+    #[ORM\OneToOne(inversedBy:'reponseReclamation' ,cascade:['persist','remove'])]
+    #[ORM\JoinColumn(name: 'id_reclamation', referencedColumnName: 'id_reclamation')]
 
     private ?Reclamation $reclamation=null;
 

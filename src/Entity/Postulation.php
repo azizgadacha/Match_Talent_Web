@@ -23,17 +23,22 @@ class Postulation
 
     #[ORM\Id]
 
-    #[ORM\ManyToOne(inversedBy:'listePostulationInUser' )]
+    #[ORM\ManyToOne(inversedBy:'listePostulationInAnnonce' )]
+    #[ORM\JoinColumn(name: 'id_annonce', referencedColumnName: 'id_annonce')]
+
     private ?Annonce $annoncePostulation;
 
     #[ORM\Id]
 
     #[ORM\ManyToOne(inversedBy:'listePostulationInUser' )]
+    #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
+
     private ?Utilisateur $userPostulation;
 
-    #[ORM\Id]
 
     #[ORM\ManyToOne(inversedBy:'listePostulation' )]
+    #[ORM\JoinColumn(name: 'id_file', referencedColumnName: 'id_file')]
+
     private ?File $fileAssocier;
 
     public function getEtat(): ?string

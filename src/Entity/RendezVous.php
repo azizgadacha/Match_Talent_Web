@@ -21,13 +21,16 @@ class RendezVous
     private ?string $heureRendezVous = null;
 
 
-    #[ORM\ManyToOne(inversedBy:'Annonce' )]
+    #[ORM\ManyToOne(inversedBy:'listeRendezVous' )]
 
-    private ?Annonce $annonce;
+    #[ORM\JoinColumn(name: 'id_annonce', referencedColumnName: 'id_annonce')]
+
+    private ?Annonce $annonceAssocierRendezVous;
 
 
 
     #[ORM\ManyToOne(inversedBy:'listeRendezVous' )]
+    #[ORM\JoinColumn(name: 'id_user', referencedColumnName: 'id')]
 
     private ?Utilisateur $userRendezVous;
 
@@ -80,6 +83,18 @@ class RendezVous
     public function setUserRendezVous(?Utilisateur $userRendezVous): self
     {
         $this->userRendezVous = $userRendezVous;
+
+        return $this;
+    }
+
+    public function getAnnonceAssocierRendezVous(): ?Annonce
+    {
+        return $this->annonceAssocierRendezVous;
+    }
+
+    public function setAnnonceAssocierRendezVous(?Annonce $annonceAssocierRendezVous): self
+    {
+        $this->annonceAssocierRendezVous = $annonceAssocierRendezVous;
 
         return $this;
     }

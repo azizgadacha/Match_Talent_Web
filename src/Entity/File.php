@@ -35,8 +35,10 @@ class File
     private ?string $namemotivation = null;
 
     #[ORM\OneToOne(inversedBy:'file',cascade: ['persist','remove'] )]
+    #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
+
     private ?Utilisateur $userFile;
-    #[ORM\OneToMany(mappedBy: 'fileAssocier', targetEntity: Candidature::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'fileAssocier', targetEntity:Postulation::class, orphanRemoval: true)]
     private Collection $listePostulation;
 
     public function __construct()
@@ -134,14 +136,14 @@ class File
     }
 
     /**
-     * @return Collection<int, Candidature>
+     * @return Collection<int, Postulation>
      */
     public function getListePostulation(): Collection
     {
         return $this->listePostulation;
     }
 
-    public function addListePostulation(Candidature $listePostulation): self
+    public function addListePostulation(Postulation $listePostulation): self
     {
         if (!$this->listePostulation->contains($listePostulation)) {
             $this->listePostulation->add($listePostulation);
@@ -151,7 +153,7 @@ class File
         return $this;
     }
 
-    public function removeListePostulation(Candidature $listePostulation): self
+    public function removeListePostulation(Postulation $listePostulation): self
     {
         if ($this->listePostulation->removeElement($listePostulation)) {
             // set the owning side to null (unless already changed)

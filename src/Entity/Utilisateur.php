@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UtilisateurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
@@ -12,9 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Utilisateur
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\GeneratedValue ]
     private ?int $id=null;
+
+    #[ORM\ManyToOne(inversedBy:'userListe' )]
+    #[ORM\JoinColumn(name:'id_role', referencedColumnName:'id_role')]
+    private ?Role  $roleUser;
+
 
     #[ORM\Column(length: 70)]
 
@@ -44,8 +50,8 @@ class Utilisateur
 
     private ?string  $contact=null;
 
-    #[ORM\ManyToOne(inversedBy:'userListe')]
-    private ?Role  $Role;
+
+
     #[ORM\OneToMany(mappedBy: 'utilisateur', targetEntity: Annonce::class, orphanRemoval: true)]
     private Collection $listeAnnonce;
 
@@ -408,4 +414,30 @@ class Utilisateur
 
         return $this;
     }
+
+    public function getRoleUser(): ?Role
+    {
+        return $this->roleUser;
+    }
+
+    public function setRoleUser(?Role $roleUser): self
+    {
+        $this->roleUser = $roleUser;
+
+        return $this;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

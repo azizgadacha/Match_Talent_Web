@@ -27,10 +27,12 @@ class Quiz
 
 
     #[ORM\ManyToOne(inversedBy:'listeQuiz' )]
+    #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
+
     private ?Utilisateur $userQuiz=null;
 
 
-    #[ORM\OneToMany(mappedBy: 'QuizAssocier', targetEntity: Annonce::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'QuizAssocier', targetEntity: Question::class, orphanRemoval: true)]
     private Collection $listeQuestion;
     #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Annonce::class, orphanRemoval: true)]
     private Collection $AnnoceAssocier;

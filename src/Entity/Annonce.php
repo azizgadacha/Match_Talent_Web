@@ -21,13 +21,7 @@ class Annonce
     private ?string $titre = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $categorie = null;
-
-
-    #[ORM\Column(length: 50)]
-
     private ?string $nomSocieté = null;
-
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datedebut = null;
@@ -37,33 +31,43 @@ class Annonce
     private ?\DateTimeInterface $datefin = null;
 
     #[ORM\Column(length: 50)]
-
     private ?string $description = null;
 
 
     #[ORM\Column(length: 50)]
     private ?string $typeContrat = null;
 
-
-
     #[ORM\ManyToOne(inversedBy:'AnnoceAssocier' )]
-    private ?Quiz $quiz=null;
-    #[ORM\ManyToOne(inversedBy:'listeAnnonce' )]
+    #[ORM\JoinColumn(name: 'id_quiz', referencedColumnName: 'id_quiz')]
+
+    private ?Quiz $quiz;
+
+    #[ORM\ManyToOne(inversedBy:'listeAnnonceInCategorie' )]
+    #[ORM\JoinColumn(name: 'id_categorie', referencedColumnName: 'id_categorie')]
+
     private ?Categorie $categorieAnnonce=null;
 
-    //private $idQuiz;
-
     #[ORM\ManyToOne(inversedBy:'listeAnnonce' )]
+    #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
+
     private ?Utilisateur $utilisateur=null;
+
     #[ORM\OneToMany(mappedBy: 'annonceAssocier', targetEntity: Candidature::class, orphanRemoval: true)]
-    private Collection $listeCandidature;
+    private Collection $listeCandidatureInAnnonce;
+
     #[ORM\OneToMany(mappedBy: 'annoncePostulation', targetEntity: Postulation::class, orphanRemoval: true)]
-    private Collection $listePostulationInUser;
+    private Collection $listePostulationInAnnonce;
+
+    #[ORM\OneToMany(mappedBy: 'annonceAssocierRendezVous', targetEntity: RendezVous::class, orphanRemoval: true)]
+    private Collection $listeRendezVous;
 
     public function __construct()
     {
         $this->listeCandidature = new ArrayCollection();
         $this->listePostulationInUser = new ArrayCollection();
+        $this->listeCandidatureInAnnonce = new ArrayCollection();
+        $this->listePostulationInAnnonce = new ArrayCollection();
+        $this->listeRendezVous = new ArrayCollection();
     }
 
     public function getIdAnnonce(): ?int
@@ -245,6 +249,120 @@ class Annonce
             // set the owning side to null (unless already changed)
             if ($listePostulationInUser->getAnnoncePostulation() === $this) {
                 $listePostulationInUser->setAnnoncePostulation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getListeCandidatureInAnnonce(): Collection
+    {
+        return $this->listeCandidatureInAnnonce;
+    }
+
+    /**
+     * @param Collection $listeCandidatureInAnnonce
+     */
+    public function setListeCandidatureInAnnonce(Collection $listeCandidatureInAnnonce): void
+    {
+        $this->listeCandidatureInAnnonce = $listeCandidatureInAnnonce;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getListePostulationInAnnonce(): Collection
+    {
+        return $this->listePostulationInAnnonce;
+    }
+
+    /**
+     * @param Collection $listePostulationInAnnonce
+     */
+    public function setListePostulationInAnnonce(Collection $listePostulationInAnnonce): void
+    {
+        $this->listePostulationInAnnonce = $listePostulationInAnnonce;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getListeRendezVous(): Collection
+    {
+        return $this->listeRendezVous;
+    }
+
+    /**
+     * @param Collection $listeRendezVous
+     */
+    public function setListeRendezVous(Collection $listeRendezVous): void
+    {
+        $this->listeRendezVous = $listeRendezVous;
+    }
+
+    public function addListeCandidatureInAnnonce(Candidature $listeCandidatureInAnnonce): self
+    {
+        if (!$this->listeCandidatureInAnnonce->contains($listeCandidatureInAnnonce)) {
+            $this->listeCandidatureInAnnonce->add($listeCandidatureInAnnonce);
+            $listeCandidatureInAnnonce->setAnnonceAssocier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListeCandidatureInAnnonce(Candidature $listeCandidatureInAnnonce): self
+    {
+        if ($this->listeCandidatureInAnnonce->removeElement($listeCandidatureInAnnonce)) {
+            // set the owning side to null (unless already changed)
+            if ($listeCandidatureInAnnonce->getAnnonceAssocier() === $this) {
+                $listeCandidatureInAnnonce->setAnnonceAssocier(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addListePostulationInAnnonce(Postulation $listePostulationInAnnonce): self
+    {
+        if (!$this->listePostulationInAnnonce->contains($listePostulationInAnnonce)) {
+            $this->listePostulationInAnnonce->add($listePostulationInAnnonce);
+            $listePostulationInAnnonce->setAnnoncePostulation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListePostulationInAnnonce(Postulation $listePostulationInAnnonce): self
+    {
+        if ($this->listePostulationInAnnonce->removeElement($listePostulationInAnnonce)) {
+            // set the owning side to null (unless already changed)
+            if ($listePostulationInAnnonce->getAnnoncePostulation() === $this) {
+                $listePostulationInAnnonce->setAnnoncePostulation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addListeRendezVou(RendezVous $listeRendezVou): self
+    {
+        if (!$this->listeRendezVous->contains($listeRendezVou)) {
+            $this->listeRendezVous->add($listeRendezVou);
+            $listeRendezVou->setAnnonceAssocierRendezVous($this);
+        }
+
+        return $this;
+    }
+
+    public function removeListeRendezVou(RendezVous $listeRendezVou): self
+    {
+        if ($this->listeRendezVous->removeElement($listeRendezVou)) {
+            // set the owning side to null (unless already changed)
+            if ($listeRendezVou->getAnnonceAssocierRendezVous() === $this) {
+                $listeRendezVou->setAnnonceAssocierRendezVous(null);
             }
         }
 

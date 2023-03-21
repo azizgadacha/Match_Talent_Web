@@ -14,6 +14,29 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+
+            {% if liste is defined  %}
+                <style>table, th, td {
+                        border: 1px solid black;
+                    }</style>
+
+                <table>
+
+                    <caption>les classes</caption>
+                    <caption>les classes</caption>
+
+                    <tr> <th>id</th> <th>nom</th> <th>modifier</th><th>delete</th> </tr>
+{% for classe in liste%}
+
+                        <tr> <td>{{classe.username}} </td> <td>{{classe.email }}</td> <td><a href="{{ path('modifierpage', {'classeName': classe.username,'classId':classe.email}) }}">Modify</a></td><td><a href="{{ path('supprimerclasse', {'classeName': classe.username,'classId':classe.email}) }}">Modify</a></td> </tr>
+
+                    {% endfor %}
+
+
+                </table>
+
+            {% endif %}
+        {% endblock %}
     </body>
 </html>

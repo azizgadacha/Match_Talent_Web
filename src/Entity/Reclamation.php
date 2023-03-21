@@ -36,6 +36,7 @@ class Reclamation
 
 
     #[ORM\ManyToOne(inversedBy:'listeReclamation' )]
+    #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
     private ?Utilisateur $userReclamation;
 

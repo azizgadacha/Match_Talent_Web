@@ -6,15 +6,16 @@ use App\Repository\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: RoleRepository::class)]
-
 class Role
 {
+
     #[ORM\Id]
+    #[ORM\Column(type: Types::INTEGER)]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int  $idRole=null;
+    private ?int $idRole = null;
 
     #[ORM\Column(length: 50)]
     private ?string $nomRole=null;
@@ -22,7 +23,7 @@ class Role
     #[ORM\Column(length: 50)]
     private ?string $description=null;
 
-    #[ORM\OneToMany(mappedBy: 'Role', targetEntity: Utilisateur::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'roleUser', targetEntity: Utilisateur::class, orphanRemoval: true)]
     private Collection $userListe;
 
     public function __construct()

@@ -21,6 +21,8 @@ class Notification
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy:'listeNotification' )]
+    #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
+
     private ?Utilisateur $userNotification=null;
 
     public function getIdNotification(): ?int

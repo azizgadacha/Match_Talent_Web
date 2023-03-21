@@ -18,10 +18,12 @@ class Candidature
     private ?float $note = null;
 
 
-    #[ORM\ManyToOne(inversedBy:'listeCandidature' )]
+    #[ORM\ManyToOne(inversedBy:'listeCandidatureInAnnonce' )]
+    #[ORM\JoinColumn(name: 'id_annonce', referencedColumnName: 'id_annonce')]
     private ?Annonce $annonceAssocier=null;
 
     #[ORM\ManyToOne(inversedBy:'listeCandidature' )]
+    #[ORM\JoinColumn(name: 'id_demandeur', referencedColumnName: 'id')]
     private ?Utilisateur $utilisateurAssocier=null;
 
     public function getIdCandidature(): ?int
