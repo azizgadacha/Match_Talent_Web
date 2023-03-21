@@ -39,7 +39,6 @@ class Annonce
 
     #[ORM\ManyToOne(inversedBy:'AnnoceAssocier' )]
     #[ORM\JoinColumn(name: 'id_quiz', referencedColumnName: 'id_quiz')]
-
     private ?Quiz $quiz;
 
     #[ORM\ManyToOne(inversedBy:'listeAnnonceInCategorie' )]

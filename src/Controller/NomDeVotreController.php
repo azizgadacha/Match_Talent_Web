@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Reclamation;
 use App\Entity\Utilisateur;
+use App\Repository\ReclamationRepository;
 use App\Repository\UtilisateurRepository;
 use PHPUnit\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,14 +24,13 @@ class NomDeVotreController extends AbstractController
     }
 
     #[Route('/getclasses', name: 'getclasses')]
-    public function getclasses(UtilisateurRepository $doctrine)
+    public function getclasses(ReclamationRepository $doctrine)
     {
-        $listClasse=null;
 
             $listClasse=$doctrine->findAll();
 
 
-        return $this->render('classroom/index.html.twig', [
+        return $this->render('nom_de_votre/index.html.twig', ['liste'=>$listClasse,
             'controller_name' => 'ClassroomController',
         ]);
     }
