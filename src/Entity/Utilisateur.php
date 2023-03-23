@@ -17,11 +17,6 @@ class Utilisateur
     #[ORM\GeneratedValue ]
     private ?int $id=null;
 
-    #[ORM\ManyToOne(inversedBy:'userListe' )]
-    #[ORM\JoinColumn(name:'id_role', referencedColumnName:'id_role')]
-    private ?Role  $roleUser;
-
-
     #[ORM\Column(length: 70)]
 
     private ?int $nomSociete=null;
@@ -70,6 +65,11 @@ class Utilisateur
     private Collection $listeCandidature;
     #[ORM\OneToMany(mappedBy: 'userPostulation', targetEntity: Postulation::class, orphanRemoval: true)]
     private Collection $listePostulationInUser;
+
+
+    #[ORM\ManyToOne(inversedBy:'userListe' )]
+    #[ORM\JoinColumn(name:'id_role', referencedColumnName:'id_role')]
+    private ?Role  $roleUser;
 
     public function __construct()
     {
