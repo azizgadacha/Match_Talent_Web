@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReponseReclamation{% endblock %}
+
+{% block body %}
+    <h1>ReponseReclamation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdReponse</th>
+                <td>{{ reponse_reclamation.idReponse }}</td>
+            </tr>
+            <tr>
+                <th>Reponse</th>
+                <td>{{ reponse_reclamation.reponse }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ reponse_reclamation.date ? reponse_reclamation.date|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reponse_reclamation_index') }}">back to list</a>
+
+    <a href="{{ path('app_reponse_reclamation_edit', {'idReponse': reponse_reclamation.idReponse}) }}">edit</a>
+
+    {{ include('reponse_reclamation/_delete_form.html.twig') }}
+{% endblock %}

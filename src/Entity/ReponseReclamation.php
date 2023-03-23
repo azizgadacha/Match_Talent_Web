@@ -25,6 +25,11 @@ class ReponseReclamation
     #[ORM\OneToOne(inversedBy:'reponseReclamation' ,cascade:['persist','remove'])]
     #[ORM\JoinColumn(name: 'id_reclamation', referencedColumnName: 'id_reclamation')]
 
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
     private ?Reclamation $reclamation=null;
 
     public function getIdReponse(): ?int

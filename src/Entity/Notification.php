@@ -17,13 +17,19 @@ class Notification
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, nullable: true)]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy:'listeNotification' )]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
     private ?Utilisateur $userNotification=null;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
 
     public function getIdNotification(): ?int
     {

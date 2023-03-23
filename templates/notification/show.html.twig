@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notification{% endblock %}
+
+{% block body %}
+    <h1>Notification</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdNotification</th>
+                <td>{{ notification.idNotification }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ notification.date ? notification.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ notification.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_notification_index') }}">back to list</a>
+
+    <a href="{{ path('app_notification_edit', {'idNotification': notification.idNotification}) }}">edit</a>
+
+    {{ include('notification/_delete_form.html.twig') }}
+{% endblock %}

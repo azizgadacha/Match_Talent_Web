@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Notification index{% endblock %}
+
+{% block body %}
+    <h1>Notification index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdNotification</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for notification in notifications %}
+            <tr>
+                <td>{{ notification.idNotification }}</td>
+                <td>{{ notification.date ? notification.date|date('Y-m-d') : '' }}</td>
+                <td>{{ notification.description }}</td>
+                <td>
+                    <a href="{{ path('app_notification_show', {'idNotification': notification.idNotification}) }}">show</a>
+                    <a href="{{ path('app_notification_edit', {'idNotification': notification.idNotification}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_notification_new') }}">Create new</a>
+{% endblock %}

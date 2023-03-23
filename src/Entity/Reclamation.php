@@ -31,17 +31,24 @@ class Reclamation
 
 
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true, options: ['default' => 'not yet'])]
     private ?string $statut = null;
 
 
     #[ORM\ManyToOne(inversedBy:'listeReclamation' )]
-    #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
+    #[ORM\JoinColumn(name: 'utilisater_id', referencedColumnName: 'id')]
 
     private ?Utilisateur $userReclamation;
 
-    #[ORM\OneToOne(mappedBy:'reclamation' ,cascade:['persist','remove'])]
-    private ?ReponseReclamation $reponseReclamation=null;
+    //#[ORM\OneToOne(mappedBy:'reclamation' ,cascade:['persist','remove'])]
+    //private ?ReponseReclamation $reponseReclamation=null;
+
+
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
 
     public function getIdReclamation(): ?int
     {
@@ -113,12 +120,23 @@ class Reclamation
         return $this->userReclamation;
     }
 
-    public function setUserReclamation(?Utilisateur $userReclamation): self
-    {
-        $this->userReclamation = $userReclamation;
 
-        return $this;
-    }
+    public function setUserReclamation(?string $username): self
+{
+    $UtilisateurRepository = $this->getDoctrine()->getRepository(Utilisateur::class);
+    $userReclamation = $UtilisateurRepository->findOneBy(['username' => $username]);
+    $this->userReclamation = $userReclamation;
+
+    return $this;
+}
+
+
+    //public function setUserReclamation(?Utilisateur $userReclamation): self
+    //{
+        //$this->userReclamation = $userReclamation;
+
+        //return $this;
+    //}
 
     public function getReponseReclamation(): ?ReponseReclamation
     {
