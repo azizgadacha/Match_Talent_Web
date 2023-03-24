@@ -1,9 +1,12 @@
 <?php
 
 namespace App\Entity;
+//use Symfony\Component\Validator\Constraints as Assert;
+//use App\Validator\ValidType;
 use App\Repository\ReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+//use App\Validator\Constraints as CustomAssert;
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
 
@@ -15,18 +18,29 @@ class Reclamation
     private ?int  $idReclamation=null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Date]
     private ?\DateTimeInterface $date = null;
 
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Ce champ est obligatoire')]
     private ?string $titre = null;
 
 
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    //#[Assert\Type(type: ['Security', 'Content'])]
+    //#[Assert\Type(type: ["App\Entity\Security", "App\Entity\Content"], message: 'Le type doit être Security ou Content.')]
+    //#[ValidType]
+    //#[CustomAssert\ValidType(message: 'Le type doit être Security ou Content.')]
+    /**
+ * @CustomAssert\ValidType
+ */
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Ce champ est obligatoire')]
     private ?string $description = null;
 
 

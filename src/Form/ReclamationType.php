@@ -9,6 +9,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ReclamationType extends AbstractType
 {
@@ -22,10 +23,21 @@ class ReclamationType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+         // Fetch your custom values for the dropdown list here
+         //$myValues = ['Security', 'Accessibility', 'Content'];
+
         $builder
             //->add('date')
             ->add('titre')
-            ->add('type')
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Security' => 'Security',
+                    'Accessibility'=> 'Accessibility' ,
+                    'Content'=> 'Content' ,
+                ],
+                'placeholder' => 'Séléctionner type ',
+            ])
             ->add('description')
             //->add('statut')
             ->add('userReclamation', TextType::class, [
