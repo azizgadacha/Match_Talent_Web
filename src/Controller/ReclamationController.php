@@ -10,17 +10,58 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Pagerfanta\Doctrine\ORM\QueryAdapter;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 
 #[Route('/reclamation')]
 class ReclamationController extends AbstractController
 {
+
     #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
-    public function index(ReclamationRepository $reclamationRepository): Response
+    public function index(Request $request): Response
     {
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository(Reclamation::class);
+    
+        $type = $request->query->get('type');
+    
+        if ($type) {
+            $queryBuilder = $repo->createQueryBuilder('r')
+                ->where('r.type = :type')
+                ->setParameter('type', $type);
+        } else {
+            $queryBuilder = $repo->createQueryBuilder('r');
+        }
+    
+        $adapter = new QueryAdapter($queryBuilder);
+        $maxPerPage = 5;
+    
+        $pagerfanta = new Pagerfanta($adapter);
+        $pagerfanta->setMaxPerPage($maxPerPage);
+    
+        $page = $request->query->getInt('page', 1);
+        $pagerfanta->setCurrentPage($page);
+    
+        $reclamations = $pagerfanta->getCurrentPageResults();
+    
+        $pages = $pagerfanta->getNbPages();
+    
         return $this->render('reclamation/index.html.twig', [
-            'reclamations' => $reclamationRepository->findAll(),
+            'reclamations' => $reclamations,
+            'pagerfanta' => $pagerfanta,
+            'pages' => $pages,
         ]);
     }
+
+
+    //#[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
+    //public function index(ReclamationRepository $reclamationRepository): Response
+    //{
+        //return $this->render('reclamation/index.html.twig', [
+            //'reclamations' => $reclamationRepository->findAll(),
+        //]);
+    //}
 
     #[Route('/ajout', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReclamationRepository $reclamationRepository): Response

@@ -16,7 +16,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">MatchTalent</div>
             </a>
 
             <!-- Divider -->
@@ -34,71 +34,45 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Interface
+                Principale
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>Utilisateur</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
+                        <h6 class="collapse-header">Details</h6>
+                        <a class="collapse-item" href="buttons.html">Chercheur d'emploi</a>
+                        <a class="collapse-item" href="cards.html">Offreur d'emploi</a>
                     </div>
                 </div>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
+                <a class="nav-link collapsed" >
+                    <i class="fa fa-th-large" aria-hidden="true"></i>
+                    <span>Categorie</span>
                 </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
+                
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
-
+           
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
+                <a class="nav-link collapsed" >
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Parametre</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
+               
             </li>
 
             <!-- Nav Item - Charts -->
@@ -109,10 +83,9 @@
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+            <li class="nav-item  active">
+                    <a class="nav-link" href="{{ path('app_reclamation_index') }}">
+                    <i class="fas fa-fw fa-table"></i> <span>Reclamation</span></a>
             </li>
 
             <!-- Divider -->
@@ -342,15 +315,24 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-                    <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-                        For more information about DataTables, please visit the <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <h1 class="h3 mb-2 text-gray-800">Reclamations</h1>
+                    <p class="mb-4"> Votre List de Reclamations ici .</p>
+                    <div>
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search action="{{ path('app_reclamation_index') }}" method="get">
+    <div class="input-group">
+        <input type="text" name="type" class="form-control" placeholder="Rechercher selon le type">
+        <div class="input-group-append">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-sm"></i></button>
+        </div>
+    </div>
+</form>
+</div>
+
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                        <div class="card-header py-4">
+                            <h6 class="m-0 font-weight-bold text-primary">List des Reclamations</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -376,9 +358,9 @@
                 <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
                 <td>{{ reclamation.statut }}</td>
                 <td>
-                    <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}">show</a>
-                    <a href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}">edit</a>
-                    <a href="{{ path('app_reponse_reclamation_new', {'idReclamation': reclamation.idReclamation}) }}">reponse</a>
+                    <a class="btn btn-secondary" href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}">show</a>
+                    <a class="btn btn-warning" href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}">edit</a>
+                    <a class="btn btn-success" href="{{ path('app_reponse_reclamation_new', {'idReclamation': reclamation.idReclamation}) }}">reponse</a>
                     
                 </td>
             </tr>
@@ -389,6 +371,22 @@
         {% endfor %}
         </tbody>
                                 </table>
+                                 {% if pagerfanta.hasPreviousPage %}
+    <a  class="mb-4" href="{{ path('app_reclamation_index', {'page': pagerfanta.previousPage}) }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i>previous</a>
+{% endif %}
+
+{% for page in pages %}
+    {% if pagerfanta.currentPage == page %}
+        <span>{{ page }}</span>
+    {% else %}
+        <a class="mb-4" class="btn btn-outline-primary" href="{{ path('app_reclamation_index', {'page': page}) }}">{{ page }}</a>
+    {% endif %}
+{% endfor %}
+
+{% if pagerfanta.hasNextPage %}
+    <a  class="mb-4" href="{{ path('app_reclamation_index', {'page': pagerfanta.nextPage}) }}">next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+{% endif %}
+                                <a class="btn btn-outline-primary" href="{{ path('app_reclamation_new') }}">Create new</a>
                             </div>
                         </div>
                     </div>
@@ -439,43 +437,5 @@
             </div>
         </div>
     </div>
-    <h1>Reclamation index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>IdReclamation</th>
-                <th>Titre</th>
-                <th>Type</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Statut</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for reclamation in reclamations %}
-            <tr>
-                <td>{{ reclamation.idReclamation }}</td>
-                <td>{{ reclamation.titre }}</td>
-                <td>{{ reclamation.type }}</td>
-                <td>{{ reclamation.description }}</td>
-                <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
-                <td>{{ reclamation.statut }}</td>
-                <td>
-                    <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}">show</a>
-                    <a href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}">edit</a>
-                    <a href="{{ path('app_reponse_reclamation_new', {'idReclamation': reclamation.idReclamation}) }}">reponse</a>
-                    
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_reclamation_new') }}">Create new</a>
+   
 {% endblock %}

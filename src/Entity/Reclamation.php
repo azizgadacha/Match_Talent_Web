@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 //use Symfony\Component\Validator\Constraints as Assert;
+//use Symfony\Component\Validator\Constraints\NotBlank;
 //use App\Validator\ValidType;
 use App\Repository\ReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-//use App\Validator\Constraints as CustomAssert;
+use App\Validator\Constraints as CustomAssert;
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
 
@@ -23,24 +24,20 @@ class Reclamation
 
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
     private ?string $titre = null;
 
 
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message: 'Ce champ est obligatoire')]
-    //#[Assert\Type(type: ['Security', 'Content'])]
-    //#[Assert\Type(type: ["App\Entity\Security", "App\Entity\Content"], message: 'Le type doit être Security ou Content.')]
-    //#[ValidType]
-    //#[CustomAssert\ValidType(message: 'Le type doit être Security ou Content.')]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
     /**
  * @CustomAssert\ValidType
  */
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
     private ?string $description = null;
 
 

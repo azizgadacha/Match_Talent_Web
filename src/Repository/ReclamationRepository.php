@@ -39,6 +39,15 @@ class ReclamationRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findByType($type)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.type LIKE :type')
+            ->setParameter('type', '%'.$type.'%')
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Reclamation[] Returns an array of Reclamation objects
 //     */
