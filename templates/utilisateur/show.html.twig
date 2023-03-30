@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+    <h1>Utilisateur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ utilisateur.id }}</td>
+            </tr>
+            <tr>
+                <th>NomSociete</th>
+                <td>{{ utilisateur.nomSociete }}</td>
+            </tr>
+            <tr>
+                <th>Biographie</th>
+                <td>{{ utilisateur.biographie }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ utilisateur.username }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ utilisateur.address }}</td>
+            </tr>
+            <tr>
+                <th>MotDePasse</th>
+                <td>{{ utilisateur.motDePasse }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ utilisateur.email }}</td>
+            </tr>
+            <tr>
+                <th>Contact</th>
+                <td>{{ utilisateur.contact }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+
+    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
+
+    {{ include('utilisateur/_delete_form.html.twig') }}
+{% endblock %}

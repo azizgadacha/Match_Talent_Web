@@ -71,6 +71,8 @@ class Utilisateur
     #[ORM\JoinColumn(name:'id_role', referencedColumnName:'id_role')]
     private ?Role  $roleUser;
 
+
+
     public function __construct()
     {
         $this->listeAnnonce = new ArrayCollection();

@@ -26,9 +26,12 @@ class Role
     #[ORM\OneToMany(mappedBy: 'roleUser', targetEntity: Utilisateur::class, orphanRemoval: true)]
     private Collection $userListe;
 
+
+
     public function __construct()
     {
         $this->userListe = new ArrayCollection();
+        $this->utilisateurs = new ArrayCollection();
     }
 
     public function getIdRole(): ?int
@@ -84,6 +87,36 @@ class Role
             // set the owning side to null (unless already changed)
             if ($userListe->getRole() === $this) {
                 $userListe->setRole(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Utilisateur>
+     */
+    public function getUtilisateurs(): Collection
+    {
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(Utilisateur $utilisateur): self
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs->add($utilisateur);
+            $utilisateur->setRole($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(Utilisateur $utilisateur): self
+    {
+        if ($this->utilisateurs->removeElement($utilisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($utilisateur->getRole() === $this) {
+                $utilisateur->setRole(null);
             }
         }
 
