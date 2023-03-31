@@ -21,7 +21,7 @@ class Annonce
     private ?string $titre = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nomSocieté = null;
+    private ?string $Societe = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $datedebut = null;
@@ -98,14 +98,14 @@ class Annonce
         return $this;
     }
 
-    public function getNomSocieté(): ?string
+    public function getSociete(): ?string
     {
-        return $this->nomSocieté;
+        return $this->Societe;
     }
 
-    public function setNomSocieté(string $nomSocieté): self
+    public function setSociete(string $Societe): self
     {
-        $this->nomSocieté = $nomSocieté;
+        $this->Societe = $Societe;
 
         return $this;
     }

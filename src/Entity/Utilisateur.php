@@ -428,16 +428,3 @@ class Utilisateur
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
