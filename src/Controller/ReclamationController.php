@@ -63,6 +63,14 @@ class ReclamationController extends AbstractController
         //]);
     //}
 
+    #[Route('/home', name: 'app_home', methods: ['GET', 'POST'])]
+    public function test(): Response
+    {
+        return $this->renderForm('FrontOffice/index/index.html.twig'
+        );
+    }
+
+
     #[Route('/ajout', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReclamationRepository $reclamationRepository): Response
     {

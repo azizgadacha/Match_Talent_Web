@@ -317,7 +317,7 @@
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">Reclamations</h1>
                     <p class="mb-4"> Votre List de Reclamations ici .</p>
-                    <div>
+                    <div class="mb-4">
                     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search action="{{ path('app_reclamation_index') }}" method="get">
     <div class="input-group">
         <input type="text" name="type" class="form-control" placeholder="Rechercher selon le type">
@@ -358,10 +358,15 @@
                 <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
                 <td>{{ reclamation.statut }}</td>
                 <td>
-                    <a class="btn btn-secondary" href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}">show</a>
-                    <a class="btn btn-warning" href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}">edit</a>
-                    <a class="btn btn-success" href="{{ path('app_reponse_reclamation_new', {'idReclamation': reclamation.idReclamation}) }}">reponse</a>
-                    
+                    <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}" class="btn btn-info btn-circle btn-lg">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                     <a href="{{ path('app_reclamation_edit', {'idReclamation': reclamation.idReclamation}) }}" class="btn btn-warning btn-circle btn-lg">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </a>
+                    <a href="{{ path('app_reponse_reclamation_new', {'idReclamation': reclamation.idReclamation}) }}" class="btn btn-success btn-circle btn-lg">
+                                        <i class="fas fa-reply"></i>
+                                    </a>
                 </td>
             </tr>
         {% else %}
@@ -371,8 +376,15 @@
         {% endfor %}
         </tbody>
                                 </table>
-                                 {% if pagerfanta.hasPreviousPage %}
-    <a  class="mb-4" href="{{ path('app_reclamation_index', {'page': pagerfanta.previousPage}) }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i>previous</a>
+                    <div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <a class="btn btn-outline-primary" href="{{ path('app_reclamation_new') }}">Create new</a>
+      </div>
+      <div class="col-6 text-right">
+         {% if pagerfanta.hasPreviousPage %}
+    <a  class="mb-4" href="{{ path('app_reclamation_index', {'page': pagerfanta.previousPage}) }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Previous </a>
 {% endif %}
 
 {% for page in pages %}
@@ -384,13 +396,15 @@
 {% endfor %}
 
 {% if pagerfanta.hasNextPage %}
-    <a  class="mb-4" href="{{ path('app_reclamation_index', {'page': pagerfanta.nextPage}) }}">next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+    <a  class="mb-4" href="{{ path('app_reclamation_index', {'page': pagerfanta.nextPage}) }}"> Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
 {% endif %}
-                                <a class="btn btn-outline-primary" href="{{ path('app_reclamation_new') }}">Create new</a>
+      </div>
+    </div>
+  </div>
+</div>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -401,7 +415,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
+                        <span>Copyright &copy; MatchTalent 2023</span>
                     </div>
                 </div>
             </footer>
@@ -437,5 +451,4 @@
             </div>
         </div>
     </div>
-   
 {% endblock %}

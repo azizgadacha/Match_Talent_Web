@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Entity;
-use Symfony\Component\Validator\Constraints as Assert;
+//use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ReponseReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,7 +16,7 @@ class ReponseReclamation
     private ?int $idReponse=null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
     private ?string $reponse = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

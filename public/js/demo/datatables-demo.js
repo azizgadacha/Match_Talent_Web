@@ -1,9 +1,8 @@
-// Call the dataTables jQuery plugin
-$(document).ready(function() {
-  $('#dataTable').DataTable();
-});
 $(document).ready(function () {
-  $('#dataTable').DataTable({
+  // Initialize DataTable
+  var table = $('#dataTable').DataTable({
       pagingType: 'full_numbers',
   });
+
 });
+
