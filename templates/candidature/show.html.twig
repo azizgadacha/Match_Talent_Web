@@ -3,24 +3,60 @@
 {% block title %}Candidature{% endblock %}
 
 {% block body %}
-    <h1>Candidature</h1>
+    <div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">>
+        <div class="modal-dialog">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>IdCandidature</th>
-                <td>{{ candidature.idCandidature }}</td>
-            </tr>
-            <tr>
-                <th>Note</th>
-                <td>{{ candidature.note }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-3 ml-auto mr-auto">
+                                <div class="thumb">
+                                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                                </div>
+                            </div>
+                            {#                            <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>#}
+                        </div>
+                        {#                        <div class="row">#}
+                        {#                            <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>#}
+                        {#                            <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>#}
+                        {#                        </div>#}
+                        {#                        <div class="row">#}
+                        {#                            <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>#}
+                        {#                        </div>#}
+                        <div class="row">
+                            <div class="col-sm-9">
+                                Nom:
+                                <div class="row">
+                                    <div class="col-8 col-sm-6">
+                                        {{ candidature.utilisateurAssocier.username }}
+                                    </div>
+                                    <div class="col-4 col-sm-6">
+                                        Level 2: .col-4 .col-sm-6
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
 
-    <a href="{{ path('app_candidature_index') }}">back to list</a>
+        </div>
+    </div>
 
-    <a href="{{ path('app_candidature_edit', {'idCandidature': candidature.idCandidature}) }}">edit</a>
+{#    <a href="{{ path('app_candidature_index') }}">back to list</a>#}
 
-    {{ include('candidature/_delete_form.html.twig') }}
+{#    <a href="{{ path('app_candidature_edit', {'idCandidature': candidature.idCandidature}) }}">edit</a>#}
+
+{#    {{ include('candidature/_delete_form.html.twig') }}#}
 {% endblock %}
