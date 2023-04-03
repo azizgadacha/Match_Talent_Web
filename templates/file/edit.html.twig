@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit File{% endblock %}
+
+{% block body %}
+    <h1>Edit File</h1>
+<div class="job_details_area section-bg2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+
+                <div class="apply_job_form white-bg">
+                    <h4>Apply for the job</h4>
+
+                        <div class="row">
+
+    {{ include('file/_form.html.twig', {'button_label': 'Update'}) }}
+
+                        </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <a href="{{ path('app_file_index') }}">back to list</a>
+
+    {{ include('file/_delete_form.html.twig') }}
+{% endblock %}
