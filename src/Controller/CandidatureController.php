@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Candidature;
+use App\Entity\Utilisateur;
 use App\Form\CandidatureType;
 use App\Repository\CandidatureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,8 +28,10 @@ class CandidatureController extends AbstractController
         $candidature = new Candidature();
         $form = $this->createForm(CandidatureType::class, $candidature);
         $form->handleRequest($request);
+        $ut=new Utilisateur(1);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $ut= $form->getData();
             $candidatureRepository->save($candidature, true);
 
             return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
@@ -66,12 +69,13 @@ class CandidatureController extends AbstractController
         ]);
     }
 
-    #[Route('/{idCandidature}', name: 'app_candidature_delete', methods: ['POST'])]
+    #[Route('/delete/{idCandidature}', name: 'app_candidature_delete', methods: ['POST'])]
     public function delete(Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$candidature->getIdCandidature(), $request->request->get('_token'))) {
+    {echo "hello";
+        //if ($this->isCsrfTokenValid('delete'.$candidature->getIdCandidature(), $request->request->get('_token'))) {
+
             $candidatureRepository->remove($candidature, true);
-        }
+        //}
 
         return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
     }

@@ -33,7 +33,7 @@
                                 <th class="action text-right">Action</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="candidatures-table-body">
                             {% for candidature in candidatures %}
 
 
@@ -60,9 +60,12 @@
                                 </td>
                                 <td>
                                     <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                        <li><a data-target="#myModal" data-toggle="modal" class="MainNavText text-primary" id="MainNavHelp" href="#myModal"><i class="far fa-eye"></i></a></li>
-                                        <li><a href="#" class="text-info" data-toggle="tooltip" title="" data-original-title="Edit"><i class="fas fa-pencil-alt"></i></a></li>
-                                        <li><a href="#" class="text-danger" data-toggle="tooltip" title="" data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                                        <li><a  class="MainNavText text-primary"  href="{{ path('app_candidature_show', {'idCandidature': candidature.idCandidature}) }}" ><i class="far fa-eye"></i></a></li>
+                                        <li><a href="{{ path('app_candidature_delete', {'idCandidature': candidature.idCandidature}) }}" class="text-danger"   data-original-title="Delete"><i class="far fa-trash-alt"></i></a></li>
+                                        <li><a href="{{ path('app_rendez_vous_new', {'idCandidature': candidature.idCandidature}) }}" class="text-success"   data-original-title="add"><i class="fa fa-check" aria-hidden="true"></i></a></li>
+
+
+
                                     </ul>
                                 </td>
                             </tr>
@@ -105,21 +108,7 @@
             </tr>
         </thead>
         <tbody>
-        {% for candidature in candidatures %}
-            <tr>
-                <td>{{ candidature.utilisateurAssocier.username }}</td>
-                <td>{{ candidature.note }}</td>
-                <td>{{ candidature.annonceAssocier.titre }}</td>
-                <td>
-                    <a href="{{ path('app_candidature_show', {'idCandidature': candidature.idCandidature}) }}">show</a>
-                    <a href="{{ path('app_candidature_edit', {'idCandidature': candidature.idCandidature}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
+
         </tbody>
     </table>
 >
@@ -127,27 +116,37 @@
     </div>
     </div>
 </main>
-    <div id="myModal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">>
-        <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-3 ml-auto mr-auto">
-                                <div class="thumb">
-                                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
-                                </div>
-                            </div>
+{#    {% for candidature in candidatures %}#}
+{#        {% include 'candidature/show.html.twig' with {'candidature': candidature} %}#}
+{#    {% endfor %}#}
+{#    {% for candidature in candidatures %}#}
+{#        {% include 'candidature/_delete_form.html.twig' with {'candidature': candidature} %}#}
+{#    {% endfor %}#}
+{#    {% for candidature in candidatures %}#}
+{#        {% include 'rendez_vous/new.html.twig' with {'candidature': candidature} %}#}
+{#    {% endfor %}#}
+{#    <div id="modal" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">>#}
+{#        <div class="modal-dialog">#}
+
+{#            <!-- Modal content-->#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-header">#}
+{#                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>#}
+{#                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                        <span aria-hidden="true">&times;</span>#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div class="modal-body">#}
+{#                    <div class="container-fluid">#}
+{#                        <div class="row">#}
+{#                            <div class="col-md-3 ml-auto mr-auto">#}
+{#                                <div class="thumb">#}
+{#                                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">#}
+{#                                </div>#}
+{#                            </div>#}
 {#                            <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>#}
-                        </div>
+{#                        </div>#}
 {#                        <div class="row">#}
 {#                            <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>#}
 {#                            <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>#}
@@ -155,25 +154,72 @@
 {#                        <div class="row">#}
 {#                            <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>#}
 {#                        </div>#}
-                        <div class="row">
-                            <div class="col-sm-9">
-                                Nom:
-                                <div class="row">
-                                    <div class="col-8 col-sm-6">
-ss                                    </div>
-                                    <div class="col-4 col-sm-6">
-                                        Level 2: .col-4 .col-sm-6
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+{#                        <div class="row">#}
+{#                            <div class="col-sm-9">#}
+{#                                Nom:#}
+{#                                <div class="row">#}
+{#                                    <div class="col-8 col-sm-6">#}
+{#ss                                    </div>#}
+{#                                    <div class="col-4 col-sm-6">#}
+{#                                        Level 2: .col-4 .col-sm-6#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="modal-footer">#}
+{#                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+{#                </div>#}
+{#            </div>#}
 
-        </div>
-    </div>
+{#        </div>#}
+{#    </div>#}
+{#    {% block javascripts %}#}
+
+{#        <script>#}
+{#            $(document).ready(function() {#}
+{#                $('a[data-toggle="modal"]').click(function() {#}
+{#                    var modalId = $(this).attr('data-target');#}
+{#                    $(modalId).modal('show');#}
+{#                });#}
+
+{#                $('a[data-toggle="modal"][data-target="#deleteModal"]').click(function() {#}
+{#                    var modalId = $(this).attr('data-target');#}
+{#                    var candidatureId = $(this).closest('tr').data('id');#}
+{#                    $(modalId + ' form').attr('action', '{{ path('app_candidature_delete', {'idCandidature': '0'}) }}'.replace('0', candidatureId));#}
+{#                });#}
+{#                $('a[data-toggle="modal"][data-target="#addRdvModal"]').click(function() {#}
+{#                    var modalId = $(this).attr('data-target');#}
+{#                    var candidatureId = $(this).closest('tr').data('id');#}
+{#                    $(modalId + ' form').attr('action', '{{ path('app_rendez_vous_new', {'idCandidature': '0'}) }}'.replace('0', candidatureId));#}
+{#                });#}
+{#            });#}
+{#        </script>#}
+{#    {% endblock %}#}
+
+
+
+{#    <div class="modal fade" id="candidatureModal" tabindex="-1" role="dialog" aria-labelledby="candidatureModalLabel" aria-hidden="true">#}
+{#        <div class="modal-dialog" role="document">#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-header">#}
+{#                    <h5 class="modal-title" id="candidatureModalLabel">Candidature Details</h5>#}
+{#                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                        <span aria-hidden="true">&times;</span>#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div class="modal-body">#}
+{#                    {% include 'candidature/show.html.twig' %}#}
+{#                </div>#}
+{#                <div class="modal-footer">#}
+{#                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+
+
+
+
 {% endblock %}

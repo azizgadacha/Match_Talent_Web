@@ -4,7 +4,7 @@
 
 {#{% block body %}#}
 {#<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="addRdvModal" tabindex="-1" role="dialog" aria-labelledby="addRdvModal" aria-hidden="true">
 
     <div class="modal-dialog">
 
@@ -17,14 +17,14 @@
                 </button>
             </div>
             <div class="modal-body mt-4 mb-4">
-Etes-vous sure que vous voulez supprimer cette candidature  {{candidature.utilisateurAssocier.username}}
+                Eteste candidature  {{candidature.utilisateurAssocier.username}}
             </div>
             <div class="modal-footer" >
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
                 <form action="{{ path('app_candidature_delete', {"candidature":candidature,'idCandidature': candidature.idCandidature}) }}" method="POST">
 
-{#                    <button type="button" class="btn btn-primary">Delete it </button>#}
+                    {#                    <button type="button" class="btn btn-primary">Delete it </button>#}
 
                     <button type="submit" class="btn btn-primary"> delete it</button>
                 </form>
