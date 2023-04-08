@@ -31,7 +31,7 @@ class ReponseReclamationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $reponseReclamationRepository->save($reponseReclamation, true);
 
-            return $this->redirectToRoute('app_reponse_reclamation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('reponse_reclamation/new.html.twig', [

@@ -38,8 +38,8 @@ class ReclamationType extends AbstractType
         ->add('type', ChoiceType::class, [
             'choices' => [
                 'Security' => 'Security',
-                'Accessibility' => 'Accessibility',
                 'Content' => 'Content',
+                'Other' => 'Other',
             ],
             'placeholder' => 'Séléctionner type',
             'constraints' => [

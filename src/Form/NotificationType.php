@@ -6,6 +6,7 @@ use App\Entity\Notification;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class NotificationType extends AbstractType
 {
@@ -14,8 +15,13 @@ class NotificationType extends AbstractType
         $builder
             //->add('date')
             //->add('description')
-            ->add('userNotification')
-        ;
+            ->add('userNotification', null, [
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Ce champ est obligatoire'
+                    ])
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
