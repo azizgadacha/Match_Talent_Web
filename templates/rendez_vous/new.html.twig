@@ -1,43 +1,26 @@
-{#{% extends 'base.html.twig' %}#}
+{% extends 'base.html.twig' %}
 
-{#{% block title %}Candidature{% endblock %}#}
+{% block title %}New Candidature{% endblock %}
 
-{#{% block body %}#}
-{#<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
-<div class="modal fade" id="addRdvModal" tabindex="-1" role="dialog" aria-labelledby="addRdvModal" aria-hidden="true">
-
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">l title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body mt-4 mb-4">
-                Eteste candidature  {{candidature.utilisateurAssocier.username}}
-            </div>
-            <div class="modal-footer" >
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                <form action="{{ path('app_candidature_delete', {"candidature":candidature,'idCandidature': candidature.idCandidature}) }}" method="POST">
-
-                    {#                    <button type="button" class="btn btn-primary">Delete it </button>#}
-
-                    <button type="submit" class="btn btn-primary"> delete it</button>
-                </form>
-
+{% block body %}
+    <div class="slider-area gray-bg position-relative">
+        <div class="single-slider d-flex align-items-center slider-height2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-caption hero-caption2">
+                            <h2>Candidats</h2>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
     </div>
-</div>
+    <h1>Create new Candidature</h1>
+{{ candidature.idCandidature }}
+{{ candidature.utilisateurAssocier.id }}
+{{ candidature.annonceAssocier.idAnnonce }}
+    {{ include('rendez_vous/_form.html.twig') }}
 
-{#    <a href="{{ path('app_candidature_index') }}">back to list</a>#}
-
-{#    <a href="{{ path('app_candidature_edit', {'idCandidature': candidature.idCandidature}) }}">edit</a>#}
-
-{#    {{ include('candidature/_delete_form.html.twig') }}#}
-{#{% endblock %}#}
+    <a href="{{ path('app_candidature_index') }}">back to list</a>
+{% endblock %}

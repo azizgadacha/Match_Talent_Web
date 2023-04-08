@@ -14,8 +14,6 @@ class RendezVousType extends AbstractType
         $builder
             ->add('dateRendezVous')
             ->add('heureRendezVous')
-            ->add('annonceAssocierRendezVous')
-            ->add('userRendezVous')
         ;
     }
 

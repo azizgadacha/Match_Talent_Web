@@ -19,79 +19,68 @@
        </div>
 
 
-<div  style="display: flex; justify-content: center; align-items: center;">
+       <div class="container">
+           <div class="row">
+               <div class="col-md-8 mx-auto mt-3">
+                   <div class="row">
+                       <div class="col-12 mb-4">
+                           <div class="col-md-3 ml-auto mr-auto">
+                               <div class="thumb">
+                                   <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                               </div>
+                           </div>
+                       </div>
 
+                       <div class="col-sm-6">
+                           <div class="form-group">
+                               <p>Username</p>
+                           </div>
+                       </div>
+                       <div class="col-sm-6">
+                           <div class="form-group">
+                               <p>Email</p>
+                           </div>
+                       </div>
+                       <div class="col-sm-6">
+                           <div class="form-group">
+                               {{ candidature.utilisateurAssocier.username }}
+                           </div>
+                       </div>
+                       <div class="col-sm-6">
+                           <div class="form-group">
+                               {{ candidature.utilisateurAssocier.email }}
+                           </div>
+                       </div>
+                       <div class="col-sm-6">
+                           <div class="form-group">
+                               <p>biographie</p>
+                           </div>
+                       </div>
+                       <div class="col-sm-6">
+                           <div class="form-group">
+                               <p>address</p>
+                           </div>
+                       </div>
+                       <div class="col-sm-6">
+                           <div class="form-group">
+                               {{ candidature.utilisateurAssocier.biographie }}
+                           </div>
+                       </div>
+                       <div class="col-sm-6">
+                           <div class="form-group">
+                               {{ candidature.utilisateurAssocier.address }}
+                           </div>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-sm-12 text-center">
+                           <a href="{{ path('app_candidature_index') }} " class="header-btn mr-10">back to list</a>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
 
-
-
-        <div class=" mx-auto mt-3" >
-                <div class="row">
-
-                    <div class="col-lg-8">
-                        <div class="row">
-
-                            <div class="col-12 mb-4">
-                                <div class="col-md-3 ml-auto mr-auto">
-                                    <div class="thumb">
-                                        <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                <p>Username</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <p>Email</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                   {{ candidature.utilisateurAssocier.username }}
-
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                     {{ candidature.utilisateurAssocier.email }}
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <p>biographie</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <p>address</p>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    {{ candidature.utilisateurAssocier.biographie }}
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                     {{ candidature.utilisateurAssocier.address }}
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-            <div class="row">
-
-                                </div>
-
-
-            <a href="{{ path('app_candidature_index') }}">back to list</a>
-        </div>
-</div>
 {% endblock %}
 
 

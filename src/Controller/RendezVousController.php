@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
 use App\Entity\RendezVous;
 use App\Form\RendezVousType;
+use App\Repository\AnnonceRepository;
+use App\Repository\CandidatureRepository;
 use App\Repository\RendezVousRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,20 +26,40 @@ class RendezVousController extends AbstractController
     }
 
     #[Route('/new', name: 'app_rendez_vous_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, RendezVousRepository $rendezVousRepository): Response
+    public function new(Request $request, ManagerRegistry $doctrine,RendezVousRepository $rendezVousRepository, AnnonceRepository $annonceRepository,CandidatureRepository $candidatureRepository): Response
     {
+        $idCandidature = $request->query->get('idCandidature');
+        $Candidature= $candidatureRepository->find($idCandidature);
         $rendezVou = new RendezVous();
-        $form = $this->createForm(RendezVousType::class, $rendezVou);
+       $id= $Candidature->getUtilisateurAssocier()->getId();
+       $utilisateur= $Candidature->getUtilisateurAssocier();
+       $annonce= $Candidature->getAnnonceAssocier();
+       $id5= $Candidature->getAnnonceAssocier()->getIdAnnonce();
+       echo "tes1";
+       echo "test3 ".$id."sssssss".$id5;
+       $form = $this->createForm(RendezVousType::class, $rendezVou);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $rendezVousRepository->save($rendezVou, true);
+            $em=$doctrine->getManager();
+
+            echo "te";
+            echo "teuu ".$id."sssssss".$id5;
+            $rendezVou->setAnnonce($annonce);
+            $rendezVou->setUserRendezVous($utilisateur);
+ echo "qqqqq".$rendezVou->getAnnonce()->getIdAnnonce();
+            $em->persist($rendezVou);
+            $em->flush();
+
+          //  $rendezVousRepository->save();
+            //save($rendezVou, true);
 
             return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('rendez_vous/new.html.twig', [
             'rendez_vou' => $rendezVou,
+            "candidature"=>$Candidature,
             'form' => $form,
         ]);
     }

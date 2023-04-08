@@ -69,6 +69,13 @@ class CandidatureController extends AbstractController
         ]);
     }
 
+    #[Route('/delete/modal/{idCandidature}', name: 'app_candidature_delete_modal', methods: ['GET'])]
+    public function deleteModal(Candidature $candidature): Response
+    {
+        return $this->render('candidature/_delete_form.html.twig', [
+            'candidature' => $candidature,
+        ]);
+    }
     #[Route('/delete/{idCandidature}', name: 'app_candidature_delete', methods: ['POST'])]
     public function delete(Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository): Response
     {echo "hello";
