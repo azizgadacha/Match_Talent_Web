@@ -60,11 +60,9 @@
                                                 {{ rendez_vous.dateRendezVous ? rendez_vous.dateRendezVous|date('Y-m-d') : '' }} à  {{ rendez_vous.heureRendezVous }}                                       </td>
                                             <td>
                                                 <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                                    <li><a  class="MainNavText text-primary"
-{#                                                            href="{{ path('app_candidature_show', {'rendez_vous': rendez_vous.idCandidature}) }}"#}
-                                                        ><i class="far fa-eye"></i></a></li>
+
                                                     <li><form
-{#                                                                action="{{ path('app_candidature_delete', {'idCandidature': candidature.idCandidature}) }}"#}
+{#                                                                action="{{ path('app_rendez_vous_delete', {'idRendezVous': rendez_vous.idRendezVous}) }}"#}
                                                                 method="POST">
 
                                                             <button type="submit" class="text-danger" style="background: none;  border: none;" data-original-title="Delete">
@@ -98,27 +96,5 @@
             
         </div>
     </div>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
 {% endblock %}
