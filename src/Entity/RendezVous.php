@@ -63,17 +63,9 @@ class RendezVous
         return $this;
     }
 
-    public function getAnnonce(): ?Annonce
-    {
-        return $this->annonce;
-    }
 
-    public function setAnnonce(?Annonce $annonce): self
-    {
-        $this->annonce = $annonce;
 
-        return $this;
-    }
+
 
     public function getUserRendezVous(): ?Utilisateur
     {

@@ -31,29 +31,13 @@ class RendezVousController extends AbstractController
         $idCandidature = $request->query->get('idCandidature');
         $Candidature= $candidatureRepository->find($idCandidature);
         $rendezVou = new RendezVous();
-       $id= $Candidature->getUtilisateurAssocier()->getId();
-       $utilisateur= $Candidature->getUtilisateurAssocier();
-       $annonce= $Candidature->getAnnonceAssocier();
-       $id5= $Candidature->getAnnonceAssocier()->getIdAnnonce();
-       echo "tes1";
-       echo "test3 ".$id."sssssss".$id5;
-       $form = $this->createForm(RendezVousType::class, $rendezVou);
+        $form = $this->createForm(RendezVousType::class, $rendezVou);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em=$doctrine->getManager();
-
-            echo "te";
-            echo "teuu ".$id."sssssss".$id5;
-            $rendezVou->setAnnonce($annonce);
-            $rendezVou->setUserRendezVous($utilisateur);
- echo "qqqqq".$rendezVou->getAnnonce()->getIdAnnonce();
-            $em->persist($rendezVou);
-            $em->flush();
-
-          //  $rendezVousRepository->save();
-            //save($rendezVou, true);
-
+            $rendezVou->setUserRendezVous($Candidature->getUtilisateurAssocier());
+            $rendezVou->setAnnonceAssocierRendezVous($Candidature->getAnnonceAssocier());
+            $rendezVousRepository->save($rendezVou,true);
             return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
         }
 
