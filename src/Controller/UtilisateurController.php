@@ -21,6 +21,8 @@ class UtilisateurController extends AbstractController
         ]);
     }
 
+
+
     #[Route('/new', name: 'app_utilisateur_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UtilisateurRepository $utilisateurRepository): Response
     {
@@ -39,6 +41,7 @@ class UtilisateurController extends AbstractController
             'form' => $form,
         ]);
     }
+    
 
     #[Route('/{id}', name: 'app_utilisateur_show', methods: ['GET'])]
     public function show(Utilisateur $utilisateur): Response
