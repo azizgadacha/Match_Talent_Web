@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}connecter{% endblock %}
+
+{% block title %}New Utilisateur{% endblock %}
 
 {% block body %}
 <main>
@@ -18,8 +19,11 @@
 
 <div class="input-box">
 <div class="single-input-fields">
-<label>Username or Email Address</label>
-<input type="text" placeholder="Username / Email address">
+
+
+
+<label>Username </label>
+<input type="text" placeholder="Username" >
 </div>
 <div class="single-input-fields">
 <label>Password</label>
@@ -33,7 +37,8 @@
 </div>
 
 <div class="login-footer">
-<p>Don’t have an account? <a href="sin-up.html">Sign Up</a> here</p>
+<p>Don’t have an account? <a href="{{ path('app_utilisateur_new') }}" >Sign Up</a> here</p>
+ <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
 <button class="btn login-btn">Login</button>
 </div>
 </div>
@@ -43,6 +48,4 @@
 </div>
 
 </main>
-
-    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
 {% endblock %}
