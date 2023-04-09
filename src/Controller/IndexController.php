@@ -15,4 +15,11 @@ class IndexController extends AbstractController
             'controller_name' => 'IndexController',
         ]);
     }
+    #[Route('/admin', name: 'app_index')]
+    public function indexBackOffice(): Response
+    {
+        return $this->render('BackOffice/index.html.twig', [
+            'controller_name' => 'IndexController',
+        ]);
+    }
 }
