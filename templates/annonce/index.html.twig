@@ -129,7 +129,7 @@
 </div>
    <div class="job_lists m-0">
 <div class="row">
-              wasahbi {{isDemander}}
+
 
 {% for annonce in annonce %}
  <div class="annonce">
@@ -140,7 +140,7 @@
 <img src='{{ asset ("assets/img/icon/1.svg")}}' alt="">
 </div>
 <div class="jobs_conetent">
-<a href='{{ asset ("job_details.html")}}'><h4>{{ annonce.titre }}</h4> </a>
+<a href="{{ path('app_annonce_show', {'idAnnonce': annonce.idAnnonce})  }}"><h4>{{ annonce.titre }}</h4> </a>
 <div class="links_locat d-flex align-items-center">
 <div class="location">
 <p> <i class="fas fa-map-marker-alt"></i>{{ annonce.Societe }}</p>
@@ -155,8 +155,10 @@
                  
                     <div class="jobs_right">
                         <div class="apply_now">
-                            <a class="heart_mark" href="#" style="display:none {{ isDemander ? 'none' : 'none' }};"> <i class="fa fa-heart"></i> </a>
-                            <button class="boxed-btn3" style="display:none {{ isDemander ? 'none' : 'none' }};">Delete</button>
+                             <button class="boxed-btn3">Delete</button>
+</form> 
+                    
+                            <a href="{{ path('app_annonce_new') }}" class="boxed-btn3">Create</a>
                         </div>
                     </div>
                

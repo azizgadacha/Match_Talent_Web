@@ -1,0 +1,16 @@
+{% form_theme form _self %}
+
+{% block form_row %}
+    <div class="form-group">
+        {{ form_label(form) }}
+        {{ form_widget(form, {'attr': {'class': 'form-control'}}) }}
+    </div>
+{% endblock %}
+
+{% block form_label %}
+    <label class="form-label">{{ label|default(null) }}</label>
+{% endblock %}
+
+{% block submit_widget %}
+    <button type="{{ type|default('submit') }}" class="btn btn-primary">{{ label|default('Submit') }}</button>
+{% endblock %}

@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 use App\Repository\AnnonceRepository;
-
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
 
@@ -17,24 +20,40 @@ class Annonce
     #[ORM\Column]
     private ?int  $idAnnonce =null;
 
+
+    
     #[ORM\Column(length: 50)]
+    //#[Assert\NotBlank(message: "Le nom de le titre ne peut pas être vide.")]
+    /*#[Assert\Length(
+        max: 50,
+        maxMessage: "Le titre ne peut pas contenir plus de {{ limit }} caractères."
+    )]*/
+    #[Assert\Length(min: 3, max: 50)]
     private ?string $titre = null;
 
     #[ORM\Column(length: 50)]
+   // #[Assert\NotBlank]
+    //#[Assert\Length(min: 3, max: 50)]
     private ?string $Societe = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+   // #[Assert\NotBlank]
+    //#[Assert\Date]
     private ?\DateTimeInterface $datedebut = null;
 
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    //#[Assert\NotBlank]
+    //#[Assert\Date]
     private ?\DateTimeInterface $datefin = null;
 
     #[ORM\Column(length: 50)]
+  //  #[Assert\NotBlank]
+  //  #[Assert\Length(min: 3, max: 50)]
     private ?string $description = null;
 
-
     #[ORM\Column(length: 50)]
+   // #[Assert\NotBlank]
+   // #[Assert\Length(min: 3, max: 50)]
     private ?string $typeContrat = null;
 
     #[ORM\ManyToOne(inversedBy:'AnnoceAssocier' )]

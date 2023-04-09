@@ -3,9 +3,29 @@
 {% block title %}New Annonce{% endblock %}
 
 {% block body %}
+
+    <main>
+
+
+
+        <div class="slider-area gray-bg position-relative">
+            <div class="single-slider d-flex align-items-center slider-height2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="hero-caption hero-caption2">
+                                <h2>Blog</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <h1>Create new Annonce</h1>
 
     {{ include('annonce/_form.html.twig') }}
 
     <a href="{{ path('app_annonce_index') }}">back to list</a>
+    </main>
 {% endblock %}

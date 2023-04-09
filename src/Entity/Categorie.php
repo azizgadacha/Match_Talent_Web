@@ -6,6 +6,7 @@ use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 
@@ -17,6 +18,11 @@ class Categorie
     private ?int $idCategorie=null;
 
     #[ORM\Column(length: 50)]
+  /*  #[Assert\NotBlank(message: "Le nom de la catégorie ne peut pas être vide.")]
+    #[Assert\Length(
+        max: 50,
+        maxMessage: "Le nom de la catégorie ne peut pas contenir plus de {{ limit }} caractères."
+    )]*/
     private ?string $nomCategorie = null;
     #[ORM\OneToMany(mappedBy: 'categorieAnnonce', targetEntity: Annonce::class, orphanRemoval: true)]
     private Collection $listeAnnonceInCategorie;
@@ -31,6 +37,9 @@ class Categorie
     {
         return $this->idCategorie;
     }
+
+
+ 
 
     public function getNomCategorie(): ?string
     {
