@@ -3,9 +3,15 @@
 {% block title %}New Question{% endblock %}
 
 {% block body %}
-    <h1>Create new Question</h1>
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">Create new Question</h1>
 
-    {{ include('question/_form.html.twig') }}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {{ include('question/_form.html.twig') }}
 
-    <a href="{{ path('app_question_index') }}">back to list</a>
+                <a href="{{ path('app_question_index') }}" class="btn btn-secondary mt-3">Back to list</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

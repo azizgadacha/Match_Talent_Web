@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Question;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,12 +13,29 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('question')
-            ->add('propositiona')
-            ->add('propositionb')
-            ->add('propositionc')
-            ->add('idBonnereponse')
-            ->add('QuizAssocier')
+            ->add('question', null, [
+                'label' => 'Question',
+            ])
+            ->add('propositiona', null, [
+                'label' => 'Proposition A',
+            ])
+            ->add('propositionb', null, [
+                'label' => 'Proposition B',
+            ])
+            ->add('propositionc', null, [
+                'label' => 'Proposition C',
+            ])
+            ->add('idBonnereponse', ChoiceType::class, [
+                'label' => 'Bonne réponse',
+                'choices' => [
+                    'Proposition A' => 'propositiona',
+                    'Proposition B' => 'propositionb',
+                    'Proposition C' => 'propositionc',
+                ],
+            ])
+            ->add('QuizAssocier', null, [
+                'label' => 'Quiz associé',
+            ])
         ;
     }
 
@@ -28,3 +46,4 @@ class QuestionType extends AbstractType
         ]);
     }
 }
+

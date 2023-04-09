@@ -66,12 +66,12 @@ class QuestionController extends AbstractController
         ]);
     }
 
-    #[Route('/{idQuestion}', name: 'app_question_delete', methods: ['POST'])]
+    #[Route('/delete/{idQuestion}', name: 'app_question_delete', methods: ['POST'])]
     public function delete(Request $request, Question $question, QuestionRepository $questionRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$question->getIdQuestion(), $request->request->get('_token'))) {
+       // if ($this->isCsrfTokenValid('delete'.$question->getIdQuestion(), $request->request->get('_token'))) {
             $questionRepository->remove($question, true);
-        }
+        //}
 
         return $this->redirectToRoute('app_question_index', [], Response::HTTP_SEE_OTHER);
     }

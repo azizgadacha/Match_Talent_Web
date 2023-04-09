@@ -86,7 +86,12 @@ class Utilisateur
     {
         return $this->id;
     }
-
+    
+ 
+        public function setId(?int $id): void
+        {
+            $this->id = $id;
+        }
     public function getNomSociete(): ?int
     {
         return $this->nomSociete;
@@ -182,6 +187,12 @@ class Utilisateur
 
         return $this;
     }
+
+    public function __toString(): string
+{
+    return $this->username ?? '';
+}
+
 
     /**
      * @return Collection<int, Annonce>

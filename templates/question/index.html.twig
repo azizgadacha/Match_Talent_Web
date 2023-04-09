@@ -14,7 +14,7 @@
                 <th>Propositionb</th>
                 <th>Propositionc</th>
                 <th>IdBonnereponse</th>
-                <th>actions</th>
+                <th style="width: 220px;">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,17 +27,25 @@
                 <td>{{ question.propositionc }}</td>
                 <td>{{ question.idBonnereponse }}</td>
                 <td>
-                    <a href="{{ path('app_question_show', {'idQuestion': question.idQuestion}) }}">show</a>
-                    <a href="{{ path('app_question_edit', {'idQuestion': question.idQuestion}) }}">edit</a>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <a class="btn btn-primary" href="{{ path('app_question_show', {'idQuestion': question.idQuestion}) }}">Show</a>
+                        <div>
+                            <a class="btn btn-secondary" href="{{ path('app_question_edit', {'idQuestion': question.idQuestion}) }}">Edit</a>
+                            <form style="display: inline" action="{{ path('app_question_delete', {'idQuestion': question.idQuestion}) }}" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">No records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_question_new') }}">Create new</a>
+    <a class="btn btn-success" href="{{ path('app_question_new') }}">Create new</a>
 {% endblock %}
