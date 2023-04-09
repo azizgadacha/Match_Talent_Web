@@ -1,4 +1,44 @@
+
+
+
+<div class="container">
+    <div class="row">
+<div class="col-md-8 mx-auto mt-3">
+
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{#    {{ form_widget(form) }}#}
+<div class="col-sm-12">
+    <div class="form-group">
+
+        <td>{{ form_label (form.dateRendezVous,"Entrer la date du rendez vous") }}</td>
+
+        <td>{{ form_widget (form.dateRendezVous,{'attr': {'class': 'form-control'}}) }}</td>
+
+        <td>{{ form_errors (form.dateRendezVous, {'attr': {'class': 'color-danger'}}) }}</td>
+
+
+    </div>
+</div>
+<div class="col-sm-12">
+    <div class="form-group">
+        <td>{{ form_label (form.heureRendezVous,"Heure du rendez vous") }}</td>
+        <td>{{ form_widget (form.heureRendezVous,{'attr': {'class': 'form-control'}}) }}</td>
+        <td>{{ form_errors (form.heureRendezVous, {'attr': {'class': 'text-danger'}}) }}</td>
+
+    </div>
+</div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+    <button class="genric-btn success circle arrowgenric-btn success circle arrow">{{ button_label|default('Save') }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {{ form_end(form) }}
+</div>
+    </div>
+</div>

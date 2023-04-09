@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Candidature{% endblock %}
+{% block title %}New Rendez-vous{% endblock %}
 
 {% block body %}
     <div class="slider-area gray-bg position-relative">
@@ -9,16 +9,24 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="hero-caption hero-caption2">
-                            <h2>Candidats</h2>
+                            <h2>New Rendez-vous</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <h1>Create new Candidature</h1>
+    <div class="container">
+          <div class="row justify-content-center">
+                <div class="col-md-6">
+                      <h3 class="text-center">Creer  un nouveau Rendez vous pour </h3>
+                      <h3 class="text-center">{{ candidature.utilisateurAssocier.username }} pour l'annonce {{ candidature.annonceAssocier.titre }}</h3>
+
 
     {{ include('rendez_vous/_form.html.twig') }}
 
     <a href="{{ path('app_candidature_index') }}">back to list</a>
+                    </div>
+          </div>
+    </div>
 {% endblock %}

@@ -67,7 +67,6 @@ class RendezVousController extends AbstractController
 
             return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('rendez_vous/edit.html.twig', [
             'rendez_vou' => $rendezVou,
             'form' => $form,
@@ -77,9 +76,9 @@ class RendezVousController extends AbstractController
     #[Route('/{idRendezVous}', name: 'app_rendez_vous_delete', methods: ['POST'])]
     public function delete(Request $request, RendezVous $rendezVou, RendezVousRepository $rendezVousRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$rendezVou->getIdRendezVous(), $request->request->get('_token'))) {
+       // if ($this->isCsrfTokenValid('delete'.$rendezVou->getIdRendezVous(), $request->request->get('_token'))) {
             $rendezVousRepository->remove($rendezVou, true);
-        }
+     //   }
 
         return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
     }

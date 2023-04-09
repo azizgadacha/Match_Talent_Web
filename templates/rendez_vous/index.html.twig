@@ -25,7 +25,11 @@
                 <div class="col-lg-9 mt-4 mt-lg-0">
                     <div class="row">
                         <div class="col-md-12">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
                             <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+
                                 <table class="table manage-candidates-top mb-0">
                                     <thead>
                                     <tr>
@@ -61,8 +65,7 @@
                                             <td>
                                                 <ul class="list-unstyled mb-0 d-flex justify-content-end">
 
-                                                    <li><form
-{#                                                                action="{{ path('app_rendez_vous_delete', {'idRendezVous': rendez_vous.idRendezVous}) }}"#}
+                                                    <li><form action="{{ path('app_rendez_vous_delete', {'idRendezVous': rendez_vous.idRendezVous}) }}"
                                                                 method="POST">
 
                                                             <button type="submit" class="text-danger" style="background: none;  border: none;" data-original-title="Delete">
@@ -71,9 +74,8 @@
                                                         </form>
                                                     </li>
                                                 
-                                                    <li><a
-{#                                                                href="{{ path('app_rendez_vous_new', {'idCandidature': candidature.idCandidature}) }}" #}
-                                                                class="text-success"   data-original-title="add"><i class="fa fa-check" aria-hidden="true"></i></a></li>
+                                                    <li><a href="{{ path('app_rendez_vous_edit', {'idRendezVous': rendez_vous.idRendezVous}) }}" #}
+                                                                class="text-primary"   data-original-title="add"><i class="fas fa-edit"></i></a></li>
                                                   
                                                 </ul>
                                             </td>
@@ -88,6 +90,9 @@
 
                                 </table>
                             
+                            </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
