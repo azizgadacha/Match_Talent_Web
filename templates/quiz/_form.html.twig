@@ -3,16 +3,19 @@
 <div class="form-group">
     {{ form_label(form.nombreQuestions) }}
     {{ form_widget(form.nombreQuestions, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.nombreQuestions) }}
 </div>
 
 <div class="form-group">
     {{ form_label(form.barem) }}
     {{ form_widget(form.barem, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.barem) }}
 </div>
 
 <div class="form-group">
     {{ form_label(form.sujetQuiz) }}
     {{ form_widget(form.sujetQuiz, {'attr': {'class': 'form-control'}}) }}
+    {{ form_errors(form.sujetQuiz) }}
 </div>
 
 

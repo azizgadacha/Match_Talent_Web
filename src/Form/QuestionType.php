@@ -28,9 +28,9 @@ class QuestionType extends AbstractType
             ->add('idBonnereponse', ChoiceType::class, [
                 'label' => 'Bonne réponse',
                 'choices' => [
-                    'Proposition A' => 'propositiona',
-                    'Proposition B' => 'propositionb',
-                    'Proposition C' => 'propositionc',
+                    'Proposition A' => 'A',
+                    'Proposition B' => 'B',
+                    'Proposition C' => 'C',
                 ],
             ])
             ->add('QuizAssocier', null, [

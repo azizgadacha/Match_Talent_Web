@@ -3,15 +3,45 @@
 {% block title %}New Question{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="text-center mb-5">Create new Question</h1>
-
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                {{ include('question/_form.html.twig') }}
-
-                <a href="{{ path('app_question_index') }}" class="btn btn-secondary mt-3">Back to list</a>
+   <div class="slider-area gray-bg position-relative">
+    <div class="single-slider d-flex align-items-center slider-height2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-caption hero-caption2">
+                        <h2>Question</h2>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Create new Question</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(form) }}
+
+            {% if form.vars.errors|length > 0 %}
+                <div class="alert alert-danger font-weight-bold" style="color: red;">
+    {% for error in form.vars.errors %}
+        {{ error.message }}<br>
+    {% endfor %}
+</div>
+
+            {% endif %}
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Create</button>
+                <a href="{{ path('app_question_index') }}" class="btn btn-secondary">Back to list</a>
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
 {% endblock %}

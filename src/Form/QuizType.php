@@ -13,15 +13,17 @@ class QuizType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            
+            ->add('sujetQuiz', null, [
+            'label' => 'Quiz Subject',
+            ])
             ->add('nombreQuestions', null, [
                 'label' => 'Number of Questions',
             ])
             ->add('barem', null, [
                 'label' => 'Barem',
             ])
-            ->add('sujetQuiz', null, [
-                'label' => 'Quiz Subject',
-            ])
+           
             
         ;
     }

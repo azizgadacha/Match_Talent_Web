@@ -3,14 +3,35 @@
 {% block title %}New Quiz{% endblock %}
 
 {% block body %}
+   <div class="slider-area gray-bg position-relative">
+<div class="single-slider d-flex align-items-center slider-height2">
+<div class="container">
+<div class="row">
+<div class="col-xl-12">
+<div class="hero-caption hero-caption2">
+<h2>Question</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h1 class="text-center">Create new Quiz</h1>
 
-      {{ include('quiz/_form.html.twig') }}
+      
 
-      <a href="{{ path('app_quiz_index') }}" class="btn btn-secondary mt-3">Back to List</a>
+      {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+      {{ form_widget(form) }}
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Create</button>
+        <a href="{{ path('app_quiz_index') }}" class="btn btn-secondary">Back to List</a>
+      </div>
+
+      {{ form_end(form) }}
     </div>
   </div>
 </div>
