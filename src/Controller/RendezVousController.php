@@ -67,7 +67,7 @@ class RendezVousController extends AbstractController
     public function show(RendezVous $rendezVou): Response
     {
         return $this->render('rendez_vous/show.html.twig', [
-            'rendez_vou' => $rendezVou,
+            'rendez_vous' => $rendezVou,
         ]);
     }
 

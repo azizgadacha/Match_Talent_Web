@@ -32,9 +32,10 @@ class CandidatureController extends AbstractController
     }
 
     #[Route('/new', name: 'app_candidature_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CandidatureRepository $candidatureRepository): Response
+    public function new(Request $request,AnnonceRepository $annonceRepository, CandidatureRepository $candidatureRepository): Response
     {
         $candidature = new Candidature();
+
         $form = $this->createForm(CandidatureType::class, $candidature);
         $form->handleRequest($request);
         $ut=new Utilisateur(1);
