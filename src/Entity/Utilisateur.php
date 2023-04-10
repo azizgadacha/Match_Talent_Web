@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 
@@ -26,22 +28,31 @@ class Utilisateur
     private ?string $biographie=null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:"username is required")]
+
 
     private ?string $username=null;
 
     #[ORM\Column(length: 70)]
+    #[Assert\NotBlank(message:"address is required")]
 
     private ?string $address=null;
 
     #[ORM\Column(length: 50)]
-
+    #[Assert\NotBlank(message:"motDePasse is required")]
+    #[Assert\Length(min: 6,minMessage: "Le mot de passe doit comporter au moins {{ limit }} caractères.")]
     private ?string $motDePasse=null;
 
     #[ORM\Column(length: 70)]
+    #[Assert\NotBlank(message:"email is required")]
+    #[Assert\Email(message : "L'adresse email '{{ value }}' n'est pas valide.")]
+
 
     private ?string $email=null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message:"contact is required")]
+    #[Assert\Length(min: 8,minMessage: "Le numéro de téléphone doit comporter au moins {{ limit }} chiffres ")]
 
     private ?string  $contact=null;
 
@@ -70,6 +81,8 @@ class Utilisateur
     #[ORM\ManyToOne(inversedBy:'userListe' )]
     #[ORM\JoinColumn(name:'id_role', referencedColumnName:'id_role')]
     private ?Role  $roleUser;
+
+
 
     public function __construct()
     {
@@ -173,12 +186,12 @@ class Utilisateur
 
     public function getRole(): ?Role
     {
-        return $this->Role;
+        return $this->roleUser;
     }
 
-    public function setRole(?Role $Role): self
+    public function setRole(?Role $roleUser): self
     {
-        $this->Role = $Role;
+        $this->roleUser = $roleUser;
 
         return $this;
     }

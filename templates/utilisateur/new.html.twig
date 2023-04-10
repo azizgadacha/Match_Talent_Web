@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Utilisateur{% endblock %}
+
+{% block body %}
+<main>
+
+    <div class="register-form-area section-padding">
+
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-lg-7 col-md-10">
+                    <div class="register-form text-center">
+
+                        <div class="register-heading">
+                            <span>S'inscrire</span>
+                            <p>Choisir le travail qui vous convient</p>
+                        </div>
+                        <div class="form-outline mb-8">
+                            {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+                            <table>
+                            <tr>
+                                <td style="width:50%"> {{ form_label(form.username,"Nom d'utilisateur") }}</td>
+                                <td style="width:5%"> {{ form_widget(form.username) }}</td>
+                                <td> {{ form_errors(form.username) }}</td>
+                            </tr>
+
+                                <tr>
+                                    <td> {{ form_label(form.address,"Lieu de résidence") }}</td>
+                                    <td> {{ form_widget(form.address) }}</td>
+                                    <td> {{ form_errors(form.address) }}</td>
+                                </tr>
+                                <tr>
+                                    <td> {{ form_label(form.motDePasse,"mot de passe") }}</td>
+                                    <td> {{ form_widget(form.motDePasse) }}</td>
+                                    <td> {{ form_errors(form.motDePasse) }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td> {{ form_label(form.email,"Addresse email") }}</td>
+                                    <td> {{ form_widget(form.email) }}</td>
+                                    <td> {{ form_errors(form.email) }}</td>
+                                </tr>
+                                <tr>
+                                    <td> {{ form_label(form.contact,"Contact") }}</td>
+                                    <td> {{ form_widget(form.contact) }}</td>
+                                    <td> {{ form_errors(form.contact) }}</td>
+                                </tr>
+
+                                <tr>
+                                    <td> {{ form_label(form.Role,"Vous etes ? ") }}</td>
+                                    <td> {{ form_widget(form.Role) }}</td>
+                                    <td> {{ form_errors(form.Role) }}</td>
+                                </tr>
+
+                            </table>
+                            <br>
+                            <button class="btn" style="length: 10%">{{ button_label|default('Save') }}</button>
+                            {{ form_end(form) }}
+                        </div>
+
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</main>
+
+    <a href="{{ path('app_utilisateur_index') }}">back to list</a>
+{% endblock %}
