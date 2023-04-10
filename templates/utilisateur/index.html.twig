@@ -1,22 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 
 
 {% block body %}
 
-    <br>
-    <br>
-    <br>
     <table class="table">
         <br>
-        <h1>Liste des utilisateurs </h1>
+
+        <h1><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Liste des utilisateurs </h1>
         <thead>
             <tr>
                 <th>Id</th>
 
                 <th>Username</th>
                 <th>Address</th>
-                <th>MotDePasse</th>
+                <th>Mot de passe</th>
                 <th>Email</th>
                 <th>Contact</th>
                 <th>Role</th>
@@ -35,8 +33,9 @@
                 <td>{{ utilisateur.contact }}</td>
                 <td>{{ utilisateur.roleUser.nomRole }}</td>
                 <td >
-                   <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}"><h6 style="color: green"> show </h6></a>
-                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}"><h6 style="color: red">edit</h6></a>
+                   <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}"><h6 style="color: green">Détails </h6></a>
+                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}"><h6 style="color: red">Edit</h6></a>
+
                 </td>
             </tr>
         {% else %}
@@ -46,6 +45,7 @@
         {% endfor %}
         </tbody>
     </table>
-
     <a href="{{ path('app_utilisateur_new') }}">Create new</a>
+
+
 {% endblock %}

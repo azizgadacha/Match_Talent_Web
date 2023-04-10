@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}Utilisateur{% endblock %}
 
@@ -7,25 +7,15 @@
 
     <table class="table">
         <tbody>
-        <br>
-        <br>
-        <br>
-        <br>
-        <h1>Informations utilisateur </h1>
-        <br>
 
+        <h1><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Informations utilisateur </h1>
+        <br>
+        {{ include('utilisateur/_delete_form.html.twig') }}
             <tr>
                 <th>Id</th>
                 <td>{{ utilisateur.id }}</td>
             </tr>
-            <tr>
-                <th>NomSociete</th>
-                <td>{{ utilisateur.nomSociete }}</td>
-            </tr>
-            <tr>
-                <th>Biographie</th>
-                <td>{{ utilisateur.biographie }}</td>
-            </tr>
+
             <tr>
                 <th>Username</th>
                 <td>{{ utilisateur.username }}</td>
@@ -51,7 +41,5 @@
 
     <a href="{{ path('app_utilisateur_index') }}">back to list</a>
 
-    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}">edit</a>
 
-    {{ include('utilisateur/_delete_form.html.twig') }}
 {% endblock %}
