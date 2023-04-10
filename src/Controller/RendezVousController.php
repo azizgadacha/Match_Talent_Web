@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Postulation;
 use App\Entity\RendezVous;
 use App\Form\RendezVousType;
 use App\Repository\AnnonceRepository;
@@ -24,6 +25,13 @@ class RendezVousController extends AbstractController
             'rendez_vouses' => $rendezVousRepository->findAll(),
         ]);
     }
+    #[Route('/admin', name: 'app_admin_rendez_vous_index', methods: ['GET'])]
+    public function indexAdmin(RendezVousRepository $rendezVousRepository): Response
+    {
+        return $this->render('rendez_vous/indexAdmin.html.twig', [
+            'rendez_vouses' => $rendezVousRepository->findAll(),
+        ]);
+    }
 
     #[Route('/new', name: 'app_rendez_vous_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ManagerRegistry $doctrine,RendezVousRepository $rendezVousRepository, AnnonceRepository $annonceRepository,CandidatureRepository $candidatureRepository): Response
@@ -34,7 +42,14 @@ class RendezVousController extends AbstractController
         $form = $this->createForm(RendezVousType::class, $rendezVou);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em=$doctrine->getManager();
+            $entityManager = $doctrine->getManager();
+            $postulation = $entityManager->getRepository(Postulation::class)->findOneBy([
+                'userPostulation' => $Candidature->getUtilisateurAssocier(),
+                'annoncePostulation' => $Candidature->getAnnonceAssocier(),
+            ]);
+             // Update the entity properties
+                $postulation->setEtat('accepter');
+                $entityManager->flush();
             $rendezVou->setUserRendezVous($Candidature->getUtilisateurAssocier());
             $rendezVou->setAnnonceAssocierRendezVous($Candidature->getAnnonceAssocier());
             $rendezVousRepository->save($rendezVou,true);
@@ -63,6 +78,7 @@ class RendezVousController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $rendezVousRepository->save($rendezVou, true);
 
             return $this->redirectToRoute('app_rendez_vous_index', [], Response::HTTP_SEE_OTHER);
@@ -74,8 +90,16 @@ class RendezVousController extends AbstractController
     }
 
     #[Route('/{idRendezVous}', name: 'app_rendez_vous_delete', methods: ['POST'])]
-    public function delete(Request $request, RendezVous $rendezVou, RendezVousRepository $rendezVousRepository): Response
+    public function delete(Request $request,ManagerRegistry $doctrine, RendezVous $rendezVou, RendezVousRepository $rendezVousRepository): Response
     {
+        $entityManager = $doctrine->getManager();
+        $postulation = $entityManager->getRepository(Postulation::class)->findOneBy([
+            'userPostulation' => $rendezVou->getUserRendezVous(),
+            'annoncePostulation' => $rendezVou->getAnnonceAssocierRendezVous(),
+        ]);
+        // Update the entity properties
+        $postulation->setEtat('refuser');
+        $entityManager->flush();
        // if ($this->isCsrfTokenValid('delete'.$rendezVou->getIdRendezVous(), $request->request->get('_token'))) {
             $rendezVousRepository->remove($rendezVou, true);
      //   }

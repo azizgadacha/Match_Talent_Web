@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Candidature;
+use App\Entity\Postulation;
 use App\Entity\Utilisateur;
 use App\Form\CandidatureType;
 use App\Repository\CandidatureRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +20,14 @@ class CandidatureController extends AbstractController
     public function index(CandidatureRepository $candidatureRepository): Response
     {
         return $this->render('candidature/index.html.twig', [
-            'candidatures' => $candidatureRepository->findAll(),
+            'candidatures' => $candidatureRepository->getCandidatureForAnnonce(),
+        ]);
+    }
+    #[Route('/admin', name: 'app_candidature_index_admin', methods: ['GET'])]
+    public function index_admin(CandidatureRepository $candidatureRepository): Response
+    {
+        return $this->render('candidature/indexAdmin.html.twig', [
+            'candidatures' => $candidatureRepository->getCandidatureForAnnonce(),
         ]);
     }
 
@@ -69,18 +78,18 @@ class CandidatureController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/modal/{idCandidature}', name: 'app_candidature_delete_modal', methods: ['GET'])]
-    public function deleteModal(Candidature $candidature): Response
-    {
-        return $this->render('candidature/_delete_form.html.twig', [
-            'candidature' => $candidature,
-        ]);
-    }
+
     #[Route('/delete/{idCandidature}', name: 'app_candidature_delete', methods: ['POST'])]
-    public function delete(Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository): Response
+    public function delete(ManagerRegistry $doctrine,Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository): Response
     {echo "hello";
         //if ($this->isCsrfTokenValid('delete'.$candidature->getIdCandidature(), $request->request->get('_token'))) {
-
+        $entityManager = $doctrine->getManager();
+        $postulation = $entityManager->getRepository(Postulation::class)->findOneBy([
+            'userPostulation' => $candidature->getUtilisateurAssocier(),
+            'annoncePostulation' => $candidature->getAnnonceAssocier(),
+        ]);
+        $postulation->setEtat('refuser');
+        $entityManager->flush();
             $candidatureRepository->remove($candidature, true);
         //}
 

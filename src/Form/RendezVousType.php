@@ -30,7 +30,8 @@ class RendezVousType extends AbstractType
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Ce champ est obligatoire'
-                    ])
+                    ]),
+                    new WorkingHours()
                 ]
             ]);
         ;

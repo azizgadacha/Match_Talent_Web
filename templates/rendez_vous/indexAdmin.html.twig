@@ -1,0 +1,89 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}RendezVous index{% endblock %}
+
+{% block body %}
+    <div class="slider-area gray-bg position-relative">
+        <div class="single-slider d-flex align-items-center slider-height2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-caption hero-caption2">
+                            <h2>Rendez vous</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="featured_candidates_area section-bg2 candidate_page_padding">
+        <div class="container">
+
+            <div class="container mt-3 mb-4">
+                <div class="col-lg-9 mt-4 mt-lg-0">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                            <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
+
+                                <table class="table manage-candidates-top mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th class="text-center">Date du rendez vous</th>
+
+                                    </tr>
+                                    </thead>
+                                    <tbody id="candidatures-table-body">
+                                    {% for rendez_vous in rendez_vouses %}
+
+
+                                        <tr class="candidates-list">
+                                            <td class="title">
+                                                <div class="thumb">
+                                                    <img class="img-fluid" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="">
+                                                </div>
+                                                <div class="candidate-list-details">
+                                                    <div class="candidate-list-info">
+                                                        <div class="candidate-list-title">
+                                                            <h5 class="mb-0"><a href="#">{{ rendez_vous.userRendezVous.username }}</a></h5>
+                                                        </div>
+                                                        <div class="candidate-list-option">
+                                                            <ul class="list-unstyled">
+                                                                <li><i class="fas fa-map-marker-alt pr-1"></i>{{ rendez_vous.userRendezVous.address }}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="candidate-list-favourite-time text-center">
+                                                {{ rendez_vous.dateRendezVous ? rendez_vous.dateRendezVous|date('Y-m-d') : '' }} à  {{ rendez_vous.heureRendezVous }}                                       </td>
+
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="3">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+
+                                </table>
+                            
+                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+{% endblock %}

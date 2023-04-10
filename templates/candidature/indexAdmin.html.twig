@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base1.html.twig' %}
 
 {% block title %}Candidature index{% endblock %}
 
@@ -30,7 +30,6 @@
                             <tr>
                                 <th>Nom</th>
                                 <th class="text-center">Note</th>
-                                <th class="action text-right">Action</th>
                             </tr>
                             </thead>
                             <tbody id="candidatures-table-body">
@@ -58,26 +57,7 @@
                                 <td class="candidate-list-favourite-time text-center">
                                     {{ candidature.note }}
                                 </td>
-                                <td>
-                                    <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                        <li><a  class="MainNavText text-primary"  href="{{ path('app_candidature_show', {'idCandidature': candidature.idCandidature}) }}" ><i class="far fa-eye"></i></a></li>
-                                        <li><form action="{{ path('app_candidature_delete', {'idCandidature': candidature.idCandidature}) }}" method="POST">
 
-                                            <button type="submit" class="text-danger" style="background: none;  border: none;" data-original-title="Delete">
-                                                <i class="far fa-trash-alt"></i>
-                                            </button>
-                                            </form>
-                                        </li>
-{#                                        <li>      <a href="{{ path('app_candidature_delete', {'idCandidature': candidature.idCandidature}) }}" class="text-danger" data-toggle="modal" data-target="#deleteModal">Open Modalsss</a></li>#}
-
-                                        <li><a href="{{ path('app_rendez_vous_new', {'idCandidature': candidature.idCandidature}) }}" class="text-success"   data-original-title="add"><i class="fa fa-check" aria-hidden="true"></i></a></li>
-{#                                        <a href="#" data-toggle="modal" data-target="#myModal" onclick="setSecondVariable('{{ candidature.utilisateurAssocier.username  }}',{{ candidature.utilisateurAssocier.id  }})">Open Modal</a>#}
-{#                                        <li><a id="delete-candidature" href="#" data-candidature-id="{{ candidature.idCandidature }}">Delete Candidatursse</a></li>#}
-{#                                        <a href="#" id="open-delete-modal" data-candidature-id="{{ candidature.idCandidature }}">Open Modal</a>#}
-
-
-                                    </ul>
-                                </td>
                             </tr>
                             {% else %}
                                 <tr>

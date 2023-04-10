@@ -16,6 +16,26 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CandidatureRepository extends ServiceEntityRepository
 {
+
+    public function  getCandidatureForAnnonce(){
+     //  $result=$this->createQueryBuilder("c")->where('c.annonceAssocier.idAnnonce= 1 ') ->getQuery()->getResult();
+        $result =$this->createQueryBuilder('c')
+            ->join('c.utilisateurAssocier', 'u')
+            ->join('c.annonceAssocier', 'a')
+             ->join('u.listePostulationInUser', 'p')
+            ->addSelect('p')
+            ->addSelect('a')
+            ->addSelect('u')
+            ->where('p.etat = :etat')
+
+            ->andWhere('a.idAnnonce = :idAnnonce')
+            ->setParameter('etat', 'passer quiz')
+            ->setParameter('idAnnonce', 1)
+            ->getQuery()
+            ->getResult();
+
+        return $result;
+    }
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Candidature::class);
@@ -32,6 +52,7 @@ class CandidatureRepository extends ServiceEntityRepository
 
     public function remove(Candidature $entity, bool $flush = false): void
     {
+
         $this->getEntityManager()->remove($entity);
 
         if ($flush) {
