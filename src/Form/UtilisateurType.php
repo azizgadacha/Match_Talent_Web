@@ -6,6 +6,7 @@ use App\Entity\Role;
 use App\Entity\Utilisateur;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +18,7 @@ class UtilisateurType extends AbstractType
 
             ->add('username')
             ->add('address')
-            ->add('motDePasse' )
+            ->add('motDePasse' ,PasswordType::class)
 
             ->add('email')
             ->add('contact')

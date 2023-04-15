@@ -74,6 +74,7 @@ class RendezVousController extends AbstractController
     #[Route('/{idRendezVous}/edit', name: 'app_rendez_vous_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, RendezVous $rendezVou, RendezVousRepository $rendezVousRepository): Response
     {
+
         $form = $this->createForm(RendezVousType::class, $rendezVou);
         $form->handleRequest($request);
 

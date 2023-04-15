@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Controller;
-
+//use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use App\Entity\Candidature;
 use App\Entity\Postulation;
 use App\Entity\Utilisateur;
 use App\Form\CandidatureType;
+use App\Repository\AnnonceRepository;
 use App\Repository\CandidatureRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,8 +19,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class CandidatureController extends AbstractController
 {
     #[Route('/', name: 'app_candidature_index', methods: ['GET'])]
-    public function index(CandidatureRepository $candidatureRepository): Response
+    public function index(CandidatureRepository $candidatureRepository,//MailerInterface $mailer
+    ): Response
+
     {
+        /*$email = (new Email())
+            ->from('validation.message@gmail.com')
+            ->to('aziz.gadacha@esprit.tn')
+            //->cc('cc@example.com')
+            //->bcc('bcc@example.com')
+            //->replyTo('fabien@example.com')
+            //->priority(Email::PRIORITY_HIGH)
+            ->subject('Time for Symfony Mailer!')
+            ->text('Sending emails is fun again!')
+            ->html('<p>See Twig integration for better HTML integration!</p>');
+
+        $mailer->send($email);
+*/
+        // ...
+
         return $this->render('candidature/index.html.twig', [
             'candidatures' => $candidatureRepository->getCandidatureForAnnonce(),
         ]);
