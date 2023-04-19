@@ -17,7 +17,8 @@
         </div>
     </div>
 
-    
+    <input id="searchbar" onkeyup="search_academie()" type="text"
+           name="search" placeholder="Search ..">
     <div class="featured_candidates_area section-bg2 candidate_page_padding">
         <div class="container">
 
@@ -102,5 +103,25 @@
             
         </div>
     </div>
+    <script>
 
+        // JavaScript code
+        function search_academie() {
+            let input = document.getElementById('searchbar').value
+            input=input.toLowerCase();
+            let x = document.getElementsByClassName('candidates-list');
+
+            for (i = 0; i < x.length; i++) {
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    x[i].parentNode.parentNode.style.display="none";
+                }
+                else {
+                    x[i].parentNode.parentNode.style.display="table-row";
+                }
+            }
+        }
+
+
+
+    </script>
 {% endblock %}
