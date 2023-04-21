@@ -21,6 +21,8 @@
             <div class="col-md-8">
                 <h1 class="mb-4">Edit Question</h1>
 
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
                 {{ include('question/_form.html.twig', {'button_label': 'Update'}) }}
 
                 <a href="{{ path('app_question_index') }}" class="btn btn-secondary mt-4">Back to list</a>

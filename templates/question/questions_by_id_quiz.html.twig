@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+   <div class="slider-area gray-bg position-relative">
+    <div class="single-slider d-flex align-items-center slider-height2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-caption hero-caption2">
+                        <h2>Question</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h1>Questions for Quiz ID {{ idQuiz }}</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Proposition A</th>
+            <th>Proposition B</th>
+            <th>Proposition C</th>
+            <th>Bonne Réponse</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for question in questions %}
+            <tr>
+                <td>{{ question.idQuestion }}</td>
+                <td>{{ question.question }}</td>
+                <td>{{ question.propositiona }}</td>
+                <td>{{ question.propositionb }}</td>
+                <td>{{ question.propositionc }}</td>
+                <td>{{ question.idBonnereponse }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Bouton d'impression -->
+<div style="text-align: center; margin-top: 20px;">
+   <button onclick="printTable()" class="btn btn-primary">Imprimer Quiz</button>
+</div>
+
+<script>
+ function printTable() {
+        // Récupérer l'ID du quiz
+        var idQuiz = {{ idQuiz }};
+
+        // Rediriger vers la route de génération du PDF avec l'ID du quiz en tant que paramètre
+        window.location.href = '{{ path('app_question_print_quiz_pdf', {'idQuiz': idQuiz}) }}';
+    }
+</script>
+
+{% endblock %}

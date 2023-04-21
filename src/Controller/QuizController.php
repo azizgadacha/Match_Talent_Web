@@ -11,10 +11,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\QuestionRepository;
+
 
 #[Route('/quiz')]
 class QuizController extends AbstractController
 {
+    #[Route('/backend', name: 'app_quiz_index1', methods: ['GET'])]
+    public function index2(QuizRepository $quizRepository): Response
+    {
+        return $this->render('quiz/indexbackend.html.twig', [
+            'quizzes' => $quizRepository->findAll(),
+        ]);
+    }
+    
+    
     #[Route('/', name: 'app_quiz_index', methods: ['GET'])]
     public function index(QuizRepository $quizRepository): Response
     {
@@ -84,4 +95,53 @@ class QuizController extends AbstractController
 
         return $this->redirectToRoute('app_quiz_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{idQuiz}/play', name: 'app_quiz_play', methods: ['GET', 'POST'])]
+    public function playQuiz(Quiz $quiz, Request $request, QuestionRepository $questionRepository): Response
+    {
+        // Récupérer les questions associées à un quiz par son ID
+        $questions = $questionRepository->findBy(['QuizAssocier' => $quiz->getIdQuiz()]);
+    
+        // Initialiser le score
+        $score = 0;
+    
+        // Vérifier si le formulaire a été soumis
+        if ($request->isMethod('POST')) {
+            // Parcourir les questions une par une
+            foreach ($questions as $question) {
+                // Récupérer la réponse de l'utilisateur pour cette question
+                $reponseUtilisateur = $request->request->get('reponse' . $question->getIdQuestion());
+    
+                // Vérifier si la réponse de l'utilisateur est correcte
+                if ($reponseUtilisateur === $question->getIdBonneReponse()) {
+                    $score++; // Incrémenter le score si la réponse est correcte
+                }
+            }
+    
+            // Calculer le pourcentage de bonnes réponses
+            $pourcentage = ($score / count($questions)) * 100;
+    
+            // Renvoyer le score sous forme de pourcentage dans un template Twig
+            return $this->render('quiz/score.html.twig', [
+                'score' => $pourcentage,
+                'totalQuestions' => count($questions),
+                'quiz' => $quiz
+            ]);
+        }
+    
+        // Renvoyer les questions et le quiz à la template play.html.twig pour affichage
+        return $this->render('quiz/play.html.twig', [
+            'quiz' => $quiz,
+            'questions' => $questions
+        ]);
+    }
+    
+
+
+
+
+
+
+
+
 }

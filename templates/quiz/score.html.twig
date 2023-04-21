@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>Score du Quiz</h1>
+    <p>Vous avez obtenu {{ score }}% de bonnes réponses sur {{ totalQuestions }} questions pour le Quiz "{{ quiz.titre }}"</p>
+    <p>Merci d'avoir participé !</p>
+{% endblock %}

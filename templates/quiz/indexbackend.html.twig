@@ -1,0 +1,71 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Quiz index{% endblock %}
+
+{% block body %}
+<div class="slider-area gray-bg position-relative">
+<div class="single-slider d-flex align-items-center slider-height2">
+<div class="container">
+<div class="row">
+<div class="col-xl-12">
+<div class="hero-caption hero-caption2">
+<h2>Quiz</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdQuiz</th>
+                <th>SujetQuiz</th>
+                <th>NombreQuestions</th>
+                <th>Barem</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for quiz in quizzes %}
+            <tr>
+                <td>{{ quiz.idQuiz }}</td>
+                <td>{{ quiz.sujetQuiz }}</td>
+                <td>{{ quiz.nombreQuestions }}</td>
+                <td>{{ quiz.barem }}</td>
+                <td>
+                    <a href="{{ path('app_quiz_show', {'idQuiz': quiz.idQuiz}) }}" class="btn btn-primary">Show</a>
+                    <a href="{{ path('app_quiz_edit', {'idQuiz': quiz.idQuiz}) }}" class="btn btn-secondary">Edit</a>
+                    <form action="{{ path('app_quiz_delete', {'idQuiz': quiz.idQuiz}) }}" method="POST" style="display: inline-block;" class="delete-form">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ quiz.idQuiz) }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_quiz_new') }}" class="btn btn-success">Create new</a>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        const deleteForms = document.querySelectorAll('.delete-form');
+        deleteForms.forEach(form => {
+            form.addEventListener('submit', (e) => {
+                const confirmDelete = confirm('Are you sure you want to delete this quiz?');
+                if (!confirmDelete) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
+{% endblock %}

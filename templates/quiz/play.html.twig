@@ -1,0 +1,33 @@
+{# quiz/play.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <h1>{{ quiz.sujetQuiz }}</h1>
+    <form method="post" action="{{ path('app_quiz_play', {'idQuiz': quiz.id_quiz}) }}">
+        {% for question in questions %}
+            <h3>aaaaa{{ question.question }}</h3>
+            <ul>
+                <li>
+                    <label>
+                        <input type="radio" name="reponse{{ question.idQuestion }}" value="A">
+                        {{ question.propositionA }}waaa
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="radio" name="reponse{{ question.idQuestion }}" value="B">
+                        {{ question.propositionB }}waaa
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="radio" name="reponse{{ question.idQuestion }}" value="C">
+                        {{ question.propositionC }}waaa
+                    </label>
+                </li>
+            </ul>
+        {% endfor %}
+        <button type="submit">Valider</button>
+    </form>
+{% endblock %}
