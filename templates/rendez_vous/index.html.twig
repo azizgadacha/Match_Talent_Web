@@ -40,7 +40,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="candidatures-table-body">
-                                    {% for rendez_vous in rendez_vouses %}
+                                    {% for rendez_vous in pagination %}
 
 
                                         <tr class="candidates-list">
@@ -51,7 +51,7 @@
                                                 <div class="candidate-list-details">
                                                     <div class="candidate-list-info">
                                                         <div class="candidate-list-title">
-                                                            <h5 class="mb-0"><a href="#">{{ rendez_vous.userRendezVous.username }}</a></h5>
+                                                            <h5 class="mb-0"><a href="#" class="inexing">{{ rendez_vous.userRendezVous.username }}</a></h5>
                                                         </div>
                                                         <div class="candidate-list-option">
                                                             <ul class="list-unstyled">
@@ -91,7 +91,9 @@
                                     </tbody>
 
                                 </table>
-                            
+
+
+                                <div class="align-center"> {{ knp_pagination_render(pagination, 'rendez_vous/Pagination.html.twig') }}</div>
                             </div>
                                     </div>
                                 </div>
@@ -109,14 +111,32 @@
         function search_academie() {
             let input = document.getElementById('searchbar').value
             input=input.toLowerCase();
-            let x = document.getElementsByClassName('candidates-list');
+            let x = document.getElementsByClassName('inexing');
+console.log("ffff"+input);
 
             for (i = 0; i < x.length; i++) {
+                console.log("kkk"+x[i].innerHTML.toLowerCase());
+console.log("bbbbbb "+x[i].length)
                 if (!x[i].innerHTML.toLowerCase().includes(input)) {
-                    x[i].parentNode.parentNode.style.display="none";
+                    console.log('ena lina bb')
+console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode)
+                    x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display="none";
                 }
                 else {
-                    x[i].parentNode.parentNode.style.display="table-row";
+                    console.log('ena lina 3asfour b')
+                    console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode)
+                    console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)
+                      console.log      (   (x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)===("none"))
+                    if((x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)===("none")){
+    console.log("rrrrrrr");
+    console.log("ffffff "+i);
+
+                            //console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)
+    (x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display="")
+}
+
+
+
                 }
             }
         }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
@@ -24,11 +25,14 @@ class RendezVousController extends AbstractController
         $this->mailer = $mailer;
     }
     #[Route('/', name: 'app_rendez_vous_index', methods: ['GET'])]
-    public function index(RendezVousRepository $rendezVousRepository): Response
+    public function index(Request $request,PaginatorInterface $paginator,RendezVousRepository $rendezVousRepository): Response
     {
+        $data=$rendezVousRepository->findAll();
+        $pagination = $paginator->paginate($rendezVousRepository->findAll(), $request->query->getInt('page', 1),
+            1 // items per page
+        );
         return $this->render('rendez_vous/index.html.twig', [
-            'rendez_vouses' => $rendezVousRepository->findAll(),
-        ]);
+            'pagination' => $pagination,]);
     }
     #[Route('/admin', name: 'app_admin_rendez_vous_index', methods: ['GET'])]
     public function indexAdmin(RendezVousRepository $rendezVousRepository): Response
