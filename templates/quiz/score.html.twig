@@ -1,7 +1,23 @@
-{% extends 'base.html.twig' %}
-
 {% block content %}
-    <h1>Score du Quiz</h1>
-    <p>Vous avez obtenu {{ score }}% de bonnes réponses sur {{ totalQuestions }} questions pour le Quiz "{{ quiz.titre }}"</p>
-    <p>Merci d'avoir participé !</p>
+    <h1 style="text-align: center; font-size: 24px; color: #000; margin-top: 50px;">Score du Quiz</h1>
+    <p style="text-align: center; font-size: 18px; color: #666;">Vous avez obtenu <span style="color: #00c800;">{{ score }}%</span> de bonnes réponses sur {{ totalQuestions }} questions pour le Quiz "{{ quiz.sujetQuiz }}"</p>
+    <p style="text-align: center; font-size: 16px; color: #888;">Merci d'avoir participé !</p>
+    
+    {% if score == 0 %}
+        <p style="text-align: center; font-size: 16px; color: #c80000;">Vous n'avez aucune bonne réponse. Vous êtes refusé(e).</p>
+    {% else %}
+        {% if score < 25 %}
+            <p style="text-align: center; font-size: 16px; color: #c80000;">Vous avez moins de 25% de bonnes réponses. Vous êtes refusé(e).</p>
+        {% else %}
+            {% if score < 75 %}
+                <p style="text-align: center; font-size: 16px; color: #c8c800;">Vous avez entre 25% et 75% de bonnes réponses. Moyen.</p>
+            {% else %}
+                {% if score < 100 %}
+                    <p style="text-align: center; font-size: 16px; color: #00c800;">Vous avez plus de 75% de bonnes réponses. Bien.</p>
+                {% else %}
+                    <p style="text-align: center; font-size: 16px; color: #00c800;">Vous avez obtenu un score parfait !</p>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
 {% endblock %}

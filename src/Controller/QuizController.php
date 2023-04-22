@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\QuestionRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 
 #[Route('/quiz')]
@@ -95,7 +96,7 @@ class QuizController extends AbstractController
 
         return $this->redirectToRoute('app_quiz_index', [], Response::HTTP_SEE_OTHER);
     }
-
+    
     #[Route('/{idQuiz}/play', name: 'app_quiz_play', methods: ['GET', 'POST'])]
     public function playQuiz(Quiz $quiz, Request $request, QuestionRepository $questionRepository): Response
     {
@@ -104,6 +105,8 @@ class QuizController extends AbstractController
     
         // Initialiser le score
         $score = 0;
+
+         $tempsRestant = 30;
     
         // Vérifier si le formulaire a été soumis
         if ($request->isMethod('POST')) {
@@ -132,10 +135,10 @@ class QuizController extends AbstractController
         // Renvoyer les questions et le quiz à la template play.html.twig pour affichage
         return $this->render('quiz/play.html.twig', [
             'quiz' => $quiz,
-            'questions' => $questions
+            'questions' => $questions,
+            'tempsRestant' => $tempsRestant
         ]);
     }
-    
 
 
 

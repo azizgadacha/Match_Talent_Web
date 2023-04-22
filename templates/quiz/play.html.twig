@@ -1,33 +1,124 @@
 {# quiz/play.html.twig #}
 
-{% extends 'base.html.twig' %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .question {
+        background-color: #f8f9fa;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+
+    .options-list {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    .option-label {
+        display: block;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        background-color: #ffffff;
+        border: 1px solid #ced4da;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .option-label:hover {
+        background-color: #f8f9fa;
+    }
+
+    .btn {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .timer {
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+</style>
 
 {% block content %}
-    <h1>{{ quiz.sujetQuiz }}</h1>
-    <form method="post" action="{{ path('app_quiz_play', {'idQuiz': quiz.id_quiz}) }}">
-        {% for question in questions %}
-            <h3>aaaaa{{ question.question }}</h3>
-            <ul>
-                <li>
-                    <label>
-                        <input type="radio" name="reponse{{ question.idQuestion }}" value="A">
-                        {{ question.propositionA }}waaa
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="reponse{{ question.idQuestion }}" value="B">
-                        {{ question.propositionB }}waaa
-                    </label>
-                </li>
-                <li>
-                    <label>
-                        <input type="radio" name="reponse{{ question.idQuestion }}" value="C">
-                        {{ question.propositionC }}waaa
-                    </label>
-                </li>
-            </ul>
-        {% endfor %}
-        <button type="submit">Valider</button>
-    </form>
+    <div class="container">
+        <h1 class="text-center">{{ quiz.sujetQuiz }}</h1>
+        <div class="timer" id="timer">Temps restant: {{ tempsRestant }} secondes</div>
+        <form method="post" action="{{ path('app_quiz_play', {'idQuiz': quiz.idQuiz}) }}" class="quiz-form">
+            {% for question in questions %}
+                <div class="question rounded p-3 mb-3">
+                    <h3 class="text-center">{{ question.question }}</h3>
+                    <ul class="options-list list-unstyled">
+                        <li>
+                            <label class="option-label">
+                                <input type="radio" name="reponse{{ question.idQuestion }}" value="A" class="option-input">
+                                {{ question.propositionA }}
+                            </label>
+                        </li>
+                        <li>
+                            <label class="option-label">
+                                <input type="radio" name="reponse{{ question.idQuestion }}" value="B" class="option-input">
+                                {{ question.propositionB }}
+                            </label>
+                        </li>
+                        <li>
+                            <label class="option-label">
+                                <input type="radio" name="reponse{{ question.idQuestion }}" value="C" class="option-input">
+                                {{ question.propositionC }}
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            {% endfor %}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Récupérer le temps restant depuis le modèle Twig
+        let tempsRestant = 30;
+        let timer = document.getElementById('timer');
+
+         let btnValider = document.querySelector('.btn.btn-primary');
+
+
+        // Mettre à jour le chronomètre toutes les secondes
+        let intervalId = setInterval(function() {
+            tempsRestant--;
+            timer.innerHTML = "Temps restant: " + tempsRestant + " secondes";
+            if (tempsRestant <= 0) {
+                clearInterval(intervalId);
+                // Rediriger vers la page de résultats du quiz lorsque le temps est écoulé
+                //window.location.href = "{{ path('app_quiz_play', {'idQuiz': quiz.idQuiz}) }}";
+                //form.submit();
+                btnValider.click();
+            }
+        }, 1000);
+    </script>
 {% endblock %}
+
+
+
+
