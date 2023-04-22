@@ -153,7 +153,7 @@ public function findByDate(string $order = 'DESC'): Response
     }
    
  
-    #[Route('/status', name: 'app_statut', methods: ['GET', 'POST'])]
+    /*#[Route('/status', name: 'app_statut', methods: ['GET', 'POST'])]
     public function status(Request $request, ?string $statut = null): Response
     {
         // Fetch reclamations from the database based on the selected status
@@ -168,18 +168,40 @@ public function findByDate(string $order = 'DESC'): Response
             'statusOptions' => $statusOptions,
             'selectedStatus' => $statut // Pass the selected status to the Twig template
         ]);
+    }*/
+    
+    #[Route('/suivi/{statut}', name: 'app_suivi', methods: ['GET', 'POST'], requirements: ['statut' => 'NotYet|Done'])]
+    #[Route('/suivi', name: 'app_suivi_without_statut', methods: ['GET', 'POST'])]
+    public function getByStatut(Request $request, ReclamationRepository $reclamationRepository, $statut = null): Response
+    {
+        $statuts = $reclamationRepository->findAllStatuts();
+        // If "statut" value is not provided as a route parameter, check if it is sent as a query parameter
+        if (!$statut) {
+            $statut = $request->query->get('statut');
+        }
+        if ($statut) {
+            $reclamations = $reclamationRepository->findByStatut($statut);
+        } else {
+            $reclamations = $reclamationRepository->findAll();
+        }
+        return $this->render('reclamation/statut.html.twig', [
+            'reclamations' => $reclamations,
+            'statut' => $statut,
+            'statuts' => $statuts
+        ]);
     }
     
 
+    
 
 
-    #[Route('/suivi', name: 'app_suivi', methods: ['GET', 'POST'])]
+    /*#[Route('/suivi', name: 'app_suivi', methods: ['GET', 'POST'])]
     public function suivi(ReclamationRepository $reclamationRepository): Response
     {
         return $this->render('reclamation/statut.html.twig', [
             'reclamations' => $reclamationRepository->findAll(),
         ]);
-    }
+    }*/
     #[Route('/home', name: 'app_home', methods: ['GET', 'POST'])]
     public function test(): Response
     {
@@ -200,7 +222,7 @@ public function findByDate(string $order = 'DESC'): Response
     
             $reclamationRepository->save($reclamation, true);
     
-            return $this->redirectToRoute('app_reponse_reclamation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_list', [], Response::HTTP_SEE_OTHER);
         }
     
         return $this->renderForm('reclamation/new.html.twig', [
@@ -214,6 +236,14 @@ public function findByDate(string $order = 'DESC'): Response
     public function show(Reclamation $reclamation): Response
     {
         return $this->render('reclamation/show.html.twig', [
+            'reclamation' => $reclamation,
+        ]);
+    }
+
+    #[Route('/{idReclamation}', name: 'app_reclamation_client', methods: ['GET'])]
+    public function showClient(Reclamation $reclamation): Response
+    {
+        return $this->render('reclamation/showClient.html.twig', [
             'reclamation' => $reclamation,
         ]);
     }
@@ -243,7 +273,7 @@ public function findByDate(string $order = 'DESC'): Response
             $reclamationRepository->remove($reclamation, true);
         }
 
-        return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_list', [], Response::HTTP_SEE_OTHER);
     }
 
 }

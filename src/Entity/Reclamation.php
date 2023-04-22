@@ -59,7 +59,7 @@ class Reclamation
     public function __construct()
     {
         $this->date = new \DateTime();
-        $this->statut = 'not yet';
+        $this->statut = 'NotYet';
     }
 
     

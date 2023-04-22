@@ -1,19 +1,224 @@
+{% extends 'base.html.twig' %}
 
-
-{% block title %}status{% endblock %}
+{% block title %}MatchTalent_Reclamation{% endblock %}
 
 {% block body %}
-<!-- ... Your other HTML code ... -->
-<form id="reclamationStatusForm" action="{{ path('app_statut', {'statut': selectedStatus}) }}" method="get">
-    <label for="statut">Statut:</label>
-    <select id="statusDropdown" name="statut">
-        <option value="">-- All --</option>
-        {% for option in statusOptions %}
-            <option value="{{ option }}" {% if option == selectedStatus %}selected{% endif %}>{{ option }}</option>
-        {% endfor %}
-    </select>
-    <button type="submit">Filter</button>
-</form>
-<!-- ... Your other HTML code ... -->
 
+<main>
+<div class="slider-area gray-bg position-relative">
+<div class="single-slider d-flex align-items-center slider-height2">
+<div class="container">
+<div class="row">
+<div class="col-xl-12">
+<div class="hero-caption hero-caption2">
+<h2>Your Reclamations List</h2>
+</div>
+ <div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body text-center">
+        </br>
+           <h5 class="jobs_conetent"><a href="{{ path('app_reclamation_new') }}">RECLAMATION</a></h5>
+          <p class="card-text">We handle all your complaints</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body text-center">
+          </br>
+           <h5 class="jobs_conetent"><a href="{{ path('app_reponse_reclamation_index') }}">RESPONSE</a></h5>
+          <p class="card-text">We answer all your questions</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body text-center">
+          </br>
+           <h5 class="jobs_conetent"><a href="{{ path('app_suivi') }}">Follow-up</a></h5>
+          <p class="card-text">Follow up on your requests yourself</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+    
+    <div class="job_listing_area section-bg2 plus_padding">
+<div class="container">
+<div class="row">
+<div class="col-lg-3">
+<div class="job_filter white-bg">
+<div class="form_inner white-bg">
+
+<form action="#">
+<div class="row">
+<div class="col-lg-12">
+<div class="single_field">
+
+</div>
+</div>
+<div class="col-lg-12">
+<div class="single_field">
+
+</div>
+</div>
+<div class="col-lg-12">
+<div class="single_field">
+
+</div>
+</div>
+<div class="col-lg-12">
+<div class="single_field">
+
+</div>
+</div>
+<div class="col-lg-12">
+<div class="single_field">
+
+</div>
+</div>
+<div class="col-lg-12">
+<div class="single_field">
+
+</div>
+</div>
+<div class="col-lg-12">
+<div class="single_field">
+
+</div>
+</div>
+</div>
+</form>
+</div>
+
+<div class="reset_btn">
+
+</div>
+</div>
+</div>
+
+<div class="col-lg-9">
+<div class="recent_joblist_wrap">
+<div class="recent_joblist white-bg ">
+<div class="row align-items-center">
+<div class="col-md-6">
+<h4>Filter</h4>
+</div>
+<div class="col-md-6">
+<select id="statut-select" name="id_statut" onchange="getComboA(this)">
+            <option value="">All statuts</option>
+            {% for statut in statuts %}
+                <option value="{{ statut }}">{{ statut }}</option>
+            {% endfor %}
+        </select>
+</div>
+<script>
+    const selectEl = document.getElementById('statut-select');
+</script>
+
+    {% for statut in statuts %}
+
+        <form action="{{ path('app_suivi', {'statut': statut}) }}" method="POST">
+            <button  type="submit"  id="{{statut}}" class="text-danger buttonClass" style=" display: none" >
+            </button>
+        </form>
+
+    {% endfor %}
+    <script>
+        const buttons = Array.from(document.querySelectorAll('.buttonClass'));
+        console.log(buttons)
+        const buttonIds = buttons.map(button => button.id);
+        function getComboA(selectObject) {
+            console.log(selectEl)
+                buttons.map(button => {
+                        if (selectObject.value ===button.id ) {
+                            document.getElementById(button.id).click()
+                        }
+                    }
+                );
+        }
+    </script>
+</div>
+</div>
+</div>
+   <div class="job_lists m-0">
+<div class="row" id="reclamation-container">
+
+
+{% for reclamation in reclamations %}
+ 
+<div class="col-lg-12 col-md-12">
+<div class="single_jobs white-bg d-flex justify-content-between">
+<div class="jobs_left d-flex align-items-center">
+<div class="thumb">
+<img src='{{ asset ("assets/img/icon/1.svg")}}' alt="">
+</div>
+<div class="jobs_conetent">
+<a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}"><h4>{{ reclamation.titre }}</h4> </a>
+<div class="links_locat d-flex align-items-center">
+<div class="location">
+<p> <i class="far fa-clock"></i>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</p>
+</div>
+</div>
+     </div>
+                </div>
+                
+                 
+                    <div class="jobs_right">
+                        <div class="apply_now">
+</form> 
+                    
+                            <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}"  class="boxed-btn3">Details</a>
+                            
+                   
+  
+ 
+
+
+                        
+                    </div>
+               
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+</div>
+
+
+
+
+<div class="row">
+<div class="col-lg-12">
+<div class="pagination_wrap">
+<ul>
+<li><a href='{{ asset ("/assets/#")}}'> <i class="ti-angle-left"></i> </a></li>
+<li><a href='{{ asset ("/assets/#")}}'><span>01</span></a></li>
+<li><a href='{{ asset ("/assets/#")}}'><span>02</span></a></li>
+<li><a href='{{ asset ("/assets/#")}}'> <i class="ti-angle-right"></i> </a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div></div>
+</div>
+
+
+
+
+
+
+
+</main>
 {% endblock %}

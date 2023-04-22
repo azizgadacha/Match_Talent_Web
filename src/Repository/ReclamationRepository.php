@@ -49,15 +49,33 @@ class ReclamationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+
+    public function findAllStatuts()
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->select('r.statut')
+            ->distinct(true);
+
+        $query = $qb->getQuery();
+
+        $result = $query->getResult();
+
+        $statuts = [];
+        foreach ($result as $row) {
+            $statuts[] = $row['statut'];
+        }
+
+        return $statuts;
+    }
+
     public function findByStatut($statut)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.statut LIKE :statut')
-            ->setParameter('statut', '%'.$statut.'%')
+            ->andWhere('r.statut = :statut')
+            ->setParameter('statut', $statut)
             ->getQuery()
             ->getResult();
     }
-
 
     public function countReclamations(): int
 {
@@ -72,7 +90,7 @@ public function countReclamationsNotYet(): int
         return $this->createQueryBuilder('r')
             ->select('COUNT(r.idReclamation)')
             ->andWhere('r.statut = :status')
-            ->setParameter('status', 'not yet')
+            ->setParameter('status', 'NotYet')
             ->getQuery()
             ->getSingleScalarResult();
     }
@@ -82,7 +100,7 @@ public function countReclamationsNotYet(): int
         return $this->createQueryBuilder('r')
             ->select('COUNT(r.idReclamation)')
             ->andWhere('r.statut = :status')
-            ->setParameter('status', 'done')
+            ->setParameter('status', 'Done')
             ->getQuery()
             ->getSingleScalarResult();
     }
