@@ -57,14 +57,8 @@ class ReclamationType extends AbstractType
                     'message' => 'Ce champ est obligatoire'
                 ])
             ]
-        ])
-        ->add('userReclamation', TextType::class, [
-            'required' => true,
-            'mapped' => false, // this tells Symfony to ignore this field when mapping form data to the entity
-            'attr' => [
-                'placeholder' => 'Enter Votre Nom',
-            ],
-        ]);
+                ]);
+       
 }
 
 

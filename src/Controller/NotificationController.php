@@ -9,6 +9,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+//use Symfony\Component\Mercure\HubInterface;
+//use Symfony\Component\Mercure\Update;
+//use Symfony\Bundle\MercureBundle\MercureBundle;
 
 #[Route('/notification')]
 class NotificationController extends AbstractController
@@ -20,6 +23,20 @@ class NotificationController extends AbstractController
             'notifications' => $notificationRepository->findAll(),
         ]);
     }
+
+    /*#[Route('/publish', name: 'app_publish', methods: ['GET'])]
+    public function publish(HubInterface $hub): Response
+    {
+        $update = new Update(
+            'https://example.com/books/1',
+            json_encode(['status' => 'OutOfStock'])
+        );
+    
+        $hub->publish($update);
+    
+        return new Response('published!');
+    }*/
+    
 
     #[Route('/new', name: 'app_notification_new', methods: ['GET', 'POST'])]
     public function new(Request $request, NotificationRepository $notificationRepository): Response

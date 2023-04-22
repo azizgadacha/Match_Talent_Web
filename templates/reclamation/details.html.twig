@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MatchTalent_Reclamation{% endblock %}
+
+{% block body %}
+
+<main>
+<div class="slider-area gray-bg position-relative">
+<div class="single-slider d-flex align-items-center slider-height2">
+<div class="container">
+<div class="row">
+<div class="col-xl-12">
+<div class="hero-caption hero-caption2">
+<h2>See More Details</h2>
+</div>
+ <div class="container">
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body text-center">
+        </br>
+           <h5 class="jobs_conetent"><a href="{{ path('app_reclamation_new') }}">RECLAMATION</a></h5>
+          <p class="card-text">We handle all your complaints</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body text-center">
+          </br>
+           <h5 class="jobs_conetent"><a href="{{ path('app_reclamation_new') }}">RESPONSE</a></h5>
+          <p class="card-text">We answer all your questions</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body text-center">
+          </br>
+           <h5 class="jobs_conetent"><a href="{{ path('app_reclamation_new') }}">Follow-up</a></h5>
+          <p class="card-text">Follow up on your requests yourself</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+ <div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body text-center">
+        </br>
+           <h5 class="jobs_conetent"><a href="{{ path('app_reclamation_new') }}">RECLAMATION</a></h5>
+          <p class="card-text">We handle all your complaints</p>
+        </div>
+      </div>
+    </div>
+
+    
+  <div class="card-body">
+                                 <h5 class="m-0 font-weight-bold text-primary"> User Name: </h5> {{ reclamation.userReclamation.username }} <br>
+                                   <h5 class="m-0 font-weight-bold text-primary"> Type : </h5> {{ reclamation.type }} <br>
+                                   <h5 class="m-0 font-weight-bold text-primary"> Description : </h5> {{ reclamation.description }} <br>
+                                   <h5 class="m-0 font-weight-bold text-primary"> Statut : </h5> {{ reclamation.statut }}
+                                </div>
+
+
+</main>
+
+
+
+{% endblock %}

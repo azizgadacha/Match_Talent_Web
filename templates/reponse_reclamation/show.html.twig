@@ -3,28 +3,49 @@
 {% block title %}ReponseReclamation{% endblock %}
 
 {% block body %}
-    <h1>ReponseReclamation</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>IdReponse</th>
-                <td>{{ reponse_reclamation.idReponse }}</td>
-            </tr>
-            <tr>
-                <th>Reponse</th>
-                <td>{{ reponse_reclamation.reponse }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ reponse_reclamation.date ? reponse_reclamation.date|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+<main>
+<div class="slider-area gray-bg position-relative">
+<div class="single-slider d-flex align-items-center slider-height2">
+<div class="container">
+<div class="row">
+<div class="col-xl-12">
+<div class="hero-caption hero-caption2">
+<h3>Our Reply</h3>
+</div>
+ <div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body text-center">
+        </br>
+        <div class="col-sm-6">
+ <p class="card-text"> <i class="far fa-clock"></i> {{ reponse_reclamation.date ? reponse_reclamation.date|date('Y-m-d') : '' }}</p>
+          </div>
+           <div class="col-sm-6">
+          <p class="card-text">{{reponse_reclamation.reponse }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
 
-    <a href="{{ path('app_reponse_reclamation_index') }}">back to list</a>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-    <a href="{{ path('app_reponse_reclamation_edit', {'idReponse': reponse_reclamation.idReponse}) }}">edit</a>
 
-    {{ include('reponse_reclamation/_delete_form.html.twig') }}
+    
+
+
+
+
+
+
+</main>
+
 {% endblock %}

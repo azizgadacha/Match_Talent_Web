@@ -1,0 +1,19 @@
+
+
+{% block title %}status{% endblock %}
+
+{% block body %}
+<!-- ... Your other HTML code ... -->
+<form id="reclamationStatusForm" action="{{ path('app_statut', {'statut': selectedStatus}) }}" method="get">
+    <label for="statut">Statut:</label>
+    <select id="statusDropdown" name="statut">
+        <option value="">-- All --</option>
+        {% for option in statusOptions %}
+            <option value="{{ option }}" {% if option == selectedStatus %}selected{% endif %}>{{ option }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Filter</button>
+</form>
+<!-- ... Your other HTML code ... -->
+
+{% endblock %}

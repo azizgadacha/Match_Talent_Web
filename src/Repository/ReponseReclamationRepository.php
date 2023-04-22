@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ReponseReclamation;
+use App\Entity\Reclamation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -63,4 +64,20 @@ class ReponseReclamationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+public function findOneByReclamation(Reclamation $reclamation): ?ReponseReclamation
+{
+    return $this->createQueryBuilder('r')
+        ->andWhere('r.reclamation = :reclamation')
+        ->setParameter('reclamation', $reclamation)
+        ->getQuery()
+        ->getOneOrNullResult();
+}
+
+public function countReponses(): int
+{
+    return $this->createQueryBuilder('rr')
+        ->select('COUNT(rr.idReponse)')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
 }

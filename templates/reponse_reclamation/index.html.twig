@@ -3,12 +3,19 @@
 {% block title %}ReponseReclamation index{% endblock %}
 
 {% block body %}
-    <h1>ReponseReclamation index</h1>
+  <div class="slider-area position-relative ">
+        
+                <div class="footer-area footer-padding gray-bg">
+        <div class="footer-wrapper ">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-12 ">
+                       
+                                   <h1>Your List Of ReponseReclamation</h1>
 
-    <table class="table">
+  <table class="table">
         <thead>
             <tr>
-                <th>IdReponse</th>
                 <th>Reponse</th>
                 <th>Date</th>
                 <th>actions</th>
@@ -17,12 +24,12 @@
         <tbody>
         {% for reponse_reclamation in reponse_reclamations %}
             <tr>
-                <td>{{ reponse_reclamation.idReponse }}</td>
+
                 <td>{{ reponse_reclamation.reponse }}</td>
                 <td>{{ reponse_reclamation.date ? reponse_reclamation.date|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_reponse_reclamation_show', {'idReponse': reponse_reclamation.idReponse}) }}">show</a>
-                    <a href="{{ path('app_reponse_reclamation_edit', {'idReponse': reponse_reclamation.idReponse}) }}">edit</a>
+                    <a class="btn btn-secondary" href="{{ path('app_reponse_reclamation_show', {'idReponse': reponse_reclamation.idReponse}) }}">show</a>
+                   
                 </td>
             </tr>
         {% else %}
@@ -32,6 +39,13 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_reponse_reclamation_new') }}">Create new</a>
+                            
+                       
+                        </div>
+                         </div>
+                            </div>
+                        </div>
+                        </div>
+            
+            </div>
 {% endblock %}

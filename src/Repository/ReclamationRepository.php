@@ -48,6 +48,53 @@ class ReclamationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findByStatut($statut)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.statut LIKE :statut')
+            ->setParameter('statut', '%'.$statut.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function countReclamations(): int
+{
+    return $this->createQueryBuilder('r')
+        ->select('COUNT(r.idReclamation)')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+public function countReclamationsNotYet(): int
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r.idReclamation)')
+            ->andWhere('r.statut = :status')
+            ->setParameter('status', 'not yet')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countReclamationsDone(): int
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r.idReclamation)')
+            ->andWhere('r.statut = :status')
+            ->setParameter('status', 'done')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findByDate(string $order = 'DESC')
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->orderBy('r.date', $order);
+    
+        return $qb->getQuery()->getResult();
+    }
+    
 //    /**
 //     * @return Reclamation[] Returns an array of Reclamation objects
 //     */
