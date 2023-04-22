@@ -47,8 +47,29 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
-    
+    public function findAnnonceByCategorie($nomcategorie)
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.categorieAnnonce', 'c')
+            ->andWhere('c.nomCategorie = :nomcategorie')
+            ->setParameter('nomcategorie', $nomcategorie)
+            ->getQuery()
+            ->getResult();
+    }
 
+  /*  public function findFavoritesByUser($userId)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT a
+            FROM App\Entity\Annonce a
+            INNER JOIN a.favoriteUtilisateurs u
+            WHERE u.id = :userId'
+        )->setParameter('userId', $userId);
+
+        return $query->getResult();
+    }*/
 //    /**
 //     * @return Annonce[] Returns an array of Annonce objects
 //     */

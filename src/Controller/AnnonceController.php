@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Controller;
-
+use Geocoder\Query\GeocodeQuery;
+use Geocoder\Provider\GoogleMaps\GoogleMaps;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use App\Repository\CategorieRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,26 +14,31 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UtilisateurRepository;
 use App\Repository\RoleRepository;
-
+use \Symfony\Component\Notifier\ChatterTrait;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 #[Route('/annonce')]
 class AnnonceController extends AbstractController
 {
 
-
     #[Route('/', name: 'app_annonce_index', methods: ['GET'])]
-    public function index(AnnonceRepository $annonceRepository, UtilisateurRepository $utilisateurRepository, RoleRepository $roleRepository): Response
+    public function index(AnnonceRepository $annonceRepository, CategorieRepository  $categorieRepository, UtilisateurRepository $utilisateurRepository, RoleRepository $roleRepository): Response
     {
-        $utilisateur = $utilisateurRepository->find(3);
+        $utilisateur = $utilisateurRepository->find(5);
         $role = $utilisateur->getRoleUser();
         $isDemander = $role->getNomRole() === 'DEMANDEUR';
 
 
         if ($isDemander) {
           //  $annonces = $annonceRepository->findAllByUtilisateur($utilisateur);
+            $categories = $categorieRepository->findAll();
+
             $annonces = $annonceRepository->findAll();
 
             return $this->render('annonce/demandeur_index.html.twig', [
-                'annonce' => $annonces,
+               'categories' => $categories,
+                'annonces' => $annonces,
                 'isDemander' => true
             ]);
         } else {
@@ -39,10 +46,11 @@ class AnnonceController extends AbstractController
 
 
             return $this->render('annonce/index.html.twig', [
-                'annonce' => $annonces,
+                'annonces' => $annonces,
                 'isDemander' => false
             ]);
         }
+
     }
 
 
@@ -112,4 +120,84 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
     }
 
+
+    #[Route('/annonces/categorie/{nomcategorie}', name: 'annonces_by_category')]
+    public function annoncesByCategorie(AnnonceRepository $repository, $nomcategorie): Response
+    {
+        $annonces = $repository->findAnnonceByCategorie($nomcategorie);
+
+        return $this->render('annonce/demandeur_index.html.twig', [
+            'annonces' => $annonces,
+        ]);
+    }
+
+    #[Route('/{idAnnonce}/favorite', name: 'app_annonce_favorite', methods: ['POST'])]
+    public function addToFavorites(Request $request, Annonce $annonces, EntityManagerInterface $entityManager, UtilisateurRepository $utilisateurRepository): Response
+    {
+        $utilisateur = $utilisateurRepository->find(5);
+
+        // Add the current user to the annonce's list of favorite users
+        $annonces->addFavoriteUtilisateur($utilisateur);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Announcement added to favorites.');
+        return $this->redirectToRoute('app_annonce_index');
+    }
+
+
+    #[Route('/{idAnnonce}/favorite', name: 'app_annonce_favorite', methods: ['GET', 'POST'])]
+    public function mesFavoris(AnnonceRepository $annonceRepository, Utilisateur $utilisateur): Response
+    {
+        $favoris = $annonceRepository->findFavoritesByUtilisateur($utilisateur);
+
+        return $this->render('annonce/mes_favoris.html.twig', [
+            'favoris' => $favoris,
+        ]);
+    }
+
+
+
+
+  /*  #[Route("/annonces/{id}/publish", name:'annonces_publish', methods: ['GET', 'POST'])]
+
+    public function publish(Annonce $annonce, NotifierInterface $notifier): Response
+    {
+        $this->send('Annonce published');
+
+        $annonce->setStatus('published');
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->flush();
+
+        // Send a notification to a Slack channel
+        $notification = new Notification('Annonce published', ['chat']);
+        $recipient = new SlackRecipient('#general');
+        $notifier->send($notification, $recipient);
+
+        return $this->redirectToRoute('annonces_show', ['id' => $annonce->getId()]);
+    }
+
+    protected function getChatter(): ChatterInterface
+    {
+        // Use a Slack notifier channel to send messages
+        $recipient = new SlackRecipient('#general');
+        $texter = new SlackTexter('SLACK_WEBHOOK_URL', $recipient);
+
+        return $texter->asChatter();
+    }
+*/
+   /* public function yourActionMethod()
+    {
+        // Instantiate the Geocoder service
+        $geocoder = new GoogleMaps();
+
+        // Geocode an address
+        $result = $geocoder->geocodeQuery(GeocodeQuery::create($societe));
+
+        // Get the latitude and longitude
+        $latitude = $result->first()->getCoordinates()->getLatitude();
+        $longitude = $result->first()->getCoordinates()->getLongitude();
+
+        // Do something with the latitude and longitude
+    }*/
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Categorie;
 use App\Form\CategorieType;
+use App\Repository\AnnonceRepository;
 use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,16 @@ class CategorieController extends AbstractController
             'categories' => $categorieRepository->findAll(),
         ]);
     }
+    #[Route('/find/{nomcategorie}', name: 'app_annonce_find', methods: ['POST'])]
+    public function find(Request $request, AnnonceRepository $annonceRepository, CategorieRepository $categorieRepository,$nomcategorie)
+    {
+        $categories = $categorieRepository->findAll();
 
+        return $this->render('annonce/demandeur_index.html.twig', [
+            'annonces' => $annonceRepository->findAnnonceByCategorie($nomcategorie),
+            'categories' => $categories,
+        ]);
+    }
     #[Route('/new', name: 'app_categorie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CategorieRepository $categorieRepository): Response
     {
