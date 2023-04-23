@@ -19,7 +19,7 @@ class GoogleCalendarController extends AbstractController
         $client = new Google_Client();
         $client->setApplicationName('My Google Calendar App');
         $client->setScopes([Google_Service_Calendar::CALENDAR]);
-        $client->setAuthConfig('client_secret_836230715234-lf5um1v3nl4anj762utg33c225tpbsge.apps.googleusercontent.com.json');
+        $client->setAuthConfig(__DIR__ . '/../../config/client_secret_836230715234-lf5um1v3nl4anj762utg33c225tpbsge.apps.googleusercontent.com.json');
         $client->setAccessType('offline');
 
         // Handle the OAuth 2.0 authorization flow
