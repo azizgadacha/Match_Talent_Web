@@ -4,13 +4,16 @@ namespace App\Entity;
 //use Symfony\Component\Validator\Constraints as Assert;
 //use Symfony\Component\Validator\Constraints\NotBlank;
 //use App\Validator\ValidType;
+//use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Validator\Constraints as CustomAssert;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
-
 class Reclamation
 {
     #[ORM\Id]

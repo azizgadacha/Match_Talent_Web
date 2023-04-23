@@ -1,13 +1,16 @@
 <?php
 
 namespace App\Entity;
+//use ApiPlatform\Metadata\ApiResource;
 //use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\ReponseReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: ReponseReclamationRepository::class)]
-
 class ReponseReclamation
 {
     #[ORM\Id]

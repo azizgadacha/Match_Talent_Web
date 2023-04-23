@@ -5,9 +5,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\NotificationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
+#[ApiResource]
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
-
 class Notification
 {
     #[ORM\Id]
