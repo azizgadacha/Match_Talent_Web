@@ -3,6 +3,9 @@
 {% block title %}Question index{% endblock %}
 
 {% block body %}
+
+
+
    <div class="slider-area gray-bg position-relative">
       <div class="single-slider d-flex align-items-center slider-height2">
          <div class="container">
@@ -30,6 +33,11 @@
          </tr>
       </thead>
       <tbody>
+      <div class="pagination" style="background-color: #222;">
+    {{ knp_pagination_render(questions) }}
+</div>
+
+
          {% for question in questions %}
          <tr>
             <td>{{ question.idQuestion }}</td>
@@ -52,6 +60,7 @@
                </div>
             </td>
          </tr>
+         
          {% else %}
          <tr>
             <td colspan="7">No records found</td>

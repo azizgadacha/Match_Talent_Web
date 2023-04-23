@@ -4,14 +4,16 @@ namespace App\Controller;
 
 use App\Entity\Question;
 use App\Form\QuestionType;
+
 use App\Repository\QuestionRepository;
+
 use App\Repository\QuizRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Snappy\Pdf;
-
+use Knp\Component\Pager\PaginatorInterface;
 use Dompdf\DompdfBundle\DompdfBundle;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -32,11 +34,18 @@ class QuestionController extends AbstractController
     }
 
     #[Route('/', name: 'app_question_index', methods: ['GET'])]
-    public function index(QuestionRepository $questionRepository): Response
+    public function index(QuestionRepository $questionRepository,PaginatorInterface $paginator,Request $request): Response
     {
+        $questions= [];
+        $questions=$questionRepository->findAll();
+
+        // Paginer les résultats
+        $pagination = $paginator->paginate($questions,$request->query->getInt('page', 1),3 );
         return $this->render('question/index.html.twig', [
-            'questions' => $questionRepository->findAll(),
+            'questions' => $pagination,
         ]);
+
+
     }
 
 

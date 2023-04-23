@@ -15,6 +15,28 @@ use App\Repository\QuestionRepository;
 use Knp\Component\Pager\PaginatorInterface;
 
 
+
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
+use CMEN\GoogleChartsBundle\GoogleCharts\Options\ChartOptions;
+
+use CMEN\GoogleChartsBundle\GoogleCharts\Chart;
+use CMEN\GoogleChartsBundle\GoogleCharts\EventType;
+use CMEN\GoogleChartsBundle\GoogleCharts\Options\ChartOptionsInterface;
+use CMEN\GoogleChartsBundle\GoogleCharts\Options\PieChart\PieChartOptions;
+
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\LineChart;
+
+
+
+
+
+
+
+
+
+
+
+
 #[Route('/quiz')]
 class QuizController extends AbstractController
 {
@@ -123,12 +145,38 @@ class QuizController extends AbstractController
     
             // Calculer le pourcentage de bonnes réponses
             $pourcentage = ($score / count($questions)) * 100;
-    
+
+            // Créer un nouvel objet PieChart
+            $chart = new PieChart();
+            
+            // Ajouter les données au graphique à partir d'un tableau en PHP
+            $chart->getData()->setArrayToDataTable([
+            ['Question', 'Pourcentage'],
+            ['Bonnes Réponses', $score],
+            ['Mauvaises Réponses', count($questions) - $score]
+            ]);
+
+// Définir les options du graphique
+$chart->getOptions()->setTitle('Répartition des bonnes et mauvaises réponses');
+$chart->getOptions()->getTitleTextStyle()->setColor('#000000'); // Noir
+$chart->getOptions()->getTitleTextStyle()->setBold(true);
+$chart->getOptions()->getTitleTextStyle()->setItalic(true);
+$chart->getOptions()->getTitleTextStyle()->setFontName('Arial');
+$chart->getOptions()->getTitleTextStyle()->setFontSize(20);
+$chart->getOptions()->getLegend()->getTextStyle()->setColor('#000000'); // Noir
+$chart->getOptions()->setHeight(300);
+$chart->getOptions()->setWidth(600);
+$chart->getOptions()->setBackgroundColor('#FFFFFF'); // Blanc
+$chart->getOptions()->setColors(['#FFA07A', '#90EE90']); // Couleurs plus claires pour les bonnes et mauvaises réponses
+
+
+
             // Renvoyer le score sous forme de pourcentage dans un template Twig
             return $this->render('quiz/score.html.twig', [
                 'score' => $pourcentage,
                 'totalQuestions' => count($questions),
-                'quiz' => $quiz
+                'quiz' => $quiz,
+                'chart' => $chart
             ]);
         }
     
