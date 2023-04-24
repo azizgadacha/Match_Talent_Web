@@ -39,7 +39,7 @@ class CandidatureController extends AbstractController
 
     {
 
-
+echo 'hhhhhh';
         return $this->render('candidature/index.html.twig', [
             'candidatures' => $candidatureRepository->getCandidatureForAnnonce(),
         ]);

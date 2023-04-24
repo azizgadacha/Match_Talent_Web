@@ -25,20 +25,20 @@ class PDFController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractC
 {
 
     // Configure Dompdf according to your needs
-    $pdfOptions = new Options();
-    $pdfOptions->set('defaultFont', 'Arial');
+
+    //$pdfOptions->set('defaultFont', 'Arial');
 
     // Configure Dompdf according to your needs
-    $pdfOptions = new Options();
-    $pdfOptions->set('defaultFont', 'Arial');
+    $options = new Options();
+    $options->set('isRemoteEnabled', true);
 
     // Instantiate Dompdf with our options
-    $dompdf = new Dompdf($pdfOptions);
+    $dompdf = new Dompdf($options);
 
     $candidature = $candidatureRepository->findAll();
 
     // Retrieve the HTML generated in our twig file
-    $html = $this->renderView('academie/pdfCandidature.html.twig', [
+    $html = $this->renderView('candidature/pdfCandidature.html.twig', [
         'candidatures' => $candidature
     ]);
 
@@ -52,6 +52,7 @@ class PDFController extends \Symfony\Bundle\FrameworkBundle\Controller\AbstractC
     $dompdf->stream("MyList.pdf", [
         "Attachment" => false
     ]);
+    $dompdf->output();
 
     return new Response('success');
 
