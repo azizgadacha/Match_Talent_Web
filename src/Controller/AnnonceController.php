@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UtilisateurRepository;
 use App\Repository\RoleRepository;
 use \Symfony\Component\Notifier\ChatterTrait;
+use Twig\Environment;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
@@ -22,6 +23,12 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 class AnnonceController extends AbstractController
 {
 
+    private $twig;
+
+    public function __construct(Environment $twig)
+    {
+        $this->twig = $twig;
+    }
     #[Route('/', name: 'app_annonce_index', methods: ['GET'])]
     public function index(AnnonceRepository $annonceRepository, CategorieRepository  $categorieRepository, UtilisateurRepository $utilisateurRepository, RoleRepository $roleRepository): Response
     {
@@ -55,7 +62,20 @@ class AnnonceController extends AbstractController
 
 
 
+    #[Route('/ByTitre', name: 'app_listt', methods: ['GET', 'POST'])]
+    public function ByTitree(Request $request, AnnonceRepository $annonceRepository)
+    {
+        // Default order is ASC if not provided
+        $order = $request->query->get('order', 'ASC');
 
+        // Query the annonce data from the database and sort it based on the order
+        $annonces = $this->getDoctrine()->getRepository(Annonce::class)->findByTitreAlphabetically($order);
+
+        // Render the sorted annonce data to a Twig template
+        $html = $this->twig->render('annonce/tri.html.twig', ['annonces' => $annonces]);
+
+        return new Response($html);
+    }
 
 
     #[Route('/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
@@ -130,6 +150,9 @@ class AnnonceController extends AbstractController
             'annonces' => $annonces,
         ]);
     }
+
+
+
 
     #[Route('/{idAnnonce}/favorite', name: 'app_annonce_favorite', methods: ['POST'])]
     public function addToFavorites(Request $request, Annonce $annonces, EntityManagerInterface $entityManager, UtilisateurRepository $utilisateurRepository): Response

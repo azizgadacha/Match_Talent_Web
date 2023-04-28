@@ -57,19 +57,37 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-  /*  public function findFavoritesByUser($userId)
+    /*public function findByTitre(string $order = 'ASC')
     {
-        $entityManager = $this->getEntityManager();
+        $qb = $this->createQueryBuilder('a')
+            ->orderBy('a.titre', $order);
 
-        $query = $entityManager->createQuery(
-            'SELECT a
-            FROM App\Entity\Annonce a
-            INNER JOIN a.favoriteUtilisateurs u
-            WHERE u.id = :userId'
-        )->setParameter('userId', $userId);
-
-        return $query->getResult();
+        return $qb->getQuery()->getResult();
     }*/
+
+    public function findByTitreAlphabetically(string $order = 'ASC')
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->orderBy('a.titre', $order);
+            //->addOrderBy('a.titre', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    /*  public function findFavoritesByUser($userId)
+      {
+          $entityManager = $this->getEntityManager();
+
+          $query = $entityManager->createQuery(
+              'SELECT a
+              FROM App\Entity\Annonce a
+              INNER JOIN a.favoriteUtilisateurs u
+              WHERE u.id = :userId'
+          )->setParameter('userId', $userId);
+
+          return $query->getResult();
+      }*/
 //    /**
 //     * @return Annonce[] Returns an array of Annonce objects
 //     */
