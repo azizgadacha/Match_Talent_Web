@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postulation index{% endblock %}
+
+{% block body %}
+    <br><br><br><br><br><br><br>
+    <h1 style="text-align: center !important;">Mes postulations</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Annonce</th>
+            <th>Nom Societe</th>
+            <th>Etat</th>
+            <th>Date</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for postulation in postulations %}
+            <tr>
+                <td>{{postulation.annoncePostulation.titre }}</td>
+                <td>{{postulation.annoncePostulation.nomSocieté }}</td>
+                <td>{{ postulation.etat }}</td>
+                <td>{{ postulation.date ? postulation.date|date('Y-m-d') : '' }}</td>
+                {% if postulation.etat == "en cours" %}
+                    <td><a href="{{ path('deletepost', {'id': postulation.id}) }}" class="boxed-btn3">Delete</a></td>
+                {% else %}{% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}File index{% endblock %}
+
+{% block body %}
+    <main>
+
+
+
+
+      <section class="job-category section-padding">
+            <div class="container">
+
+
+                <div class="row">
+                        {% for file in files %}
+                        <div class="single-cat">
+                            <div class="cat-icon">
+                                <img src="{{asset('assets/img/icon/top-cat1.svg')}}" alt="">
+                            </div>
+                            <div class="cat-cap">
+                                <h5><a href="#">Files</a></h5>
+                                <p>{{ file.namecv }}</p>
+                                <p>{{ file.namedeplome }}</p>
+                                <p>{{ file.namemotivation }}</p>
+                                <a href="{{ path('deletefile', {'id': file.idFile}) }}" class="boxed-btn3">Delete</a>
+                                <a href="{{ path('app_file_edit', {'idFile': file.idFile}) }}" class="boxed-btn3">edit</a>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+    </main>
+{% endblock %}

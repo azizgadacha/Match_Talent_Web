@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postulation{% endblock %}
+
+{% block body %}
+    <h1>Postulation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Etat</th>
+                <td>{{ postulation.etat }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ postulation.date ? postulation.date|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_postulation_index') }}">back to list</a>
+
+    <a href="{{ path('app_postulation_edit', {'annoncePostulation': postulation.annoncePostulation}) }}">edit</a>
+
+    {{ include('postulation/_delete_form.html.twig') }}
+{% endblock %}

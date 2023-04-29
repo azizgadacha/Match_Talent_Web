@@ -30,6 +30,18 @@ class PostulationRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function getPostulationStatisticsByAnnonce()
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->select('a.titre as annonce, count(p.id) as count')
+            ->join('p.annoncePostulation', 'a')
+            ->groupBy('a.idAnnonce')
+            ->getQuery();
+
+        return $qb->getResult();
+    }
+
     public function remove(Postulation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

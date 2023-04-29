@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}File index{% endblock %}
+
+{% block body %}
+    <main>
+
+
+
+
+        <section class="job-category section-padding">
+            <div class="container">
+
+
+                <div class="row">
+                        {% for abb in annonce %}
+                            <div class="single-cat">
+                                <div class="cat-icon">
+                                    <img src="{{asset('assets/img/icon/top-cat1.svg')}}" alt="">
+                                </div>
+                                <div class="cat-cap">
+                                    <h5><a href="#">Annonce</a></h5>
+                                    <p>Titre:{{ abb.titre}}</p>
+                                    <p>{{ abb.nomSocieté }}</p>
+                                    <a href="{{ path('app_postulation_new', {'idAnnonce': abb.idAnnonce}) }}" class="boxed-btn3">Postuler</a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+
+    </main>
+{% endblock %}
