@@ -1,23 +1,40 @@
 <?php
 
 namespace App\Form;
-
+use Symfony\Component\Validator\Constraints\NotBlank;
 use App\Entity\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+
 
 class FileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('cv')
-            ->add('deplome')
-           ->add('lettermotivation')
-            ->add('namecv')
-            ->add('namedeplome')
-            ->add('namemotivation')
+            ->add('filemtivation', null, [
+        'constraints' => [
+            new NotBlank([
+                'message' => 'Ce champ est obligatoire'
+            ])
+        ]
+    ])
+            ->add('filecv', null, [
+        'constraints' => [
+            new NotBlank([
+                'message' => 'Ce champ est obligatoire'
+            ])
+        ]
+    ])
+            ->add('filedeplome', null, [
+        'constraints' => [
+            new NotBlank([
+                'message' => 'Ce champ est obligatoire'
+            ])
+        ]
+    ])
           //  ->add('userFile')
         ;
     }

@@ -6,7 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 #[ORM\Entity(repositoryClass: FileRepository::class)]
 
 class File
@@ -34,7 +35,7 @@ class File
     #[ORM\Column(length: 255)]
     private ?string $namemotivation = null;
 
-    #[ORM\OneToOne(inversedBy:'file',cascade: ['persist','remove'] )]
+    #[ORM\OneToOne(inversedBy:'file')]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
     private ?Utilisateur $userFile;
@@ -164,5 +165,146 @@ class File
 
         return $this;
     }
+
+
+    /**
+     * @Assert\File(maxSize="500000000k")
+     */
+    public  $filecv;
+
+
+    /**
+     * @Assert\File(maxSize="500000000k")
+     */
+    public  $filedeplome;
+
+
+    /**
+     * @Assert\File(maxSize="500000000k")
+     */
+    public  $filemtivation;
+
+
+    /**
+     * @return mixed
+     */
+    public function getFilecv()
+    {
+        return $this->filecv;
+    }
+
+    /**
+     * @param mixed $filecv
+     */
+    public function setFilecv($filecv): void
+    {
+        $this->filecv = $filecv;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFiledeplome()
+    {
+        return $this->filedeplome;
+    }
+
+    /**
+     * @param mixed $filedeplome
+     */
+    public function setFiledeplome($filedeplome): void
+    {
+        $this->filedeplome = $filedeplome;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFilemtivation()
+    {
+        return $this->filemtivation;
+    }
+
+    /**
+     * @param mixed $filemtivation
+     */
+    public function setFilemtivation($filemtivation): void
+    {
+        $this->filemtivation = $filemtivation;
+    }
+
+
+
+
+    protected  function  getUploadRootDir(){
+
+        return __DIR__.'/../../public/Upload'.$this->getUploadDir();
+    }
+    protected function getUploadDir(){
+
+        return'';
+    }
+
+    public function getUploadFileCv(){
+        if (null === $this->getFilecv()) {
+            $this->namecv = "3.jpg";
+            return;
+        }
+
+
+        $this->getFilecv()->move(
+            $this->getUploadRootDir(),
+            $this->getFilecv()->getClientOriginalName()
+
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->namecv = $this->getFilecv()->getClientOriginalName();
+
+        // clean up the file property as you won't need it anymore
+        $this->filecv = null;
+    }
+
+
+    public function getUploadFileDeplome(){
+        if (null === $this->getFiledeplome()) {
+            $this->namedeplome = "3.jpg";
+            return;
+        }
+
+
+        $this->getFiledeplome()->move(
+            $this->getUploadRootDir(),
+            $this->getFiledeplome()->getClientOriginalName()
+
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->namedeplome = $this->getFiledeplome()->getClientOriginalName();
+
+        // clean up the file property as you won't need it anymore
+        $this->filedeplome = null;
+    }
+
+    public function getUploadFileMotivation(){
+        if (null === $this->getFilemtivation()) {
+            $this->namemotivation = "3.jpg";
+            return;
+        }
+
+
+        $this->getFilemtivation()->move(
+            $this->getUploadRootDir(),
+            $this->getFilemtivation()->getClientOriginalName()
+
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->namemotivation = $this->getFilemtivation()->getClientOriginalName();
+
+        // clean up the file property as you won't need it anymore
+        $this->filemtivation = null;
+    }
+
 
 }

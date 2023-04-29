@@ -15,12 +15,53 @@
             <div class="col-lg-8">
 
                 <div class="apply_job_form white-bg">
-                    <h4>Apply for the job</h4>
+                    <h4>Ajouter votre Files</h4>
 
                     <div class="row">
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
-    {{ include('file/_form.html.twig') }}
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button" id="inputGroupFileAddon03">
+                                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <div class="custom-file">
+                                    {{ form_widget(form.filecv) }}
+                                    {{ form_errors(form.filecv) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button" id="inputGroupFileAddon03">
+                                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <div class="custom-file">
+                                    {{ form_widget(form.filedeplome) }}
+                                    {{ form_errors(form.filedeplome) }}  
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="button" id="inputGroupFileAddon03">
+                                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                                <div class="custom-file">
+                                    {{ form_widget(form.filemtivation) }}
+                                    {{ form_errors(form.filemtivation) }}
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-outline-primary w-100 m-2" formnovalidate>Créer</button>
 
+                        {{ form_end(form) }}
                     </div>
 
                 </div>
@@ -30,5 +71,4 @@
     </div>
 </div>
 
-    <a href="{{ path('app_file_index') }}">back to list</a>
 {% endblock %}

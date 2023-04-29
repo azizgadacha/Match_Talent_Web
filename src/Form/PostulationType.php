@@ -13,7 +13,7 @@ class PostulationType extends AbstractType
     {
         $builder
             ->add('etat')
-            ->add('date')
+          //  ->add('date')
        //     ->add('annoncePostulation')
         //    ->add('userPostulation')
            // ->add('fileAssocier')

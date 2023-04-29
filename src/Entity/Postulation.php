@@ -8,8 +8,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PostulationRepository::class)]
 
-class Postulation
+class
+Postulation
 {
+
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private $id;
 
     #[ORM\Column(length: 50)]
     private ?string $etat = null;
@@ -21,14 +27,14 @@ class Postulation
 
 
 
-    #[ORM\Id]
+
 
     #[ORM\ManyToOne(inversedBy:'listePostulationInAnnonce' )]
     #[ORM\JoinColumn(name: 'id_annonce', referencedColumnName: 'id_annonce')]
 
     private ?Annonce $annoncePostulation;
 
-    #[ORM\Id]
+
 
     #[ORM\ManyToOne(inversedBy:'listePostulationInUser' )]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
@@ -40,6 +46,12 @@ class Postulation
     #[ORM\JoinColumn(name: 'id_file', referencedColumnName: 'id_file')]
 
     private ?File $fileAssocier;
+
+
+    public function __construst()
+    {
+        $this->date=new \DateTime();
+    }
 
     public function getEtat(): ?string
     {
@@ -99,6 +111,14 @@ class Postulation
         $this->fileAssocier = $fileAssocier;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
 

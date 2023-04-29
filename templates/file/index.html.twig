@@ -13,7 +13,6 @@
 
 
                 <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6">
                         {% for file in files %}
                         <div class="single-cat">
                             <div class="cat-icon">
@@ -22,7 +21,9 @@
                             <div class="cat-cap">
                                 <h5><a href="#">Files</a></h5>
                                 <p>{{ file.namecv }}</p>
-                                <a href="{{ path('app_file_show', {'idFile': file.idFile}) }}" class="boxed-btn3">show</a>
+                                <p>{{ file.namedeplome }}</p>
+                                <p>{{ file.namemotivation }}</p>
+                                <a href="{{ path('deletefile', {'id': file.idFile}) }}" class="boxed-btn3">Delete</a>
                                 <a href="{{ path('app_file_edit', {'idFile': file.idFile}) }}" class="boxed-btn3">edit</a>
                             </div>
                         </div>
@@ -38,6 +39,6 @@
 
 
 
-    <a href="{{ path('app_file_new') }}" class="boxed-btn3">Create new</a>
+
     </main>
 {% endblock %}

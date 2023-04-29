@@ -3,69 +3,36 @@
 {% block title %}Postulation index{% endblock %}
 
 {% block body %}
-<main>
-    <div class="job_details_area section-bg2">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
+    <br><br><br><br><br><br><br>
+    <h1 style="text-align: center !important;">Mes postulations</h1>
 
-                <div class="apply_job_form white-bg">
-                    <h4>Apply for the job</h4>
-                    <form action="#">
-                        <div class="row">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Annonce</th>
+            <th>Nom Societe</th>
+            <th>Etat</th>
+            <th>Date</th>
+            <th>actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for postulation in postulations %}
+            <tr>
+                <td>{{postulation.annoncePostulation.titre }}</td>
+                <td>{{postulation.annoncePostulation.nomSocieté }}</td>
+                <td>{{ postulation.etat }}</td>
+                <td>{{ postulation.date ? postulation.date|date('Y-m-d') : '' }}</td>
+                {% if postulation.etat == "en cours" %}
+                    <td><a href="{{ path('deletepost', {'id': postulation.id}) }}" class="boxed-btn3">Delete</a></td>
+                {% else %}{% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <button type="button" id="inputGroupFileAddon03">
-                                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
-                                        <label class="custom-file-label" for="inputGroupFile03">Upload CV</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <button type="button" id="inputGroupFileAddon03">
-                                            <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
-                                        <label class="custom-file-label" for="inputGroupFile03">Upload Diplome</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <button type="button" id="inputGroupFileAddon03">
-                                            <i class="fassy fa-cloud-upload-alt" aria-hidden="true"></i>
-                                        </button>
-                                    </div>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="inputGroupFile03" aria-describedby="inputGroupFileAddon03">
-                                        <label class="custom-file-label" for="inputGroupFile03">Upload Lettre de motivation</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="submit_btn">
-                                    <button class="boxed-btn3 w-100" type="submit">Apply Now</button>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    </div>
-</main>
 {% endblock %}

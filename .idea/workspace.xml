@@ -1,15 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="MessDetectorOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="PHPCSFixerOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="ChangeListManager">
+    <list default="true" id="1341d750-8633-4a3c-a8aa-fdf9c37d79bc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Match_Talent_Web.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/light_user_list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/postulation/annoce.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/postulation/chart.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/postulation/email.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/postulation/indexBackOffice.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Web_MatchTalent.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20230320230744.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CandidatureController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CandidatureController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/FileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FileController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PostulationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PostulationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/File.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/File.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Postulation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Postulation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/FileType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/FileType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/PostulationType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/PostulationType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PostulationRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PostulationRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base1.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base1.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/file/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/file/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/file/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/file/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/file/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/file/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/postulation/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/postulation/index.html.twig" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="PHPCodeSnifferOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
-  <component name="PhpIncludePathManager">
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/property-info" />
       <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
@@ -149,16 +193,57 @@
       <path value="$PROJECT_DIR$/vendor/symfony/amqp-messenger" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />
-  <component name="PhpStanOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="ProjectId" id="2OVwUDCh0zqSrkZ5gMufqkJBVY8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PhpUnit">
-    <phpunit_settings>
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/phpunit.xml.dist" custom_loader_path="$PROJECT_DIR$/vendor/autoload.php" use_configuration_file="true" />
-    </phpunit_settings>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/istab/Desktop/final/Match_Talent_Web&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Abderrazekbenhamouda\Desktop\stabrek\Match_Talent_Web\templates\postulation" />
+    </key>
   </component>
-  <component name="PsalmOptionsConfiguration">
-    <option name="transferred" value="true" />
+  <component name="RunManager">
+    <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1341d750-8633-4a3c-a8aa-fdf9c37d79bc" name="Changes" comment="" />
+      <created>1681659070742</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681659070742</updated>
+      <workItem from="1681659072555" duration="11744000" />
+      <workItem from="1682121497703" duration="171000" />
+      <workItem from="1682122429137" duration="733000" />
+      <workItem from="1682212685087" duration="12183000" />
+      <workItem from="1682287053661" duration="8681000" />
+      <workItem from="1682300769444" duration="10056000" />
+      <workItem from="1682776689793" duration="1653000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

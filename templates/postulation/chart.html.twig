@@ -1,0 +1,33 @@
+{% extends 'base1.html.twig' %}
+
+
+{% block title %}Liste des Postulations {% endblock %}
+
+{% block body %}
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6" >
+                <div class="card" >
+
+                    <div class="card-body">
+                        <h5 class="card-title">Distribution des utilisateurs par role</h5>
+
+                        <!-- Pie Chart -->
+                        <div id="my">
+                        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                        <script type="text/javascript">
+                            {{ gc_draw(piechart, 'my') }}
+                        </script>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    </section>
+{% endblock %}
+

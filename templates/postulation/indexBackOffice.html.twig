@@ -1,0 +1,72 @@
+{% extends 'base1.html.twig' %}
+
+
+{% block title %}Liste des Postulations {% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+    <script src="//code.jquery.com/jquery.js"></script>
+    <!-- Load Flashy default JavaScript -->
+    <script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+    <!-- Include Flashy default partial -->
+    {{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#rech tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+    <h2 style="text-align: center !important;">Liste des Postulations</h2><br><br>
+    <input class="form-control" id="myInput" type="text" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>User</th>
+            <th>Annoce</th>
+            <th>Etat</th>
+            <th>Date</th>
+            <th>Cv</th>
+            <th>Deplome</th>
+            <th>Lettre Motivation</th>
+            <th>Action</th>
+
+            {#  <th>actions</th> #}
+        </tr>
+        </thead>
+        <tbody id="rech">
+        {% for postulation in postulations %}
+            <tr>
+                <td>{{ postulation.userPostulation.username }}</td>
+                <td>{{postulation.annoncePostulation.titre }}</td>
+                <td>{{ postulation.etat }}</td>
+                <td>{{ postulation.date ? postulation.date|date('Y-m-d') : '' }}</td>
+                <td><a href="{{ asset('Upload/')}}{{ postulation.fileAssocier.namecv  }}">{{ postulation.fileAssocier.namecv }}</a></td>
+                <td><a href="{{ asset('Upload/')}}{{ postulation.fileAssocier.namedeplome  }}">{{ postulation.fileAssocier.namedeplome }}</a></td>
+                <td><a href="{{ asset('Upload/')}}{{ postulation.fileAssocier.namemotivation  }}">{{ postulation.fileAssocier.namemotivation }}</a></td>
+                {% if postulation.etat == "en cours" %}
+                <td>
+                    <a href="{{ path('accepter', {'id': postulation.id}) }}" class="btn btn-secondary">Accepter</a>
+                    <a href="{{ path('refuser', {'id': postulation.id}) }}" class="btn btn-danger">Refuser</a>
+
+                </td>
+                {% else %}{% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    {{ knp_pagination_render(postulations) }}
+
+{% endblock %}
+
