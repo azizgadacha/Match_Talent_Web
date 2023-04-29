@@ -1,0 +1,11 @@
+{# templates/google_calendar/index.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>My Google Calendar Events</h1>
+    <ul>
+        {% for event in events %}
+            <li>{{ event.summary }} ({{ event.start.dateTime|date('m/d/Y h:i A') }} - {{ event.end.dateTime|date('m/d/Y h:i A') }})</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

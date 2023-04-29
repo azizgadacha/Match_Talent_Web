@@ -1,0 +1,39 @@
+{% if pageCount > 1 %}
+    <ul class="pagination justify-content-center mb-0">{# style = 'pagination justify-content-center mb-0' #}
+        {% if current >= 1 %}
+
+            <li class="page-item"><a class="page-link" href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a></li>
+            {% if current > 3 %}
+
+
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+        {% endif %}
+
+        {% for page in 2..pageCount %}
+            {% if page == current %}
+
+
+                <li class="page-item active"><span class="page-link">{{ page }}</span></li>
+            {% elseif page in 1..2 or page in pageCount-1..pageCount %}
+
+
+                <li class="page-item"><a class="page-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a></li>
+            {% elseif current-page == 2 %}
+
+
+                <li class="page-item"><a class="page-link" href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if current < pageCount %}
+
+
+            {% if current < pageCount-2 %}
+
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+{#            <li class="page-item"><a class="page-link" href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a></li>#}
+        {% endif %}
+    </ul>
+{% endif %}

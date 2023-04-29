@@ -5,8 +5,74 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="976da86d-eb2a-4a0a-9891-13f016b2b6f9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/config/client_secret_836230715234-lf5um1v3nl4anj762utg33c225tpbsge.apps.googleusercontent.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/client_secret_836230715234-lf5um1v3nl4anj762utg33c225tpbsge.apps.googleusercontent.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/endroid_qr_code.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/routes/client_secret_836230715234-lf5um1v3nl4anj762utg33c225tpbsge.apps.googleusercontent.com.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/routes/endroid_qr_code.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446282c0f3fb.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462953db133.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644629c2aabd1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462d7857ce8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462e1bd2db5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462ecb07abd.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462fbaf3817.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644634118bf19.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446357f9e539.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446374e686af.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644637e8f2957.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446380d58f91.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446383f3768a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64463899c928c.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64463962b6983.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64463a93b4c7d.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64463abe98ef4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644641077885b.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64464225f20e9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446431d4be5f.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446435fbd687.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446441d8407a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446448ddf9d1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644644ac5a128.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446465fc1295.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64464c94b5dca.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64464ca8882a3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/css/MailTempletcss.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/image-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/image-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/img/image-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/GoogleCalendarController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/PDFController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/client_secret.json.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/QR_code_generator_api.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/BackOffice/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/PDFBase.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/candidature/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/candidature/pdfCandidature.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/google_calendar/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/rendez_vous/Mail.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/rendez_vous/Pagination.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/rendez_vous/pdfRendez_vous.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Match_Talent_Web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Match_Talent_Web.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/elements.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/elements.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CandidatureController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CandidatureController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/IndexController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RendezVousController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RendezVousController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CandidatureRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CandidatureRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/RendezVousRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/RendezVousRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/candidature/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/candidature/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/rendez_vous/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rendez_vous/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

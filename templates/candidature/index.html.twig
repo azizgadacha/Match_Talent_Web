@@ -17,9 +17,18 @@
             </div>
         </div>
     </div>
+{#   <form class="pull-right hidden" role="search" id="nav-search-form" method="post" action="{{ path('_search') }}">#}
+{#        <div class="input-group">#}
+{#            <input type="text" class="form-control" placeholder="Search" name ="search">#}
+{#            <span class="input-group-btn">#}
+{#            <button type="submit" class="btn btn-default"></button>#}
+{#          </span>#}
+{#        </div>#}
+{#    </form>#}
     <div class="featured_candidates_area section-bg2 candidate_page_padding">
         <div class="container">
-
+            <input id="searchbar" onkeyup="search_academie()" type="text"
+                   name="search" placeholder="Search ..">
     <div class="container mt-3 mb-4">
         <div class="col-lg-9 mt-4 mt-lg-0">
             <div class="row">
@@ -28,8 +37,8 @@
                         <table class="table manage-candidates-top mb-0">
                             <thead>
                             <tr>
-                                <th>Nom</th>
-                                <th class="text-center">Note</th>
+                                <th><a style="color: black" href="{{path("app_candidature_index_trie_nom")}}">Note</a></th>
+                                <th class="text-center"> <a style="color: black" href="{{path("app_candidature_index_trie")}}">Note</a></th>
                                 <th class="action text-right">Action</th>
                             </tr>
                             </thead>
@@ -45,7 +54,7 @@
                                     <div class="candidate-list-details">
                                         <div class="candidate-list-info">
                                             <div class="candidate-list-title">
-                                                <h5 class="mb-0"><a href="#">{{ candidature.utilisateurAssocier.username }}</a></h5>
+                                                <h5 class="mb-0"><a href="#" class="inexing">{{ candidature.utilisateurAssocier.username }}</a></h5>
                                             </div>
                                             <div class="candidate-list-option">
                                                 <ul class="list-unstyled">
@@ -68,13 +77,8 @@
                                             </button>
                                             </form>
                                         </li>
-{#                                        <li>      <a href="{{ path('app_candidature_delete', {'idCandidature': candidature.idCandidature}) }}" class="text-danger" data-toggle="modal" data-target="#deleteModal">Open Modalsss</a></li>#}
 
                                         <li><a href="{{ path('app_rendez_vous_new', {'idCandidature': candidature.idCandidature}) }}" class="text-success"   data-original-title="add"><i class="fa fa-check" aria-hidden="true"></i></a></li>
-{#                                        <a href="#" data-toggle="modal" data-target="#myModal" onclick="setSecondVariable('{{ candidature.utilisateurAssocier.username  }}',{{ candidature.utilisateurAssocier.id  }})">Open Modal</a>#}
-{#                                        <li><a id="delete-candidature" href="#" data-candidature-id="{{ candidature.idCandidature }}">Delete Candidatursse</a></li>#}
-{#                                        <a href="#" id="open-delete-modal" data-candidature-id="{{ candidature.idCandidature }}">Open Modal</a>#}
-
 
                                     </ul>
                                 </td>
@@ -100,6 +104,7 @@
                             </ul>
                         </div>-->
                     </div>
+                    <a href="{{path("pdf_generater")}}" class="genric-btn primary circle text-right mt-3" style=" position: absolute;right: 0;">Generate PDF</a>
                 </div>
             </div>
         </div>
@@ -151,49 +156,37 @@
         </div>
     </div>
 
-    <script>
-        function openDeleteModal(id) {
-            var deleteForm = document.getElementById('deleteForm');
-            var modal = document.getElementById('deleteModal');
-            var deleteButton = document.getElementById('deleteButton');
 
-            deleteForm.action = "{{ path('app_candidature_delete', {'idCandidature': 0}) }}".replace('0', id);
-            deleteButton.href = deleteForm.action;
+        <script>
+            // JavaScript code
+            function search_academie() {
+            let input = document.getElementById('searchbar').value
+            input=input.toLowerCase();
+            let x = document.getElementsByClassName('inexing');
+            console.log("ffff"+input);
 
-            $(modal).modal('show');
+            for (i = 0; i < x.length; i++) {
+            console.log("kkk"+x[i].innerHTML.toLowerCase());
+            console.log("bbbbbb "+x[i].length)
+            if (!x[i].innerHTML.toLowerCase().includes(input)) {
+            console.log('ena lina bb')
+            console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode)
+            x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display="none";
         }
-    </script>
+            else {
+            console.log('ena lina 3asfour b')
+            console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode)
+            console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)
+            console.log      (   (x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)===("none"))
+            if((x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)===("none")){
+            console.log("rrrrrrr");
+            console.log("ffffff "+i);
 
-
-
-
-
-
-
-    <script>
-        var modaldeleteId=0
-        function setSecondVariable(value,value2) {
-            // Set the value of the second variable to the value of the first variable
-            var secondVariable = document.getElementById('test');
-            console.log("aaaaaaaa")
-            console.log(secondVariable)
-            console.log(value)
-            secondVariable.innerHTML = value;
-            const id = 123; // your JavaScript variable
-
-            const form = document.getElementById("form");
-            form.action = "{{ path('app_candidature_delete', {'idCandidature': 'PLACEHOLDER'}) }}".replace("PLACEHOLDER", value2);
-
-
+            //console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)
+            (x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display="")
         }
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('[data-toggle="modal"]').click(function() {
-                var target = $(this).data('target');
-                $(target).modal('show');
-            });
-        });
+        }}}
+
     </script>
 
 {#    {% for candidature in candidatures %}#}

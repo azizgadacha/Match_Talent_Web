@@ -26,6 +26,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="container">
+
+                                <input id="searchbar" onkeyup="search_academie()" type="text"
+                                       name="search" placeholder="Search ..">
                                 <div class="row justify-content-center">
                                     <div class="col-md-12">
                             <div class="user-dashboard-info-box table-responsive mb-0 bg-white p-4 shadow-sm">
@@ -39,7 +42,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="candidatures-table-body">
-                                    {% for rendez_vous in rendez_vouses %}
+                                    {% for rendez_vous in pagination %}
 
 
                                         <tr class="candidates-list">
@@ -50,7 +53,7 @@
                                                 <div class="candidate-list-details">
                                                     <div class="candidate-list-info">
                                                         <div class="candidate-list-title">
-                                                            <h5 class="mb-0"><a href="#">{{ rendez_vous.userRendezVous.username }}</a></h5>
+                                                            <h5 class="mb-0"><a href="#" class="inexing">{{ rendez_vous.userRendezVous.username }}</a></h5>
                                                         </div>
                                                         <div class="candidate-list-option">
                                                             <ul class="list-unstyled">
@@ -90,7 +93,9 @@
                                     </tbody>
 
                                 </table>
-                            
+
+
+                                <div class="align-center"> {{ knp_pagination_render(pagination, 'rendez_vous/Pagination.html.twig') }}</div>
                             </div>
                                     </div>
                                 </div>
@@ -102,5 +107,43 @@
             
         </div>
     </div>
+    <script>
 
+        // JavaScript code
+        function search_academie() {
+            let input = document.getElementById('searchbar').value
+            input=input.toLowerCase();
+            let x = document.getElementsByClassName('inexing');
+console.log("ffff"+input);
+
+            for (i = 0; i < x.length; i++) {
+                console.log("kkk"+x[i].innerHTML.toLowerCase());
+console.log("bbbbbb "+x[i].length)
+                if (!x[i].innerHTML.toLowerCase().includes(input)) {
+                    console.log('ena lina bb')
+console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode)
+                    x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display="none";
+                }
+                else {
+                    console.log('ena lina 3asfour b')
+                    console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode)
+                    console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)
+                      console.log      (   (x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)===("none"))
+                    if((x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)===("none")){
+    console.log("rrrrrrr");
+    console.log("ffffff "+i);
+
+                            //console.log(x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display)
+    (x[i].parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.style.display="")
+}
+
+
+
+                }
+            }
+        }
+
+
+
+    </script>
 {% endblock %}

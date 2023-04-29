@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Controller;
-//use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Entity\Candidature;
 use App\Entity\Postulation;
@@ -18,28 +19,45 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('sy')]
 class CandidatureController extends AbstractController
 {
+    public function __construct(MailerInterface $mailer) {
+        $this->mailer = $mailer;
+    }
+
+
+   /* public function searchAction(Request $request,CandidatureRepository $candidatureRepository){
+        $data= $request->query->get('search');
+
+        //$query = $em->createQuery(*
+           $res= $candidatureRepository->getCandidatureForAnnonceSearch($data);
+
+
+        return $this->render('FooTransBundle:Default:search.html.twig', array(
+            'res' => $res));}*/
+
     #[Route('/', name: 'app_candidature_index', methods: ['GET'])]
-    public function index(CandidatureRepository $candidatureRepository,//MailerInterface $mailer
-    ): Response
+    public function index(CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
 
     {
-        /*$email = (new Email())
-            ->from('validation.message@gmail.com')
-            ->to('aziz.gadacha@esprit.tn')
-            //->cc('cc@example.com')
-            //->bcc('bcc@example.com')
-            //->replyTo('fabien@example.com')
-            //->priority(Email::PRIORITY_HIGH)
-            ->subject('Time for Symfony Mailer!')
-            ->text('Sending emails is fun again!')
-            ->html('<p>See Twig integration for better HTML integration!</p>');
 
-        $mailer->send($email);
-*/
-        // ...
 
         return $this->render('candidature/index.html.twig', [
             'candidatures' => $candidatureRepository->getCandidatureForAnnonce(),
+        ]);
+    }
+    #[Route('/trieNote', name: 'app_candidature_index_trie', methods: ['GET'])]
+    public function indextrie(CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
+
+    {
+        return $this->render('candidature/index.html.twig', [
+            'candidatures' => $candidatureRepository->gettrie(),
+        ]);
+    }
+    #[Route('/trieNom', name: 'app_candidature_index_trie_nom', methods: ['GET'])]
+    public function indextrieNom(CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
+
+    {
+        return $this->render('candidature/index.html.twig', [
+            'candidatures' => $candidatureRepository->gettrieNom(),
         ]);
     }
     #[Route('/admin', name: 'app_candidature_index_admin', methods: ['GET'])]
