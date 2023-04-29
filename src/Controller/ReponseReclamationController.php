@@ -11,10 +11,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/reponse/reclamation')]
 class ReponseReclamationController extends AbstractController
 {
+
+    #[Route('/json_findall_rep', name: 'app_reponse_reclamation_index_json', methods: ['GET'])]
+    public function index_json(ReponseReclamationRepository $reponseReclamationRepository): JsonResponse
+    {
+        $reponseReclamation = $reponseReclamationRepository->findAll();
+    
+        return $this->json([
+            'reponse_reclamation' => $reponseReclamation,
+        ]);
+    }
+
     #[Route('/', name: 'app_reponse_reclamation_index', methods: ['GET'])]
     public function index(ReponseReclamationRepository $reponseReclamationRepository): Response
     {
@@ -29,7 +41,7 @@ class ReponseReclamationController extends AbstractController
         return $this->render('reponse_reclamation/notyet.html.twig');
     }
 
-    #[Route('/add', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
+   /*#[Route('/add', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReponseReclamationRepository $reponseReclamationRepository): Response
     {
         $reponseReclamation = new ReponseReclamation();
@@ -46,7 +58,35 @@ class ReponseReclamationController extends AbstractController
             'reponse_reclamation' => $reponseReclamation,
             'form' => $form,
         ]);
+    }*/
+
+    #[Route('/add/{idReclamation}', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, ReponseReclamationRepository $reponseReclamationRepository, $idReclamation): Response
+    {
+        $reclamation = $this->getDoctrine()->getRepository(Reclamation::class)->find($idReclamation);
+        if (!$reclamation) {
+            throw $this->createNotFoundException('The reclamation does not exist');
+        }
+    
+        $reponseReclamation = new ReponseReclamation();
+        $reponseReclamation->setReclamation($reclamation);
+    
+        $form = $this->createForm(ReponseReclamationType::class, $reponseReclamation);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reponseReclamationRepository->save($reponseReclamation, true);
+    
+            return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
+        }
+    
+        return $this->renderForm('reponse_reclamation/new.html.twig', [
+            'reponse_reclamation' => $reponseReclamation,
+            'form' => $form,
+        ]);
     }
+    
+
 
     #[Route('/{idReponse}', name: 'app_reponse_reclamation_show', methods: ['GET'])]
     public function show(ReponseReclamation $reponseReclamation): Response

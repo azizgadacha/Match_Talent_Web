@@ -30,44 +30,56 @@ class ReclamationController extends AbstractController
         $this->twig = $twig;
     }
 
-    #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
-    public function index(Request $request, ReclamationRepository $reclamationRepository): Response
-    {
-         // Call the countReclamations method from the repository
-        $count = $reclamationRepository->countReclamations();
-        $em = $this->getDoctrine()->getManager();
-        $repo = $em->getRepository(Reclamation::class);
+    #[Route('/json_findall', name: 'app_reclamation_index_json', methods: ['GET'])]
+public function index_json(ReclamationRepository $reclamationRepository): JsonResponse
+{
+    $reclamations = $reclamationRepository->findAll();
+
+    return $this->json([
+        'reclamations' => $reclamations,
+    ]);
+}
+
     
-        $type = $request->query->get('type');
-    
-        if ($type) {
-            $queryBuilder = $repo->createQueryBuilder('r')
-                ->where('r.type = :type')
-                ->setParameter('type', $type);
-        } else {
-            $queryBuilder = $repo->createQueryBuilder('r');
-        }
-    
-        $adapter = new QueryAdapter($queryBuilder);
-        $maxPerPage = 4;
-    
-        $pagerfanta = new Pagerfanta($adapter);
-        $pagerfanta->setMaxPerPage($maxPerPage);
-    
-        $page = $request->query->getInt('page', 1);
-        $pagerfanta->setCurrentPage($page);
-    
-        $reclamations = $pagerfanta->getCurrentPageResults();
-    
-        $pages = $pagerfanta->getNbPages();
-    
-        return $this->render('reclamation/index.html.twig', [
-            'reclamations' => $reclamations,
-            'pagerfanta' => $pagerfanta,
-            'pages' => $pages,
-            'count' => $count,
-        ]);
+
+#[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
+public function index(Request $request, ReclamationRepository $reclamationRepository): Response
+{
+     // Call the countReclamations method from the repository
+    $count = $reclamationRepository->countReclamations();
+    $em = $this->getDoctrine()->getManager();
+    $repo = $em->getRepository(Reclamation::class);
+
+    $type = $request->query->get('type');
+
+    if ($type) {
+        $queryBuilder = $repo->createQueryBuilder('r')
+            ->where('r.type = :type')
+            ->setParameter('type', $type);
+    } else {
+        $queryBuilder = $repo->createQueryBuilder('r');
     }
+
+    $adapter = new QueryAdapter($queryBuilder);
+    $maxPerPage = 4;
+
+    $pagerfanta = new Pagerfanta($adapter);
+    $pagerfanta->setMaxPerPage($maxPerPage);
+
+    $page = $request->query->getInt('page', 1);
+    $pagerfanta->setCurrentPage($page);
+
+    $reclamations = $pagerfanta->getCurrentPageResults();
+
+    $pages = $pagerfanta->getNbPages();
+
+    return $this->render('reclamation/index.html.twig', [
+        'reclamations' => $reclamations,
+        'pagerfanta' => $pagerfanta,
+        'pages' => $pages,
+        'count' => $count,
+    ]);
+}
 
     //#[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
     //public function index(ReclamationRepository $reclamationRepository): Response
@@ -231,6 +243,14 @@ public function findByDate(string $order = 'DESC'): Response
         ]);
     }
     
+    #[Route('/json/{idReclamation}', name: 'app_reclamation_show_json', methods: ['GET'])]
+public function show_json(Reclamation $reclamation): JsonResponse
+{
+    return $this->json([
+        'reclamation' => $reclamation,
+    ]);
+}
+
 
     #[Route('/{idReclamation}', name: 'app_reclamation_show', methods: ['GET'])]
     public function show(Reclamation $reclamation): Response

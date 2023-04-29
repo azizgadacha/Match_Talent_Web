@@ -27,5 +27,3 @@ services:
         #tags: ['validator.constraint']
     #App\Validator\Constraints\ValidTypeValidator:
         #tags: ['validator.constraint_validator']
-
-    
