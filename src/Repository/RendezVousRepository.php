@@ -21,13 +21,14 @@ class RendezVousRepository extends ServiceEntityRepository
         parent::__construct($registry, RendezVous::class);
     }
 
-    public function save(RendezVous $entity, bool $flush = false): void
+    public function getTriee()
     {
-        $this->getEntityManager()->persist($entity);
+        $resultat= $this->createQueryBuilder('r')
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+            ->orderBy("r.note","DESC")
+            ->getQuery()
+            ->getResult();
+        return $resultat;
     }
 
     public function remove(RendezVous $entity, bool $flush = false): void

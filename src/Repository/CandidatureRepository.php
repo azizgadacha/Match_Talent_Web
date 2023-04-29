@@ -36,6 +36,48 @@ class CandidatureRepository extends ServiceEntityRepository
 
         return $result;
     }
+    public function  gettrie(){
+     //  $result=$this->createQueryBuilder("c")->where('c.annonceAssocier.idAnnonce= 1 ') ->getQuery()->getResult();
+
+
+           return  $this->createQueryBuilder('c')
+               ->join('c.utilisateurAssocier', 'u')
+               ->join('c.annonceAssocier', 'a')
+               ->join('u.listePostulationInUser', 'p')
+               ->addSelect('p')
+               ->addSelect('a')
+               ->addSelect('u')
+               ->where('p.etat = :etat')
+
+               ->andWhere('a.idAnnonce = :idAnnonce')
+               ->setParameter('etat', 'passer quiz')
+               ->setParameter('idAnnonce', 1)
+                ->orderBy("c.note","DESC")
+                ->getQuery()
+                ->getResult();
+
+    }
+    public function  gettrieNom(){
+     //  $result=$this->createQueryBuilder("c")->where('c.annonceAssocier.idAnnonce= 1 ') ->getQuery()->getResult();
+
+
+           return  $this->createQueryBuilder('c')
+               ->join('c.utilisateurAssocier', 'u')
+               ->join('c.annonceAssocier', 'a')
+               ->join('u.listePostulationInUser', 'p')
+               ->addSelect('p')
+               ->addSelect('a')
+               ->addSelect('u')
+               ->where('p.etat = :etat')
+
+               ->andWhere('a.idAnnonce = :idAnnonce')
+               ->setParameter('etat', 'passer quiz')
+               ->setParameter('idAnnonce', 1)
+                ->orderBy("u.username","ASC")
+                ->getQuery()
+                ->getResult();
+
+    }
     public function  getCandidatureForAnnonceSearch($data){
      //  $result=$this->createQueryBuilder("c")->where('c.annonceAssocier.idAnnonce= 1 ') ->getQuery()->getResult();
         $result =$this->createQueryBuilder('c')

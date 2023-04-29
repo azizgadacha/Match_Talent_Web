@@ -39,9 +39,25 @@ class CandidatureController extends AbstractController
 
     {
 
-echo 'hhhhhh';
+
         return $this->render('candidature/index.html.twig', [
             'candidatures' => $candidatureRepository->getCandidatureForAnnonce(),
+        ]);
+    }
+    #[Route('/trieNote', name: 'app_candidature_index_trie', methods: ['GET'])]
+    public function indextrie(CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
+
+    {
+        return $this->render('candidature/index.html.twig', [
+            'candidatures' => $candidatureRepository->gettrie(),
+        ]);
+    }
+    #[Route('/trieNom', name: 'app_candidature_index_trie_nom', methods: ['GET'])]
+    public function indextrieNom(CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
+
+    {
+        return $this->render('candidature/index.html.twig', [
+            'candidatures' => $candidatureRepository->gettrieNom(),
         ]);
     }
     #[Route('/admin', name: 'app_candidature_index_admin', methods: ['GET'])]
