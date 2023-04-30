@@ -41,7 +41,7 @@ class ReponseReclamationController extends AbstractController
         return $this->render('reponse_reclamation/notyet.html.twig');
     }
 
-   /*#[Route('/add', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
+   #[Route('/add', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReponseReclamationRepository $reponseReclamationRepository): Response
     {
         $reponseReclamation = new ReponseReclamation();
@@ -58,9 +58,9 @@ class ReponseReclamationController extends AbstractController
             'reponse_reclamation' => $reponseReclamation,
             'form' => $form,
         ]);
-    }*/
+    }
 
-    #[Route('/add/{idReclamation}', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
+    /*#[Route('/add/{idReclamation}', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, ReponseReclamationRepository $reponseReclamationRepository, $idReclamation): Response
     {
         $reclamation = $this->getDoctrine()->getRepository(Reclamation::class)->find($idReclamation);
@@ -84,7 +84,7 @@ class ReponseReclamationController extends AbstractController
             'reponse_reclamation' => $reponseReclamation,
             'form' => $form,
         ]);
-    }
+    }*/
     
 
 
