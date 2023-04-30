@@ -9,7 +9,7 @@
 <div class="row">
 <div class="col-xl-12">
 <div class="hero-caption hero-caption2">
-<h2>Question</h2>
+<h2>Quiz overview</h2>
 </div>
 </div>
 </div>
@@ -46,6 +46,8 @@
         <a href="{{ path('app_quiz_edit', {'idQuiz': quiz.idQuiz}) }}" class="btn btn-warning">edit</a>
 
         {{ include('quiz/_delete_form.html.twig') }}
+
+         <a href="{{ path('app_question_get_questions_by_id_quiz', {'idQuiz': quiz.idQuiz}) }}" class="btn btn-success">loop</a>
     </div>
 </div>
 {% endblock %}
