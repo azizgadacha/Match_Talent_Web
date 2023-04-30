@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use App\Repository\UtilisateurRepository;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class AnnonceType extends AbstractType
@@ -54,21 +55,46 @@ class AnnonceType extends AbstractType
             ]
         ])
            // ->add('Societe')
-            ->add('datedebut')
-            ->add('datefin')
-         //   ->add('description')
-           // ->add('typeContrat')
+       //     ->add('datedebut')
+        //    ->add('datefin')
+
+           ->add('datedebut', DateType::class, [
+               'widget' => 'single_text',
+               'constraints' => [
+                   new NotBlank([
+                       'message' => 'Ce champ est obligatoire'
+                   ]),
+                 //  new FutureDate()
+               ]
+           ])
+
+            ->add('datefin', DateType::class, [
+                'widget' => 'single_text',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Ce champ est obligatoire'
+                    ]),
+                 //   new FutureDate()
+                ]
+            ])
+
             ->add('quiz',EntityType::class,[
+
                 'class'=>Quiz::class,
                 'choice_label'=>"sujetQuiz",
                 "multiple"=>false,
                 "expanded"=>false
+
+
             ])
             ->add('categorieAnnonce',EntityType::class,[
+
                 'class'=>Categorie::class,
                 'choice_label'=>"nomCategorie",
                 "multiple"=>false,
                 "expanded"=>false
+
+
             ])
           //  ->add('quiz')
            // ->add('categorieAnnonce')

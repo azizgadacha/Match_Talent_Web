@@ -32,7 +32,7 @@ class AnnonceController extends AbstractController
     #[Route('/', name: 'app_annonce_index', methods: ['GET'])]
     public function index(AnnonceRepository $annonceRepository, CategorieRepository  $categorieRepository, UtilisateurRepository $utilisateurRepository, RoleRepository $roleRepository): Response
     {
-        $utilisateur = $utilisateurRepository->find(5);
+        $utilisateur = $utilisateurRepository->find(3);
         $role = $utilisateur->getRoleUser();
         $isDemander = $role->getNomRole() === 'DEMANDEUR';
 
