@@ -41,12 +41,18 @@ class ReponseReclamationController extends AbstractController
         return $this->render('reponse_reclamation/notyet.html.twig');
     }
 
-   #[Route('/add', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReponseReclamationRepository $reponseReclamationRepository): Response
+   #[Route('/add/{idReclamation}', name: 'app_reponse_reclamation_new', methods: ['GET', 'POST'])]
+
+    public function new(Request $request, $idReclamation,  ReponseReclamationRepository $reponseReclamationRepository, ReclamationRepository $reclamationRepository): Response
     {
+        
         $reponseReclamation = new ReponseReclamation();
         $form = $this->createForm(ReponseReclamationType::class, $reponseReclamation);
         $form->handleRequest($request);
+        
+       $reclamation =  $reclamationRepository -> find($idReclamation);
+
+       $reponseReclamation -> setReclamation($reclamation);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $reponseReclamationRepository->save($reponseReclamation, true);
