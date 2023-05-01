@@ -1,0 +1,49 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}New Role{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un role </h1>
+
+
+
+    <div class="register-form-area section-padding">
+
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-7 col-md-10">
+                <div class="register-form text-center">
+
+
+                    <div class="form-outline mb-8">
+                        {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+                        <table>
+                            <tr>
+                                <td style="width:50%"> {{ form_label(form.nomRole,"Nom Role") }}</td>
+                                <td style="width:5%"> {{ form_widget(form.nomRole) }}</td>
+                                <td> {{ form_errors(form.nomRole) }}</td>
+                            </tr>
+
+                            <tr>
+                                <td> {{ form_label(form.description,"Description") }}</td>
+                                <td> {{ form_widget(form.description) }}</td>
+                                <td> {{ form_errors(form.description) }}</td>
+                            </tr>
+
+
+
+                        </table>
+                        <br>
+                        <button class="btn" style="length: 10%">{{ button_label|default('Save') }}</button>
+                        {{ form_end(form) }}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <a href="{{ path('app_role_index') }}">back to list</a>
+{% endblock %}
