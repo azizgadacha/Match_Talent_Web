@@ -1,0 +1,30 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Role{% endblock %}
+
+{% block body %}
+    <h1> Les Roles </h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>IdRole</th>
+                <td>{{ role.idRole }}</td>
+            </tr>
+            <tr>
+                <th>NomRole</th>
+                <td>{{ role.nomRole }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ role.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_role_index') }}">back to list</a>
+
+    <a href="{{ path('app_role_edit', {'idRole': role.idRole}) }}">edit</a>
+
+    {{ include('role/_delete_form.html.twig') }}
+{% endblock %}
