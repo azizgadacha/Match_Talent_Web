@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Reclamation;
 use App\Entity\ReponseReclamation;
+use App\Entity\Notification;
+use App\Entity\NotificationRepository;
 use App\Form\ReclamationType;
 use App\Repository\ReclamationRepository;
 use App\Repository\ReponseReclamationRepository;
@@ -222,7 +224,7 @@ public function findByDate(string $order = 'DESC'): Response
     }
 
     #[Route('/ajout', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReclamationRepository $reclamationRepository): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, ReclamationRepository $reclamationRepository): Response
     {
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
@@ -233,6 +235,14 @@ public function findByDate(string $order = 'DESC'): Response
             $reclamation->setUserReclamation($userReclamation);
     
             $reclamationRepository->save($reclamation, true);
+
+            // Create a new notification record
+            $notification = new Notification();
+            $notification->setDescription('A new reclamation has been added with ID ' . $reclamation->getIdReclamation());
+
+            $notification->setUserNotification($userReclamation);
+            $entityManager->persist($notification);
+            $entityManager->flush();
     
             return $this->redirectToRoute('app_list', [], Response::HTTP_SEE_OTHER);
         }
@@ -240,6 +250,7 @@ public function findByDate(string $order = 'DESC'): Response
         return $this->renderForm('reclamation/new.html.twig', [
             'reclamation' => $reclamation,
             'form' => $form,
+            //'notifications' => $notifications
         ]);
     }
     
