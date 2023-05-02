@@ -113,25 +113,67 @@
 <div class="recent_joblist white-bg ">
 <div class="row align-items-center">
 <div class="col-md-6">
-<h4>Job Listing</h4>
+    <h4>Job Listing</h4>
 </div>
-<div class="col-md-6">
-<div class="serch_cat d-flex justify-content-end">
-    <a href="{{ path('app_annonce_new') }}" class="boxed-btn3">Create</a>
-<select>
-<option data-display="Categorie"> Categorie</option>
-<option value="1">Marketer</option>
-<option value="2">Wordpress </option>
-<option value="4">Designer</option>
-</select>
+
+    <a href="{{ path('app_listt') }}" class="boxed-btn3"> Order</a>
+    <a href="{{ path('app_annonce_new') }}" class="boxed-btn3">Create new</a>
+
+    <div class="search_cat d-flex justify-content-end">
+        <select id="categorie-select" name="id_categorie" onchange="getComboA(this)">
+            <option value="">All categories</option>
+            {% for categorie in categories %}
+                <option value="{{ categorie.nomcategorie }}">
+
+                    {{ categorie.nomcategorie }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+
+    <script>
+        const selectEl = document.getElementById('categorie-select');
+
+    </script>
+
+    {% for categorie in categories %}
+
+        <form action="{{ path('app_annonce_find', {'nomcategorie': categorie.nomcategorie}) }}" method="POST">
+
+            <button  type="submit"  id="{{categorie.nomcategorie}}" class="text-danger buttonClass" style=" display: none" >
+
+            </button>
+        </form>
+
+    {% endfor %}
+
+
+
 </div>
-</div>
-</div>
+    <script>
+        const buttons = Array.from(document.querySelectorAll('.buttonClass'));
+        console.log(buttons)
+        const buttonIds = buttons.map(button => button.id);
+        function getComboA(selectObject) {
+            console.log(selectEl)
+            console.log("rah il ghali rah")
+            buttons.map(button => {
+                    console.log("deeeeeee")
+                    if (selectObject.value ===button.id ) {
+                        document.getElementById(button.id).click()
+                    }
+                }
+            );
+        }
+
+
+    </script>
 </div>
 </div>
    <div class="job_lists m-0">
 <div class="row">
-
+    <div class="row" id="annonce-container">
 
 {% for annonce in annonces %}
  <div class="annonce">
@@ -153,18 +195,18 @@
 </div>
      </div>
                 </div>
-                
-                 
+
+
                     <div class="jobs_right">
                         <div class="apply_now">
                             <button> {{ include('annonce/_delete_form.html.twig') }}</button>
-</form> 
-                    
+</form>
+
 
                             <a href="{{ path('app_annonce_edit', {'idAnnonce': annonce.idAnnonce}) }}" class="boxed-btn3">edit</a>
                         </div>
                     </div>
-               
+
             </div>
         </div>
     </div>

@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Controller;
-use Geocoder\Query\GeocodeQuery;
-use Geocoder\Provider\GoogleMaps\GoogleMaps;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Annonce;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
@@ -49,15 +48,37 @@ class AnnonceController extends AbstractController
                 'isDemander' => true
             ]);
         } else {
+            $categories = $categorieRepository->findAll();
             $annonces = $annonceRepository->findAll();
 
 
             return $this->render('annonce/index.html.twig', [
+                'categories' => $categories,
                 'annonces' => $annonces,
                 'isDemander' => false
             ]);
         }
 
+    }
+
+
+    #[Route('/json', name: 'app_annonce_index', methods: ['GET'])]
+    public function index_json(AnnonceRepository $annonceRepository, CategorieRepository $categorieRepository, UtilisateurRepository $utilisateurRepository, RoleRepository $roleRepository): JsonResponse
+    {
+        $utilisateur = $utilisateurRepository->find(3);
+        $role = $utilisateur->getRoleUser();
+        $isDemander = $role->getNomRole() === 'DEMANDEUR';
+
+        $categories = $categorieRepository->findAll();
+        $annonces = $annonceRepository->findAll();
+
+        $responseData = [
+            'categories' => $categories,
+            'annonces' => $annonces,
+            'isDemander' => $isDemander
+        ];
+
+        return new JsonResponse($responseData);
     }
 
 
@@ -112,6 +133,17 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    #[Route('/json_show/{idAnnonce}', name: 'app_annonce_show', methods: ['GET'])]
+    public function show_json(Annonce $annonce): JsonResponse
+    {
+        $responseData = [
+            'annonce' => $annonce,
+        ];
+
+        return new JsonResponse($responseData);
+    }
+
+
     #[Route('/{idAnnonce}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository): Response
     {
@@ -128,6 +160,26 @@ class AnnonceController extends AbstractController
             'annonce' => $annonce,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/{idAnnonce}/json_edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
+    public function edit_json(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository): JsonResponse
+    {
+        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $annonceRepository->save($annonce, true);
+
+            return new JsonResponse(['message' => 'Annonce updated successfully']);
+        }
+
+        $responseData = [
+            'annonce' => $annonce,
+            'form' => $form->createView(),
+        ];
+
+        return new JsonResponse($responseData);
     }
 
     #[Route('/{idAnnonce}', name: 'app_annonce_delete', methods: ['POST'])]
