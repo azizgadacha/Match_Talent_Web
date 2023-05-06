@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Question index{% endblock %}
+
+{% block body %}
+
+
+
+   <div class="slider-area gray-bg position-relative">
+      <div class="single-slider d-flex align-items-center slider-height2">
+         <div class="container">
+            <div class="row">
+               <div class="col-xl-12">
+                  <div class="hero-caption hero-caption2">
+                     <h2>Question</h2>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <table class="table">
+      <thead>
+         <tr>
+            <th>IdQuestion</th>
+            <th>Question</th>
+            <th>Propositiona</th>
+            <th>Propositionb</th>
+            <th>Propositionc</th>
+            <th>IdBonnereponse</th>
+            <th style="width: 220px;">Actions</th>
+         </tr>
+      </thead>
+      <tbody>
+      <div class="pagination" style="background-color: #222;">
+    {{ knp_pagination_render(questions) }}
+</div>
+
+
+         {% for question in questions %}
+         <tr>
+            <td>{{ question.idQuestion }}</td>
+            <td>{{ question.question }}</td>
+            <td>{{ question.propositiona }}</td>
+            <td>{{ question.propositionb }}</td>
+            <td>{{ question.propositionc }}</td>
+            <td>{{ question.idBonnereponse }}</td>
+            <td>
+               <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <a class="btn btn-primary" href="{{ path('app_question_show', {'idQuestion': question.idQuestion}) }}">Show</a>
+                  <div>
+                     <a class="btn btn-secondary" href="{{ path('app_question_edit', {'idQuestion': question.idQuestion}) }}">Edit</a>
+                     <form style="display: inline-block;" action="{{ path('app_question_delete', {'idQuestion': question.idQuestion}) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this question?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ question.idQuestion) }}">
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                     </form>
+                  </div>
+               </div>
+            </td>
+         </tr>
+         
+         {% else %}
+         <tr>
+            <td colspan="7">No records found</td>
+         </tr>
+         {% endfor %}
+      </tbody>
+   </table>
+
+   <a class="btn btn-success" href="{{ path('app_question_new',{"idQuiz":2}) }}">Create new</a>
+{% endblock %}

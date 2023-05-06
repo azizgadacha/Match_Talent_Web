@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Quiz ID {{ idQuiz }}{% endblock %}</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                font-size: 12px;
+                line-height: 1.5;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+    </head>
+    <body>
+        {% block body %}
+        <h1>Questions for Quiz ID {{ idQuiz }}</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Proposition A</th>
+            <th>Proposition B</th>
+            <th>Proposition C</th>
+            <th>Bonne Réponse</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for question in questions %}
+            <tr>
+                <td>{{ question.idQuestion }}</td>
+                <td>{{ question.question }}</td>
+                <td>{{ question.propositiona }}</td>
+                <td>{{ question.propositionb }}</td>
+                <td>{{ question.propositionc }}</td>
+                <td>{{ question.idBonnereponse }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+        {% endblock %}
+    </body>
+</html>

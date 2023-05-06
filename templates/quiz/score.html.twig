@@ -1,0 +1,37 @@
+{% block content %}
+    <h1 style="text-align: center; font-size: 24px; color: #000; margin-top: 50px;">Score du Quiz</h1>
+    <p style="text-align: center; font-size: 18px; color: #666;">Vous avez obtenu <span style="color: #00c800;">{{ score }}%</span> de bonnes réponses sur {{ totalQuestions }} questions pour le Quiz "{{ quiz.sujetQuiz }}"</p>
+    <p style="text-align: center; font-size: 16px; color: #888;">Merci d'avoir participé !</p>
+
+    
+    <div class="app-content" style="text-align: center;margin-left: 30%;">
+
+    <div class="side-app">
+                    <div id="div_chart"></div>
+                    </div>
+                            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+                            <script type="text/javascript">
+                            {{ gc_draw(chart, 'div_chart') }}                              
+                            </script> </div>
+    {% if score == 0 %}
+        <p style="text-align: center; font-size: 16px; color: #c80000;">Vous n'avez aucune bonne réponse. Vous êtes refusé(e).</p>
+    {% else %}
+        {% if score < 25 %}
+            <p style="text-align: center; font-size: 16px; color: #c80000;">Vous avez moins de 25% de bonnes réponses. Vous êtes refusé(e).</p>
+        {% else %}
+            {% if score < 75 %}
+                <p style="text-align: center; font-size: 16px; color: #c8c800;">Vous avez entre 25% et 75% de bonnes réponses. Moyen.</p>
+            {% else %}
+                {% if score < 100 %}
+                    <p style="text-align: center; font-size: 16px; color: #00c800;">Vous avez plus de 75% de bonnes réponses. Bien.</p>
+                {% else %}
+                    <p style="text-align: center; font-size: 16px; color: #00c800;">Vous avez obtenu un score parfait !</p>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+<div style="text-align: center; margin-top: 20px;">
+
+<a href="{{ path('app_index_page') }}" class="btn btn-secondary">Back to list</a>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Question{% endblock %}
+
+{% block body %}
+   <div class="slider-area gray-bg position-relative">
+<div class="single-slider d-flex align-items-center slider-height2">
+<div class="container">
+<div class="row">
+<div class="col-xl-12">
+<div class="hero-caption hero-caption2">
+<h2>Question</h2>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="mb-4" style="text-align: center" >Edit Question</h1>
+
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                {{ include('question/_form.html.twig', {'button_label': 'Update'}) }}
+                <div style="text-align: center; margin-top: 20px;">
+
+                    <a href="{{ path('app_question_get_questions_by_id_quiz',{"idQuiz":question.QuizAssocier.idQuiz}) }}" class="genric-btn primary circle">Back to list</a>
+
+                                   </div>
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postulation index{% endblock %}
+
+{% block body %}
+    <br><br><br><br><br><br><br>
+    <h1 style="text-align: center !important;">Mes postulations</h1>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Annonce</th>
+            <th>Nom Societe</th>
+
+            <th>Date</th>
+            <th style="text-align: center">Etat</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set post=postulations|first %}
+        {% for postulation in postulations %}
+            {% set post =postulation%}
+            <tr>
+                <td>{{postulation.annoncePostulation.titre }}</td>
+                <td>{{postulation.annoncePostulation.Societe }}</td>
+                <td>{{ postulation.date ? postulation.date|date('Y-m-d') : '' }}</td>
+{#                {% if postulation.etat == "en cours" %}#}
+
+                <td style="text-align: center">
+                    {% if (postulation.etat=="en cours") %}
+               <a href="{{ path('app_Tranferer_Quiz_Postulation', {'id': postulation.id}) }}"  class="genric-btn success radius"> <i class="fa fa-check ml-3" aria-hidden="true"></i>tranferer vers le teste</a>
+                        <a href="{{ path('app_refuser_Postulation', {'id': postulation.id}) }}" class="genric-btn danger radius"> <i class="fa fa-ban ml-3" aria-hidden="true"></i>refuser</a>
+e
+                    {% elseif ((postulation.etat=="Refuser")) %}
+                        <a href="#" class="genric-btn danger radius"> {{ postulation.etat }}</a>
+                        {% elseif(postulation.etat=="Passer quiz") %}
+                            <a  class="genric-btn success radius"> En attend la passasion du quiz</a>
+                        {%  elseif (postulation.etat=="en attent apres quiz" ) %}
+
+                            <a href="#"  class="genric-btn success radius">en attend votre decision de la candidature</a>
+                        {% elseif (postulation.etat=="accepter") %}
+                            <a href="#"  class="genric-btn success radius">Accepter  </a>
+
+                    {% endif %}
+                </td>
+{#                    <td><a href="{{ path('deletepost', {'id': postulation.id}) }}" class="boxed-btn3"></a></td>#}
+{#                {% else %}#}
+{#                {% endif %}#}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    <div class="container ml-auto row justify-content-center">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+
+                <div class="col-12 mb-4">
+                    <div class="col-md-12 ml-auto mr-auto">
+
+                        <div class="thumb row justify-content-center " >
+                            <a  class="genric-btn primary circle text-right mt-3 " href="{{ path('app_candidature_index',{'annonceId':idAnnonce}) }}">Voire Candidature</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

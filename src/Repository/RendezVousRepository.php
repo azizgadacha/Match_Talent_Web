@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\RendezVous;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @extends ServiceEntityRepository<RendezVous>
@@ -21,14 +22,13 @@ class RendezVousRepository extends ServiceEntityRepository
         parent::__construct($registry, RendezVous::class);
     }
 
-    public function getTriee()
+    public function save(RendezVous $entity, bool $flush = false): void
     {
-        $resultat= $this->createQueryBuilder('r')
+        $this->getEntityManager()->persist($entity);
 
-            ->orderBy("r.note","DESC")
-            ->getQuery()
-            ->getResult();
-        return $resultat;
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
     }
 
     public function remove(RendezVous $entity, bool $flush = false): void
@@ -39,6 +39,24 @@ class RendezVousRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    public function getrdv($id1)
+    {
+echo "dsdsdsd".$id1;
+        $qb = $this->createQueryBuilder('r')
+            ->join('r.annonceAssocierRendezVous', 'a')
+->join("a.utilisateur",'u1')
+            ->Where('u1.id = :ut')
+            ->setParameter('ut',$id1 )
+
+
+            ->getQuery();
+
+        return $qb->getResult();
+    }
+
+
+
 
 //    /**
 //     * @return RendezVous[] Returns an array of RendezVous objects

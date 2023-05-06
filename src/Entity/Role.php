@@ -23,7 +23,7 @@ class Role
     #[ORM\Column(length: 50)]
     private ?string $description=null;
 
-    #[ORM\OneToMany(mappedBy: 'roleUser', targetEntity: Utilisateur::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'roleUser', targetEntity: User::class, orphanRemoval: true)]
     private Collection $userListe;
 
 
@@ -64,14 +64,14 @@ class Role
     }
 
     /**
-     * @return Collection<int, Utilisateur>
+     * @return Collection<int, User>
      */
     public function getUserListe(): Collection
     {
         return $this->userListe;
     }
 
-    public function addUserListe(Utilisateur $userListe): self
+    public function addUserListe(User $userListe): self
     {
         if (!$this->userListe->contains($userListe)) {
             $this->userListe->add($userListe);
@@ -81,7 +81,7 @@ class Role
         return $this;
     }
 
-    public function removeUserListe(Utilisateur $userListe): self
+    public function removeUserListe(User $userListe): self
     {
         if ($this->userListe->removeElement($userListe)) {
             // set the owning side to null (unless already changed)
@@ -94,14 +94,14 @@ class Role
     }
 
     /**
-     * @return Collection<int, Utilisateur>
+     * @return Collection<int, User>
      */
     public function getUtilisateurs(): Collection
     {
         return $this->utilisateurs;
     }
 
-    public function addUtilisateur(Utilisateur $utilisateur): self
+    public function addUtilisateur(User $utilisateur): self
     {
         if (!$this->utilisateurs->contains($utilisateur)) {
             $this->utilisateurs->add($utilisateur);
@@ -111,7 +111,7 @@ class Role
         return $this;
     }
 
-    public function removeUtilisateur(Utilisateur $utilisateur): self
+    public function removeUtilisateur(User $utilisateur): self
     {
         if ($this->utilisateurs->removeElement($utilisateur)) {
             // set the owning side to null (unless already changed)

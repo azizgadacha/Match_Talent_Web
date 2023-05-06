@@ -23,7 +23,7 @@ class Notification
     #[ORM\ManyToOne(inversedBy:'listeNotification' )]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
-    private ?Utilisateur $userNotification=null;
+    private ?User $userNotification=null;
 
     public function getIdNotification(): ?int
     {
@@ -54,12 +54,12 @@ class Notification
         return $this;
     }
 
-    public function getUserNotification(): ?Utilisateur
+    public function getUserNotification(): ?User
     {
         return $this->userNotification;
     }
 
-    public function setUserNotification(?Utilisateur $userNotification): self
+    public function setUserNotification(?User $userNotification): self
     {
         $this->userNotification = $userNotification;
 

@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\User;
+use App\Repository\PostulationRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use App\Entity\Candidature;
 use App\Entity\Postulation;
-use App\Entity\Utilisateur;
 use App\Form\CandidatureType;
 use App\Repository\AnnonceRepository;
 use App\Repository\CandidatureRepository;
@@ -15,8 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
-#[Route('sy')]
+#[Route('/candidature')]
 class CandidatureController extends AbstractController
 {
     public function __construct(MailerInterface $mailer) {
@@ -34,30 +37,60 @@ class CandidatureController extends AbstractController
         return $this->render('FooTransBundle:Default:search.html.twig', array(
             'res' => $res));}*/
 
-    #[Route('/', name: 'app_candidature_index', methods: ['GET'])]
-    public function index(CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
+
+    #[Route('/{annonceId}', name: 'app_candidature_index', methods: ['GET'])]
+    public function index(SerializerInterface $serializerInterface,AnnonceRepository $annonceRepository,$annonceId,CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
 
     {
-
-
+         $annonceRepository->find($annonceId);
         return $this->render('candidature/index.html.twig', [
-            'candidatures' => $candidatureRepository->getCandidatureForAnnonce(),
+            'annonceId'=>$annonceId,
+            'candidatures' => $candidatureRepository->getCandidatureForAnnonce($annonceId),
         ]);
     }
-    #[Route('/trieNote', name: 'app_candidature_index_trie', methods: ['GET'])]
-    public function indextrie(CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
+    #[Route('/mobile/{annonceId}', name: 'app_candidature_index_mobile', methods: ['GET'])]
+    public function indexMobile(SerializerInterface $serializerInterface,AnnonceRepository $annonceRepository,$annonceId,CandidatureRepository $candidatureRepository,MailerInterface $mailer)
 
     {
+        $candidatures = $candidatureRepository->findAll();
+
+        $data = [];
+
+        foreach ($candidatures as $candidature) {
+
+            $data[] = [
+                'idCandidature' => $candidature->getIdCandidature(),
+                'note' => $candidature->getNote(),
+                'idAnnonce'=>$candidature->getAnnonceAssocier()->getIdAnnonce(),
+                'titre'=>$candidature->getAnnonceAssocier()->getTitre(),
+                'Societe'=>$candidature->getAnnonceAssocier()->getSociete(),
+                'id'=>$candidature->getUtilisateurAssocier()->getId(),
+                'name'=>$candidature->getUtilisateurAssocier()->getName(),
+            ];
+        }
+
+        return new JsonResponse($data);
+
+
+      // $serializedata= $serializerInterface->serialize($candidats,'json',['groups'=>"Candiadature,User,Annonce"]);
+      //  return new Response(json_encode($serializedata));
+    }
+  //  #[Route('/trieNote/{annonceId}', name: 'app_candidature_index_trie', methods: ['GET'])]
+      #[Route('/trieNote/{annonceId}', name: 'app_candidature_index_trie', methods: ['GET'])]
+    public function indextrie($annonceId,CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
+
+    {
+        //            'candidatures' => $candidatureRepository->gettrie(),
         return $this->render('candidature/index.html.twig', [
-            'candidatures' => $candidatureRepository->gettrie(),
+            'candidatures' => $candidatureRepository->gettrie($annonceId),
         ]);
     }
-    #[Route('/trieNom', name: 'app_candidature_index_trie_nom', methods: ['GET'])]
-    public function indextrieNom(CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
+    #[Route('/trieNom/{annonceId}', name: 'app_candidature_index_trie_nom', methods: ['GET'])]
+    public function indextrieNom($annonceId,CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
 
     {
         return $this->render('candidature/index.html.twig', [
-            'candidatures' => $candidatureRepository->gettrieNom(),
+            'candidatures' => $candidatureRepository->gettrieNom($annonceId),
         ]);
     }
     #[Route('/admin', name: 'app_candidature_index_admin', methods: ['GET'])]
@@ -75,7 +108,7 @@ class CandidatureController extends AbstractController
 
         $form = $this->createForm(CandidatureType::class, $candidature);
         $form->handleRequest($request);
-        $ut=new Utilisateur(1);
+        $ut=new User(1);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $ut= $form->getData();
@@ -90,10 +123,11 @@ class CandidatureController extends AbstractController
         ]);
     }
 
-    #[Route('/{idCandidature}', name: 'app_candidature_show', methods: ['GET'])]
-    public function show(Candidature $candidature): Response
+    #[Route('/show/{idCandidature}/{annonceId}', name: 'app_candidature_show', methods: ['GET'])]
+    public function show($annonceId,Candidature $candidature): Response
     {
         return $this->render('candidature/show.html.twig', [
+           'annonceId'=>$annonceId,
             'candidature' => $candidature,
         ]);
     }
@@ -107,7 +141,7 @@ class CandidatureController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $candidatureRepository->save($candidature, true);
 
-            return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_candidature_index', ["id"], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('candidature/edit.html.twig', [
@@ -118,11 +152,11 @@ class CandidatureController extends AbstractController
 
 
     #[Route('/delete/{idCandidature}', name: 'app_candidature_delete', methods: ['POST'])]
-    public function delete(ManagerRegistry $doctrine,Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository): Response
+    public function delete(PostulationRepository $postulationRepository, ManagerRegistry $doctrine,Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository): Response
     {echo "hello";
         //if ($this->isCsrfTokenValid('delete'.$candidature->getIdCandidature(), $request->request->get('_token'))) {
         $entityManager = $doctrine->getManager();
-        $postulation = $entityManager->getRepository(Postulation::class)->findOneBy([
+        $postulation = $postulationRepository->findOneBy([
             'userPostulation' => $candidature->getUtilisateurAssocier(),
             'annoncePostulation' => $candidature->getAnnonceAssocier(),
         ]);
@@ -131,6 +165,24 @@ class CandidatureController extends AbstractController
             $candidatureRepository->remove($candidature, true);
         //}
 
-        return $this->redirectToRoute('app_candidature_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_candidature_index', ["annonceId"=>$postulation->getAnnoncePostulation()->getIdAnnonce()], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/mobile/delete/{idCandidature}', name: 'app_candidature_delete_mobile', methods: ['POST',"GET"])]
+    public function deleteMobile(ManagerRegistry $doctrine,Request $request, CandidatureRepository $candidatureRepository): Response
+    {
+        $candidature= $candidatureRepository->find($request->get("idCandidature"));
+echo "dddddd".$candidature->getIdCandidature();
+        //if ($this->isCsrfTokenValid('delete'.$candidature->getIdCandidature(), $request->request->get('_token'))) {
+        $entityManager = $doctrine->getManager();
+        //$postulation = $entityManager->getRepository(Postulation::class)->findOneBy([
+          //  'userPostulation' => $candidature->getUtilisateurAssocier(),
+            //'annoncePostulation' => $candidature->getAnnonceAssocier(),
+        //]);
+        //$postulation->setEtat('refuser');
+        $entityManager->flush();
+            $candidatureRepository->remove($candidature, true);
+        //}
+
+        return new JsonResponse(["result"=>"succes"]);
     }
 }

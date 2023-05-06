@@ -5,37 +5,40 @@ namespace App\Controller;
 use App\Entity\File;
 use App\Form\FileType;
 use App\Repository\FileRepository;
-use App\Repository\UtilisateurRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/file')]
 class FileController extends AbstractController
 {
     #[Route('/', name: 'app_file_index', methods: ['GET'])]
-    public function index(FileRepository $fileRepository,UtilisateurRepository $utilisateurRepository): Response
+    public function index(Security $security,FileRepository $fileRepository,UserRepository $UserRepository): Response
     {
-        $user = $utilisateurRepository->find(6);
+        $user = $security->getUser();
+
         return $this->render('file/index.html.twig', [
             'files' => $fileRepository->findBy(array('userFile'=>$user)),
         ]);
     }
 
     #[Route('/new', name: 'app_file_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, UtilisateurRepository $utilisateurRepository,FileRepository $fileRepository): Response
+    public function new(Security $security,Request $request, UserRepository $UserRepository,FileRepository $fileRepository): Response
     {
         $file = new File();
         $form = $this->createForm(FileType::class, $file);
         $form->handleRequest($request);
+        $user = $security->getUser();
 
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $security->getUser();
             $file->getUploadFileCv();
             $file->getUploadFileDeplome();
             $file->getUploadFileMotivation();
-            $user=$utilisateurRepository->find(6);
             $file->setUserFile($user);
             $fileRepository->save($file, true);
 

@@ -38,7 +38,7 @@ class Reclamation
     #[ORM\ManyToOne(inversedBy:'listeReclamation' )]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
-    private ?Utilisateur $userReclamation;
+    private ?User $userReclamation;
 
     #[ORM\OneToOne(mappedBy:'reclamation' ,cascade:['persist','remove'])]
     private ?ReponseReclamation $reponseReclamation=null;
@@ -108,12 +108,12 @@ class Reclamation
         return $this;
     }
 
-    public function getUserReclamation(): ?Utilisateur
+    public function getUserReclamation(): ?User
     {
         return $this->userReclamation;
     }
 
-    public function setUserReclamation(?Utilisateur $userReclamation): self
+    public function setUserReclamation(?User $userReclamation): self
     {
         $this->userReclamation = $userReclamation;
 

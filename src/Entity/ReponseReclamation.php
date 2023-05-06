@@ -69,9 +69,7 @@ class ReponseReclamation
         }
 
         // set the owning side of the relation if necessary
-        if ($reclamation !== null && $reclamation->getReponseReclamation() !== $this) {
-            $reclamation->setReponseReclamation($this);
-        }
+
 
         $this->reclamation = $reclamation;
 

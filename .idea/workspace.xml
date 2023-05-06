@@ -4,89 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="976da86d-eb2a-4a0a-9891-13f016b2b6f9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/config/client_secret_836230715234-lf5um1v3nl4anj762utg33c225tpbsge.apps.googleusercontent.com.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/client_secret_836230715234-lf5um1v3nl4anj762utg33c225tpbsge.apps.googleusercontent.com.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/endroid_qr_code.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/client_secret_836230715234-lf5um1v3nl4anj762utg33c225tpbsge.apps.googleusercontent.com.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/endroid_qr_code.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/img/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446282c0f3fb.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462953db133.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644629c2aabd1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462d7857ce8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462e1bd2db5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462ecb07abd.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64462fbaf3817.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644634118bf19.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446357f9e539.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446374e686af.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644637e8f2957.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446380d58f91.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446383f3768a.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64463899c928c.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64463962b6983.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64463a93b4c7d.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64463abe98ef4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644641077885b.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64464225f20e9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446431d4be5f.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446435fbd687.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446441d8407a.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446448ddf9d1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/644644ac5a128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/6446465fc1295.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64464c94b5dca.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/qr-code/64464ca8882a3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/css/MailTempletcss.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/image-1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/image-2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/img/image-3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/GoogleCalendarController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/PDFController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/client_secret.json.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/QR_code_generator_api.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/BackOffice/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/PDFBase.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/candidature/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/candidature/pdfCandidature.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/google_calendar/index.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/rendez_vous/Mail.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/rendez_vous/Pagination.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/rendez_vous/pdfRendez_vous.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Match_Talent_Web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Match_Talent_Web.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/elements.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/elements.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/CandidatureController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CandidatureController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/IndexController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/IndexController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RendezVousController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RendezVousController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/CandidatureRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CandidatureRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/RendezVousRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/RendezVousRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/candidature/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/candidature/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/rendez_vous/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/rendez_vous/index.html.twig" afterDir="false" />
-    </list>
+    <list default="true" id="5ccaa7d8-4176-4fe9-96de-f108ec3ee4d2" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution>
       <executable path="composer" />
     </execution>
-  </component>
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -100,9 +28,7 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
       <path value="$PROJECT_DIR$/vendor/doctrine/dbal" />
       <path value="$PROJECT_DIR$/vendor/doctrine/cache" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
       <path value="$PROJECT_DIR$/vendor/doctrine/sql-formatter" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
       <path value="$PROJECT_DIR$/vendor/doctrine/collections" />
       <path value="$PROJECT_DIR$/vendor/doctrine/persistence" />
       <path value="$PROJECT_DIR$/vendor/doctrine/annotations" />
@@ -116,24 +42,20 @@
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/runtime" />
-      <path value="$PROJECT_DIR$/vendor/symfony/form" />
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/symfony/var-exporter" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
       <path value="$PROJECT_DIR$/vendor/symfony/monolog-bundle" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
       <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
       <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/vendor/symfony/cache" />
-      <path value="$PROJECT_DIR$/vendor/symfony/security-core" />
       <path value="$PROJECT_DIR$/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
       <path value="$PROJECT_DIR$/vendor/symfony/property-info" />
       <path value="$PROJECT_DIR$/vendor/sebastian/lines-of-code" />
-      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
       <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
       <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
       <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
@@ -167,15 +89,10 @@
       <path value="$PROJECT_DIR$/vendor/symfony/security-bundle" />
       <path value="$PROJECT_DIR$/vendor/symfony/finder" />
       <path value="$PROJECT_DIR$/vendor/symfony/routing" />
-      <path value="$PROJECT_DIR$/vendor/symfony/intl" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-client" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
-      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/dependency-injection" />
-      <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
-      <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
       <path value="$PROJECT_DIR$/vendor/symfony/config" />
       <path value="$PROJECT_DIR$/vendor/symfony/redis-messenger" />
       <path value="$PROJECT_DIR$/vendor/symfony/mailer" />
@@ -194,19 +111,16 @@
       <path value="$PROJECT_DIR$/vendor/symfony/amqp-messenger" />
       <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
       <path value="$PROJECT_DIR$/vendor/symfony/browser-kit" />
-      <path value="$PROJECT_DIR$/vendor/symfony/notifier" />
       <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-icu" />
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
       <path value="$PROJECT_DIR$/vendor/symfony/twig-bridge" />
       <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
       <path value="$PROJECT_DIR$/vendor/symfony/messenger" />
-      <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/symfony/dotenv" />
       <path value="$PROJECT_DIR$/vendor/symfony/asset" />
       <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
       <path value="$PROJECT_DIR$/vendor/psr/link" />
       <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
       <path value="$PROJECT_DIR$/vendor/psr/cache" />
@@ -217,82 +131,121 @@
       <path value="$PROJECT_DIR$/vendor/twig/twig" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/twig/extra-bundle" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
       <path value="$PROJECT_DIR$/vendor/sensio/framework-extra-bundle" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-invoker" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
-      <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
-      <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/vendor/symfony/doctrine-bridge" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/doctrine-bundle" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/orm" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpdoc-parser" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/vendor/symfony/form" />
+      <path value="$PROJECT_DIR$/vendor/symfony/monolog-bridge" />
+      <path value="$PROJECT_DIR$/vendor/symfony/intl" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/notifier" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/vendor/symfony/phpunit-bridge" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/symfonycasts/verify-email-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
       <path value="$PROJECT_DIR$/vendor/cmen/google-charts-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-components" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-paginator-bundle" />
+      <path value="$PROJECT_DIR$/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/vendor/bacon/bacon-qr-code" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/symfony/google-mailer" />
       <path value="$PROJECT_DIR$/vendor/mercuryseries/flashy-bundle" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/dasprid/enum" />
+      <path value="$PROJECT_DIR$/vendor/endroid/qr-code-bundle" />
+      <path value="$PROJECT_DIR$/vendor/endroid/installer" />
+      <path value="$PROJECT_DIR$/vendor/endroid/qr-code" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
     </include_path>
   </component>
-  <component name="ProjectId" id="2OVwUDCh0zqSrkZ5gMufqkJBVY8" />
+  <component name="ProjectId" id="2P8lCLuQvvFg7enVrcPyP7vpkOe" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/istab/Desktop/final/Match_Talent_Web&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/azizg/OneDrive/Documents/Match_Talent_Web/templates/annonce&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\Abderrazekbenhamouda\Desktop\stabrek\Match_Talent_Web\templates\postulation" />
+      <recent name="C:\Users\azizg\OneDrive\Documents\Match_Talent_Web\templates\annonce" />
+      <recent name="C:\Users\azizg\OneDrive\Documents\Match_Talent_Web\templates\postulation" />
+      <recent name="C:\Users\azizg\OneDrive\Documents\Match_Talent_Web\public\assets\img" />
+      <recent name="C:\Users\azizg\OneDrive\Documents\Match_Talent_Web\src\Form" />
+      <recent name="C:\Users\azizg\OneDrive\Documents\Match_Talent_Web\templates" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="phpunit.xml.dist" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
-      <TestRunner scope="XML" />
-      <method v="2" />
-    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1341d750-8633-4a3c-a8aa-fdf9c37d79bc" name="Changes" comment="" />
-      <created>1681659070742</created>
+      <changelist id="5ccaa7d8-4176-4fe9-96de-f108ec3ee4d2" name="Changes" comment="" />
+      <created>1682846461267</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1681659070742</updated>
-      <workItem from="1681659072555" duration="11744000" />
-      <workItem from="1682121497703" duration="171000" />
-      <workItem from="1682122429137" duration="733000" />
-      <workItem from="1682212685087" duration="12183000" />
-      <workItem from="1682287053661" duration="8681000" />
-      <workItem from="1682300769444" duration="10056000" />
-      <workItem from="1682776689793" duration="1653000" />
+      <updated>1682846461267</updated>
+      <workItem from="1682846463564" duration="28369000" />
+      <workItem from="1682937361091" duration="571000" />
+      <workItem from="1682963268110" duration="3005000" />
+      <workItem from="1682941990200" duration="47283000" />
+      <workItem from="1683031918963" duration="7807000" />
+      <workItem from="1683102678484" duration="4506000" />
+      <workItem from="1683158757944" duration="6382000" />
+      <workItem from="1683270969612" duration="1319000" />
+      <workItem from="1683287925537" duration="28663000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/templates/user/edit.html.twig</url>
+          <line>18</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/templates/candidature/index.html.twig</url>
+          <line>82</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

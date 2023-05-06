@@ -3,6 +3,7 @@
 namespace App\Entity;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass:QuestionRepository::class)]
 
@@ -14,20 +15,26 @@ class Question
     private ?int $idQuestion=null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le champ question ne peut pas être vide")]
+    #[Assert\Length(max:10, maxMessage:"La question  ne peut pas contenir plus de {{ 10 }} caractères")]
     private ?string $question=null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le champ proposition A ne peut pas être vide")]
+    #[Assert\Regex(pattern:"/^[a-zA-Z0-9 ]*$/", message:"Le champ proposition ne peut contenir que des lettres, des chiffres et des espaces")]
     private ?string $propositiona=null;
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le champ proposition B ne peut pas être vide")]
+    #[Assert\Regex(pattern:"/^[a-zA-Z0-9 ]*$/", message:"Le champ proposition ne peut contenir que des lettres, des chiffres et des espaces")]
     private ?string $propositionb=null;
 
-
-
-
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message:"Le champ proposition C ne peut pas être vide")]
+    #[Assert\Regex(pattern:"/^[a-zA-Z0-9 ]*$/", message:"Le champ proposition ne peut contenir que des lettres, des chiffres et des espaces")]
     private ?string $propositionc=null;
 
     #[ORM\Column(length: 255)]
+   
     private ?string $idBonnereponse=null;
 
 
@@ -111,6 +118,8 @@ class Question
 
         return $this;
     }
+
+
 
 
 }

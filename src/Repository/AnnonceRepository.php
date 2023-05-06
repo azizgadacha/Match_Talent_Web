@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Annonce;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -39,6 +40,87 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByUtilisateur(User $utilisateur): array
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.listePostulationInAnnonce', 'p')
+
+            ->andWhere('p.userPostulation = :utilisateur')
+            ->setParameter('utilisateur', $utilisateur)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAnnonceByCategorie($nomcategorie)
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.categorieAnnonce', 'c')
+            ->andWhere('c.nomCategorie = :nomcategorie')
+            ->setParameter('nomcategorie', $nomcategorie)
+            ->getQuery()
+            ->getResult();
+    }
+    public function findAnnonceByPOstForUserTriee($id)
+    {
+        return $this->createQueryBuilder('a')
+            ->leftjoin('a.listePostulationInAnnonce', 'p')
+            ->leftjoin('p.userPostulation', 'u2')
+            ->  Where('u2.id != :id')
+            ->orWhere("p is null")
+            ->setParameter("id",$id)
+            ->orderBy('a.titre', "ASC")
+
+            ->getQuery()
+            ->getResult();
+    }   public function findAnnonceByPOstForUser($id)
+{
+    echo "fdsdss ".$id;
+    return $this->createQueryBuilder('a')
+        ->leftjoin('a.listePostulationInAnnonce', 'p')
+        ->leftjoin('p.userPostulation', 'u2')
+       ->  Where('u2.id != :id')
+        ->orWhere("p is null")
+        ->setParameter("id",$id)
+
+        ->getQuery()
+        ->getResult();
+}
+
+    /*public function findByTitre(string $order = 'ASC')
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->orderBy('a.titre', $order);
+
+        return $qb->getQuery()->getResult();
+    }*/
+
+    public function findByTitreAlphabetically($user)
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->join('a.utilisateur', 'u')
+
+            ->where('u.id = :idUse')
+            ->setParameter('idUse', $user->getId())
+
+            ->orderBy('a.titre', "ASC");
+            //->addOrderBy('a.titre', 'ASC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    /*  public function findFavoritesByUser($userId)
+      {
+          $entityManager = $this->getEntityManager();
+
+          $query = $entityManager->createQuery(
+              'SELECT a
+              FROM App\Entity\Annonce a
+              INNER JOIN a.favoriteUtilisateurs u
+              WHERE u.id = :userId'
+          )->setParameter('userId', $userId);
+
+          return $query->getResult();
+      }*/
 //    /**
 //     * @return Annonce[] Returns an array of Annonce objects
 //     */

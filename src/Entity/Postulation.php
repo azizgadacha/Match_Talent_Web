@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PostulationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PostulationRepository::class)]
 
@@ -15,12 +16,17 @@ Postulation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("Postulation")]
+
     private $id;
 
     #[ORM\Column(length: 50)]
+    #[Groups("Postulation")]
+
     private ?string $etat = null;
 
 
+    #[Groups("Postulation")]
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
@@ -31,6 +37,7 @@ Postulation
 
     #[ORM\ManyToOne(inversedBy:'listePostulationInAnnonce' )]
     #[ORM\JoinColumn(name: 'id_annonce', referencedColumnName: 'id_annonce')]
+    #[Groups("Annonce")]
 
     private ?Annonce $annoncePostulation;
 
@@ -38,12 +45,14 @@ Postulation
 
     #[ORM\ManyToOne(inversedBy:'listePostulationInUser' )]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
+    #[Groups("User")]
 
-    private ?Utilisateur $userPostulation;
+    private ?User $userPostulation;
 
 
     #[ORM\ManyToOne(inversedBy:'listePostulation' )]
     #[ORM\JoinColumn(name: 'id_file', referencedColumnName: 'id_file')]
+    #[Groups("File")]
 
     private ?File $fileAssocier;
 
@@ -89,12 +98,12 @@ Postulation
         return $this;
     }
 
-    public function getUserPostulation(): ?Utilisateur
+    public function getUserPostulation(): ?User
     {
         return $this->userPostulation;
     }
 
-    public function setUserPostulation(?Utilisateur $userPostulation): self
+    public function setUserPostulation(?User $userPostulation): self
     {
         $this->userPostulation = $userPostulation;
 

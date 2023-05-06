@@ -2,11 +2,15 @@
 
 namespace App\Entity;
 use App\Repository\AnnonceRepository;
-
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
 
@@ -15,30 +19,61 @@ class Annonce
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("Annonce")]
+
     private ?int  $idAnnonce =null;
 
+
+    
     #[ORM\Column(length: 50)]
+    //#[Assert\NotBlank(message: "Le nom de le titre ne peut pas être vide.")]
+    /*#[Assert\Length(
+        max: 50,
+        maxMessage: "Le titre ne peut pas contenir plus de {{ limit }} caractères."
+    )]*/
+    #[Assert\Length(min: 3, max: 50)]
+    #[Groups("Annonce")]
+
     private ?string $titre = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nomSocieté = null;
+   // #[Assert\NotBlank]
+    //#[Assert\Length(min: 3, max: 50)]
+    #[Groups("Annonce")]
+
+    private ?string $Societe = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+   // #[Assert\NotBlank]
+    //#[Assert\Date]
+    #[Groups("Annonce")]
+
     private ?\DateTimeInterface $datedebut = null;
 
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    //#[Assert\NotBlank]
+    //#[Assert\Date]
+    #[Groups("Annonce")]
+
     private ?\DateTimeInterface $datefin = null;
 
     #[ORM\Column(length: 50)]
+  //  #[Assert\NotBlank]
+  //  #[Assert\Length(min: 3, max: 50)]
+    #[Groups("Annonce")]
+
     private ?string $description = null;
 
-
     #[ORM\Column(length: 50)]
+   // #[Assert\NotBlank]
+   // #[Assert\Length(min: 3, max: 50)]
+    #[Groups("Annonce")]
+
     private ?string $typeContrat = null;
 
     #[ORM\ManyToOne(inversedBy:'AnnoceAssocier' )]
     #[ORM\JoinColumn(name: 'id_quiz', referencedColumnName: 'id_quiz')]
+
     private ?Quiz $quiz;
 
     #[ORM\ManyToOne(inversedBy:'listeAnnonceInCategorie' )]
@@ -49,9 +84,13 @@ class Annonce
     #[ORM\ManyToOne(inversedBy:'listeAnnonce' )]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
-    private ?Utilisateur $utilisateur=null;
+
+    private ?User $utilisateur=null;
+    #[Groups("Annonce")]
 
     #[ORM\OneToMany(mappedBy: 'annonceAssocier', targetEntity: Candidature::class, orphanRemoval: true)]
+
+
     private Collection $listeCandidatureInAnnonce;
 
     #[ORM\OneToMany(mappedBy: 'annoncePostulation', targetEntity: Postulation::class, orphanRemoval: true)]
@@ -98,14 +137,14 @@ class Annonce
         return $this;
     }
 
-    public function getNomSocieté(): ?string
+    public function getSociete(): ?string
     {
-        return $this->nomSocieté;
+        return $this->Societe;
     }
 
-    public function setNomSocieté(string $nomSocieté): self
+    public function setSociete(string $Societe): self
     {
-        $this->nomSocieté = $nomSocieté;
+        $this->Societe = $Societe;
 
         return $this;
     }
@@ -182,12 +221,12 @@ class Annonce
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUtilisateur(): ?User
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
+    public function setUtilisateur(?User $utilisateur): self
     {
         $this->utilisateur = $utilisateur;
 

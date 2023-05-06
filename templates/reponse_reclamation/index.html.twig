@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ReponseReclamation index{% endblock %}
+
+{% block body %}
+  <div class="slider-area position-relative ">
+        
+                <div class="footer-area footer-padding gray-bg">
+        <div class="footer-wrapper ">
+            <div class="container">
+                <div class="row d-flex justify-content-between">
+                    <div class="col-xl-12 ">
+                       
+                                   <h1>Your List Of ReponseReclamation</h1>
+
+  <table class="table">
+        <thead>
+            <tr>
+                <th>Reponse</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reponse_reclamation in reponse_reclamations %}
+            <tr>
+
+                <td>{{ reponse_reclamation.reponse }}</td>
+                <td>{{ reponse_reclamation.date ? reponse_reclamation.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a class="btn btn-secondary" href="{{ path('app_reponse_reclamation_show', {'idReponse': reponse_reclamation.idReponse}) }}">show</a>
+                   
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+                            
+                       
+                        </div>
+                         </div>
+                            </div>
+                        </div>
+                        </div>
+            
+            </div>
+{% endblock %}

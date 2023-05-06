@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto mt-3">
+
+            {{ form_start(form) }}
+            {#    {{ form_widget(form) }}#}
+            <div class="col-sm-12">
+                <div class="form-group">
+
+                    <td>{{ form_label (form.titre,"Entrer le titre") }}</td>
+
+                    <td>{{ form_widget (form.titre,{'attr': {'class': 'form-control'}}) }}</td>
+
+                    <td>{{ form_errors (form.titre, {'attr': {'class': 'color-danger'}}) }}</td>
+
+
+                    <td>{{ form_label (form.Societe,"Societe") }}</td>
+
+                    <td>{{ form_widget (form.Societe,{'attr': {'class': 'form-control'}}) }}</td>
+
+                    <td>{{ form_errors (form.Societe, {'attr': {'class': 'color-danger'}}) }}</td>
+
+                    <td>{{ form_label (form.description,"Entrer la description") }}</td>
+
+                    <td>{{ form_widget (form.description,{'attr': {'class': 'form-control'}}) }}</td>
+
+                    <td>{{ form_errors (form.description, {'attr': {'class': 'color-danger'}}) }}</td>
+
+                    <td>{{ form_label (form.typeContrat,"Entrer le type Contrat") }}</td>
+
+                    <td>{{ form_widget (form.typeContrat,{'attr': {'class': 'form-control'}}) }}</td>
+
+                    <td>{{ form_errors (form.typeContrat, {'attr': {'class': 'color-danger'}}) }}</td>
+
+                    <td>{{ form_label (form.datedebut,"Entrer le datedebut") }}</td>
+
+
+                    <td>{{ form_widget (form.datedebut,{'attr': {'class': 'form-control'}}) }}</td>
+
+                    <td>{{ form_errors (form.datedebut, {'attr': {'class': 'color-danger'}}) }}</td>
+
+                    <td>{{ form_label (form.datefin,"Entrer le date Fin") }}</td>
+
+
+                    <td>{{ form_widget (form.datefin,{'attr': {'class': 'form-control'}}) }}</td>
+
+                    <td>{{ form_errors (form.datefin, {'attr': {'class': 'color-danger'}}) }}</td>
+                    <div class="col-12 form-label">
+                   <td>{{ form_label (form.quiz,"Entrer le quiz") }}</td>
+                    </div>
+                    <br>
+                    <div class="col-12">
+
+                        <td>{{ form_widget (form.quiz,{'attr': {'class': 'form-control col-12'}}) }}</td>
+                    </div>
+                    <div class="col-12">
+
+                        <td>{{ form_errors (form.quiz, {'attr': {'class': 'color-danger'}}) }}</td>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="col-12 form-label ">
+                        <td>{{ form_label (form.categorieAnnonce,"Entrer la categorie Annonce") }}</td>
+                    </div>
+                    <div class="col-12">
+                        <td>{{ form_widget (form.categorieAnnonce,{'attr': {'class': 'form-control col-12'}}) }}</td>
+                    </div>
+                    <div class="col-12">
+                        <td>{{ form_errors (form.categorieAnnonce, {'attr': {'class': 'color-danger'}}) }}</td>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+
+
+                    <td>{{ form_errors (form.titre, {'attr': {'class': 'text-danger'}}) }}</td>
+                    <td>{{ form_errors (form.Societe, {'attr': {'class': 'text-danger'}}) }}</td>
+
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+{{ form_end(form) }}
+</div>
+</div>
+</div>

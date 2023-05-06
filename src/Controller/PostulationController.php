@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Controller;
-
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use App\Entity\Postulation;
 use App\Form\PostulationType;
 use App\Repository\AnnonceRepository;
 use App\Repository\FileRepository;
 use App\Repository\PostulationRepository;
-use App\Repository\UtilisateurRepository;
+use App\Repository\UserRepository;
 use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 use Knp\Component\Pager\PaginatorInterface;
-use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +20,8 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Security\Core\Security;
+
 #[Route('/postulation')]
 class PostulationController extends AbstractController
 {
@@ -60,16 +61,28 @@ class PostulationController extends AbstractController
     }
 
     #[Route('/', name: 'app_postulation_index', methods: ['GET'])]
-    public function index(PostulationRepository $postulationRepository,UtilisateurRepository $utilisateurRepository): Response
+    public function index(Security $security,PostulationRepository $postulationRepository,UserRepository $UserRepository): Response
     {
-        $user= $utilisateurRepository->find(6);
+        $user = $security->getUser();
         return $this->render('postulation/index.html.twig', [
             'postulations' => $postulationRepository->findBy(array('userPostulation'=>$user)),
+
+        ]);
+    }
+
+    #[Route('/postAnnonce/{idAnnonce}', name: 'app_postulation_annonce', methods: ['GET'])]
+    public function indexPostann(AnnonceRepository $annonceRepository,$idAnnonce,PostulationRepository $postulationRepository,UserRepository $UserRepository): Response
+    {
+        $annonce=$annonceRepository->find($idAnnonce);
+
+        return $this->render('postulation/indexDecider.html.twig', ['idAnnonce'=>$idAnnonce,
+            'postulations' => $postulationRepository->findBy(["annoncePostulation"=>$annonce]),
         ]);
     }
 
 
-    #[Route('/admin', name: 'app_admin', methods: ['GET'])]
+
+    #[Route('/admin', name: 'app_admin_Post', methods: ['GET'])]
     public function indexAdmin(Request $request,PostulationRepository $postulationRepository, PaginatorInterface $paginator): Response
     {
         $donnees = $postulationRepository->findAll();
@@ -84,22 +97,32 @@ class PostulationController extends AbstractController
     }
 
     #[Route('/new/{idAnnonce}', name: 'app_postulation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,$idAnnonce, AnnonceRepository $annonceRepository, FileRepository $fileRepository, PostulationRepository $postulationRepository, UtilisateurRepository $utilisateurRepository): Response
+    public function new(Security $security,FlashyNotifier $flashy,Request $request,$idAnnonce, AnnonceRepository $annonceRepository, FileRepository $fileRepository, PostulationRepository $postulationRepository, UserRepository $UserRepository): Response
     {
-        $utilisateur = $utilisateurRepository->find(6);
+        $user = $security->getUser();
+         echo "ttttt".$user->getId();
         $annonce=$annonceRepository->find($idAnnonce);
         $postulation = new Postulation();
+            $file=$fileRepository->findOneBy(array('userFile'=>$user));
+            if(empty($file)){
+                $this->addFlash('warning', 'une erreur est survenue' );
 
-            $file=$fileRepository->findOneBy(array('userFile'=>$utilisateur));
-            $postulation->setEtat("en cours");
-            $postulation->setFileAssocier($file);
-            $postulation->setAnnoncePostulation($annonce);
-            $postulation->setUserPostulation($utilisateur);
-            $postulation->setDate(new \DateTime);
-            $postulationRepository->save($postulation, true);
+                $flashy->error("Postulation n'est pas creer vous dever ajouter un cv",'');
+                return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
 
-            return $this->redirectToRoute('app_postulation_index', [], Response::HTTP_SEE_OTHER);
+            }else {
+                echo "tttttsss  ".$user->getId();
 
+                $postulation->setEtat("en cours");
+                $postulation->setFileAssocier($file);
+                $postulation->setAnnoncePostulation($annonce);
+                $postulation->setUserPostulation($user);
+                $postulation->setDate(new \DateTime);
+                $postulationRepository->save($postulation, true);
+                $flashy->success('categorie created '.$user->getId()." frrrr", '');
+
+                return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+            }
 
     }
 
@@ -130,20 +153,20 @@ class PostulationController extends AbstractController
     }
 
     #[Route('/deletepos/{id}', name: 'deletepost')]
-    public function delete($id): Response
+    public function delete(PostulationRepository $postulationRepository, $id): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $res = $em->getRepository(Postulation::class)->find($id);
+        $res = $postulationRepository->find($id);
         $em->remove($res);
         $em->flush();
-        return $this->redirectToRoute('app_postulation_index');
+        return $this->redirectToRoute('app_postulation_annonce', ["idAnnonce"=>$res->getAnnoncePostulation()->getIdAnnonce()], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/accepter/{id}', name: 'accepter')]
-    public function accepter(MailerInterface $mailer,$id,FlashyNotifier $flashy): Response
+    public function accepter(PostulationRepository $postulationRepository,MailerInterface $mailer,$id,FlashyNotifier $flashy): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $res = $em->getRepository(Postulation::class)->find($id);
+        $res = $postulationRepository->find($id);
         $res->setEtat("Accepter");
         $em->persist($res);
         $em->flush();
@@ -157,15 +180,16 @@ class PostulationController extends AbstractController
         $mailer->send($email);
         $flashy->success('Accepter');
 
-        return $this->redirectToRoute('app_admin');
+        return $this->redirectToRoute('app_postulation_annonce', ["idAnnonce"=>$res->getAnnoncePostulation()->getIdAnnonce()], Response::HTTP_SEE_OTHER);
     }
 
 
-    #[Route('/refuser/{id}', name: 'refuser')]
-    public function refuser(MailerInterface $mailer,$id,FlashyNotifier $flashy): Response
+    #[Route('/refuser/{id}', name: 'app_refuser_Postulation')]
+    public function refuser(PostulationRepository $postulationRepository,AnnonceRepository $annonceRepository, MailerInterface $mailer,$id,FlashyNotifier $flashy): Response
     {
         $em = $this->getDoctrine()->getManager();
-        $res = $em->getRepository(Postulation::class)->find($id);
+        $res = $postulationRepository->find($id);
+        $idAnnonce=  $res->getAnnoncePostulation()->getIdAnnonce();
         $res->setEtat("Refuser");
       $em->persist($res);
       $em->flush();
@@ -179,8 +203,36 @@ class PostulationController extends AbstractController
         $mailer->send($email);
         $flashy->error('Refuser');
 
+        $annonce=$annonceRepository->find($idAnnonce);
 
-        return $this->redirectToRoute('app_admin');
+        return $this->redirectToRoute('app_postulation_annonce', ["idAnnonce"=>$idAnnonce], Response::HTTP_SEE_OTHER);
+
+        //   return $this->redirectToRoute('app_admin');
+    }
+    #[Route('/PasserQuiz/{id}', name: 'app_Tranferer_Quiz_Postulation')]
+    public function PasserQuiz(PostulationRepository $postulationRepository,AnnonceRepository $annonceRepository, MailerInterface $mailer,$id,FlashyNotifier $flashy): Response
+    {
+        $res = $postulationRepository->find($id);
+        $idAnnonce=  $res->getAnnoncePostulation()->getIdAnnonce();
+        $res->setEtat("Passer quiz");
+        $postulationRepository->save($res,true);
+
+        $email = (new Email())
+            ->from('istabrak.zouabi001@gmail.com')
+            ->to('istabrak.zouabi@esprit.tn')
+            ->subject('Your password reset request')
+           // ->htmlTemplate('postulation/email.html.twig');
+           ->text('This is a test email sent using Symfony Mailer.');
+        $mailer->send($email);
+        $flashy->error('Refuser');
+
+        $annonce=$annonceRepository->find($idAnnonce);
+        return $this->redirectToRoute('app_postulation_annonce', ["idAnnonce"=>$idAnnonce], Response::HTTP_SEE_OTHER);
+
+        //return $this->render('postulation/indexDecider.html.twig', ["idAnnonce"=>$annonce->getIdAnnonce(),
+           // 'postulations' => $postulationRepository->findBy(["annoncePostulation"=>$annonce]),
+       // ]);
+     //   return $this->redirectToRoute('app_admin');
     }
 
 

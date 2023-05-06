@@ -14,11 +14,9 @@
 
                 <th>Username</th>
                 <th>Address</th>
-                <th>Mot de passe</th>
+
                 <th>Email</th>
                 <th>Contact</th>
-                <th>Role</th>
-                <th> actions</th>
             </tr>
         </thead>
         <tbody>
@@ -28,15 +26,9 @@
 
                 <td>{{ utilisateur.username }}</td>
                 <td>{{ utilisateur.address }}</td>
-                <td>{{ utilisateur.motDePasse }}</td>
                 <td>{{ utilisateur.email }}</td>
                 <td>{{ utilisateur.contact }}</td>
-                <td>{{ utilisateur.roleUser.nomRole }}</td>
-                <td >
-                   <a href="{{ path('app_utilisateur_show', {'id': utilisateur.id}) }}"><h6 style="color: green">Détails </h6></a>
-                    <a href="{{ path('app_utilisateur_edit', {'id': utilisateur.id}) }}"><h6 style="color: red">Edit</h6></a>
 
-                </td>
             </tr>
         {% else %}
             <tr>
@@ -45,7 +37,6 @@
         {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('app_utilisateur_new') }}">Create new</a>
 
 
 {% endblock %}

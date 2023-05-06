@@ -32,7 +32,7 @@ class RendezVous
     #[ORM\ManyToOne(inversedBy:'listeRendezVous' )]
     #[ORM\JoinColumn(name: 'id_user', referencedColumnName: 'id')]
 
-    private ?Utilisateur $userRendezVous;
+    private ?User $userRendezVous;
 
     public function getIdRendezVous(): ?string
     {
@@ -67,12 +67,12 @@ class RendezVous
 
 
 
-    public function getUserRendezVous(): ?Utilisateur
+    public function getUserRendezVous(): ?User
     {
         return $this->userRendezVous;
     }
 
-    public function setUserRendezVous(?Utilisateur $userRendezVous): self
+    public function setUserRendezVous(?User $userRendezVous): self
     {
         $this->userRendezVous = $userRendezVous;
 

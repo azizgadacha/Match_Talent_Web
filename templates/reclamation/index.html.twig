@@ -1,0 +1,135 @@
+{% extends 'base1.html.twig' %}
+
+{% block title %}Reclamation index{% endblock %}
+
+{% block body %}
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Reclamations</h1>
+                    <p class="mb-4"> Your List Of Reclamations Is Here .</p>
+                    <div class="mb-4">
+                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search action="{{ path('app_reclamation_index') }}" method="get">
+    <div class="input-group">
+        <input type="text" name="type" class="form-control" placeholder="Search here">
+        <div class="input-group-append">
+        <button type="submit" class="btn btn-primary"><i class="fas fa-search fa-sm"></i></button>
+        </div>
+    </div>
+</form>
+</div>
+
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-4">
+                            <h6 class="m-0 font-weight-bold text-primary"> List Of Reclamations </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+            <tr>
+                <th>IdReclamation</th>
+                <th>Titre</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reclamation in reclamations %}
+            <tr>
+                <td>{{ reclamation.idReclamation }}</td>
+                <td>{{ reclamation.titre }}</td>
+                <td>{{ reclamation.type }}</td>
+                <td>{{ reclamation.description }}</td>
+                <td>{{ reclamation.date ? reclamation.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_reclamation_show', {'idReclamation': reclamation.idReclamation}) }}" class="btn btn-info btn-circle ">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                    
+                    <a href="{{ path('app_reponse_reclamation_new', {'idReclamation': reclamation.idReclamation}) }}" class="btn btn-success btn-circle ">
+                                        <i class="fas fa-reply"></i>
+                                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+                                </table>
+                    <div class="card">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+      </div>
+      <div class="col-6 text-right">
+         {% if pagerfanta.hasPreviousPage %}
+    <a  class="mb-4" href="{{ path('app_reclamation_index', {'page': pagerfanta.previousPage}) }}"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Previous </a>
+{% endif %}
+
+{% for page in pages %}
+    {% if pagerfanta.currentPage == page %}
+        <span>{{ page }}</span>
+    {% else %}
+        <a class="mb-4" class="btn btn-outline-primary" href="{{ path('app_reclamation_index', {'page': page}) }}">{{ page }}</a>
+    {% endif %}
+{% endfor %}
+
+{% if pagerfanta.hasNextPage %}
+    <a  class="mb-4" href="{{ path('app_reclamation_index', {'page': pagerfanta.nextPage}) }}"> Next <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+{% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

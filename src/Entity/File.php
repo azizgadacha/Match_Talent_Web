@@ -38,7 +38,7 @@ class File
     #[ORM\OneToOne(inversedBy:'file')]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
-    private ?Utilisateur $userFile;
+    private ?User $userFile;
     #[ORM\OneToMany(mappedBy: 'fileAssocier', targetEntity:Postulation::class, orphanRemoval: true)]
     private Collection $listePostulation;
 
@@ -124,12 +124,12 @@ class File
         return $this;
     }
 
-    public function getUserFile(): ?Utilisateur
+    public function getUserFile(): ?User
     {
         return $this->userFile;
     }
 
-    public function setUserFile(?Utilisateur $userFile): self
+    public function setUserFile(?User $userFile): self
     {
         $this->userFile = $userFile;
 

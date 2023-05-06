@@ -41,25 +41,14 @@
             "./migrations/.gitignore"
         ]
     },
-
-    "mercuryseries/flashy-bundle": {
-        "version": "v5.1.0"
-    },
-
     "endroid/qr-code-bundle": {
         "version": "4.3.1"
     },
-    "google/apiclient": {
-        "version": "2.13",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "2.10",
-            "ref": "07a97ec434d43b7903c78069a04c92adb6442e52"
-        }
-    },
     "knplabs/knp-paginator-bundle": {
         "version": "v5.9.0"
+    },
+    "mercuryseries/flashy-bundle": {
+        "version": "v5.1.0"
     },
     "phpunit/phpunit": {
         "version": "9.6",
@@ -248,6 +237,20 @@
             "./config/packages/security.yaml"
         ]
     },
+    "symfony/swiftmailer-bundle": {
+        "version": "3.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.5",
+            "ref": "f0b2fccdca2dfd97dc2fd5ad216d5e27c4f895ac"
+        },
+        "files": [
+            "./config/packages/dev/swiftmailer.yaml",
+            "./config/packages/swiftmailer.yaml",
+            "./config/packages/test/swiftmailer.yaml"
+        ]
+    },
     "symfony/translation": {
         "version": "5.4",
         "recipe": {
@@ -311,14 +314,8 @@
             "./config/packages/messenger.yaml"
         ]
     },
-    "tattali/calendar-bundle": {
-        "version": "1.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes-contrib",
-            "branch": "main",
-            "version": "1.1",
-            "ref": "0c643e17b5340747b35c2c75e11727fa31bfa9bb"
-        }
+    "symfonycasts/verify-email-bundle": {
+        "version": "v1.13.0"
     },
     "twig/extra-bundle": {
         "version": "v3.5.1"

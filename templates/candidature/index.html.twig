@@ -17,14 +17,7 @@
             </div>
         </div>
     </div>
-{#   <form class="pull-right hidden" role="search" id="nav-search-form" method="post" action="{{ path('_search') }}">#}
-{#        <div class="input-group">#}
-{#            <input type="text" class="form-control" placeholder="Search" name ="search">#}
-{#            <span class="input-group-btn">#}
-{#            <button type="submit" class="btn btn-default"></button>#}
-{#          </span>#}
-{#        </div>#}
-{#    </form>#}
+
     <div class="featured_candidates_area section-bg2 candidate_page_padding">
         <div class="container">
             <input id="searchbar" onkeyup="search_academie()" type="text"
@@ -69,7 +62,7 @@
                                 </td>
                                 <td>
                                     <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                        <li><a  class="MainNavText text-primary"  href="{{ path('app_candidature_show', {'idCandidature': candidature.idCandidature}) }}" ><i class="far fa-eye"></i></a></li>
+                                        <li><a  class="MainNavText text-info"  href="{{ path('app_candidature_show', {'idCandidature': candidature.idCandidature,'annonceId':annonceId}) }}" ><i class="far fa-eye"></i></a></li>
                                         <li><form action="{{ path('app_candidature_delete', {'idCandidature': candidature.idCandidature}) }}" method="POST">
 
                                             <button type="submit" class="text-danger" style="background: none;  border: none;" data-original-title="Delete">
@@ -78,7 +71,7 @@
                                             </form>
                                         </li>
 
-                                        <li><a href="{{ path('app_rendez_vous_new', {'idCandidature': candidature.idCandidature}) }}" class="text-success"   data-original-title="add"><i class="fa fa-check" aria-hidden="true"></i></a></li>
+                                        <li><a href="{{ path('app_rendez_vous_new', {'idCandidature': candidature.idCandidature,'annonceId':annonceId}) }}" class="text-info"   data-original-title="add"><i class="fa fa-check" aria-hidden="true"></i></a></li>
 
                                     </ul>
                                 </td>
@@ -109,7 +102,7 @@
             </div>
         </div>
     </div>
-<!--  dddddddddddddddddddddddddddddddddd-->
+
 
 <!--
 

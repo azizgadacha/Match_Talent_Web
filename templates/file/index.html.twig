@@ -13,20 +13,52 @@
 
 
                 <div class="row">
-                        {% for file in files %}
+                    <div class="container ml-auto row justify-content-center">
+                        <div class="row justify-content-center">
+                                <div class="col-12 mb-4">
+
+
+
+                                            <div class="row justify-content-center">
+                                            <h1>Mes fichier</h1>
+                                            </div>
+                                            {% for file in files %}
                         <div class="single-cat">
                             <div class="cat-icon">
                                 <img src="{{asset('assets/img/icon/top-cat1.svg')}}" alt="">
                             </div>
                             <div class="cat-cap">
                                 <h5><a href="#">Files</a></h5>
-                                <p>{{ file.namecv }}</p>
-                                <p>{{ file.namedeplome }}</p>
-                                <p>{{ file.namemotivation }}</p>
+                                cv:
+                                <p><a href="/Upload/{{file.namecv }}">{{ file.namecv }}</a></p>
+                               deplome:
+                                <p> <a href="/Upload/{{ file.namedeplome }}">{{ file.namedeplome }}</a></p>
+                                lettre de motivation
+                                <p><a href="/Upload/{{ file.namemotivation }}">{{ file.namemotivation }}</a></p>
                                 <a href="{{ path('deletefile', {'id': file.idFile}) }}" class="boxed-btn3">Delete</a>
                                 <a href="{{ path('app_file_edit', {'idFile': file.idFile}) }}" class="boxed-btn3">edit</a>
                             </div>
                         </div>
+                        {% else %}
+                                </div>
+                            </div>
+                        </div>
+                    <div class="container ml-auto row justify-content-center">
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">
+
+                                <div class="col-12 mb-4">
+                                    <div class="col-md-12 ml-auto mr-auto">
+                                        <div class="thumb">
+                                            <td colspan="3" style="text-align: center" class="col-12">Aucun fichier n'a eter trouver</td>
+                                        </div>
+                                        <div class="thumb row justify-content-center " >
+                                        <a  class="genric-btn primary circle text-right mt-3 " href="{{ path('app_file_new') }}">ajouter une fichier</a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
                         {% endfor %}
                     </div>
 

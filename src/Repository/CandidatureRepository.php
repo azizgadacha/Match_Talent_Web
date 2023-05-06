@@ -17,26 +17,27 @@ use Doctrine\Persistence\ManagerRegistry;
 class CandidatureRepository extends ServiceEntityRepository
 {
 
-    public function  getCandidatureForAnnonce(){
+    public function  getCandidatureForAnnonce($annonceId){
+        echo "ddezez ".$annonceId;
      //  $result=$this->createQueryBuilder("c")->where('c.annonceAssocier.idAnnonce= 1 ') ->getQuery()->getResult();
         $result =$this->createQueryBuilder('c')
             ->join('c.utilisateurAssocier', 'u')
-            ->join('c.annonceAssocier', 'a')
-             ->join('u.listePostulationInUser', 'p')
+           ->join('c.annonceAssocier', 'a')
+           ->join('u.listePostulationInUser', 'p')
             ->addSelect('p')
             ->addSelect('a')
             ->addSelect('u')
             ->where('p.etat = :etat')
 
             ->andWhere('a.idAnnonce = :idAnnonce')
-            ->setParameter('etat', 'passer quiz')
-            ->setParameter('idAnnonce', 1)
+            ->setParameter('etat', 'en attent apres quiz')
+            ->setParameter('idAnnonce', $annonceId)
             ->getQuery()
             ->getResult();
 
         return $result;
     }
-    public function  gettrie(){
+    public function  gettrie($annonceId){
      //  $result=$this->createQueryBuilder("c")->where('c.annonceAssocier.idAnnonce= 1 ') ->getQuery()->getResult();
 
 
@@ -50,14 +51,14 @@ class CandidatureRepository extends ServiceEntityRepository
                ->where('p.etat = :etat')
 
                ->andWhere('a.idAnnonce = :idAnnonce')
-               ->setParameter('etat', 'passer quiz')
-               ->setParameter('idAnnonce', 1)
+               ->setParameter('etat', 'en attent apres quiz')
+               ->setParameter('idAnnonce', $annonceId)
                 ->orderBy("c.note","DESC")
                 ->getQuery()
                 ->getResult();
 
     }
-    public function  gettrieNom(){
+    public function  gettrieNom($annonceId){
      //  $result=$this->createQueryBuilder("c")->where('c.annonceAssocier.idAnnonce= 1 ') ->getQuery()->getResult();
 
 
@@ -72,7 +73,7 @@ class CandidatureRepository extends ServiceEntityRepository
 
                ->andWhere('a.idAnnonce = :idAnnonce')
                ->setParameter('etat', 'passer quiz')
-               ->setParameter('idAnnonce', 1)
+               ->setParameter('idAnnonce', $annonceId)
                 ->orderBy("u.username","ASC")
                 ->getQuery()
                 ->getResult();

@@ -39,6 +39,80 @@ class ReclamationRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function findByType($type)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.type LIKE :type')
+            ->setParameter('type', '%'.$type.'%')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findAllStatuts()
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->select('r.statut')
+            ->distinct(true);
+
+        $query = $qb->getQuery();
+
+        $result = $query->getResult();
+
+        $statuts = [];
+        foreach ($result as $row) {
+            $statuts[] = $row['statut'];
+        }
+
+        return $statuts;
+    }
+
+    public function findByStatut($statut)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.statut = :statut')
+            ->setParameter('statut', $statut)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countReclamations(): int
+{
+    return $this->createQueryBuilder('r')
+        ->select('COUNT(r.idReclamation)')
+        ->getQuery()
+        ->getSingleScalarResult();
+}
+
+public function countReclamationsNotYet(): int
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r.idReclamation)')
+            ->andWhere('r.statut = :status')
+            ->setParameter('status', 'NotYet')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countReclamationsDone(): int
+    {
+        return $this->createQueryBuilder('r')
+            ->select('COUNT(r.idReclamation)')
+            ->andWhere('r.statut = :status')
+            ->setParameter('status', 'Done')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function findByDate(string $order = 'DESC')
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->orderBy('r.date', $order);
+    
+        return $qb->getQuery()->getResult();
+    }
+    
 //    /**
 //     * @return Reclamation[] Returns an array of Reclamation objects
 //     */

@@ -24,15 +24,20 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button type="button" id="inputGroupFileAddon03">
-                                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
+                                        <i class="fas fa-cloud-upload-alt" ></i>
                                     </button>
                                 </div>
                                 <div class="custom-file">
-                                    {{ form_widget(form.filecv) }}
+                                    {{ form_label (form.filecv,"entrer un fichier") }}</td>
+
+                                    {{ form_widget(form.filecv,{'attr': {'class': 'form-control '}}) }}
                                     {{ form_errors(form.filecv) }}
                                 </div>
                             </div>
                         </div>
+                        {% for name in  form.filedeplome   %}
+                        {{ name }}
+                        {% endfor %}
                         <div class="col-md-12">
                             <div class="input-group">
                                 <div class="input-group-prepend">
@@ -41,6 +46,8 @@
                                     </button>
                                 </div>
                                 <div class="custom-file">
+                                    {{ form_label (form.filedeplome,"entrer un fichier") }}</td>
+
                                     {{ form_widget(form.filedeplome) }}
                                     {{ form_errors(form.filedeplome) }}  
                                 </div>
@@ -54,6 +61,8 @@
                                     </button>
                                 </div>
                                 <div class="custom-file">
+                                    {{ form_label (form.filemtivation,"entrer un fichier") }}</td>
+
                                     {{ form_widget(form.filemtivation) }}
                                     {{ form_errors(form.filemtivation) }}
                                 </div>

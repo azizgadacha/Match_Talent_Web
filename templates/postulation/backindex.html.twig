@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Postulation index{% endblock %}
+
+{% block body %}
+    <br><br><br><br><br><br><br>
+    <h1 style="text-align: center !important;">Mes postulations</h1>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Annonce</th>
+            <th>Nom Societe</th>
+
+            <th>Date</th>
+            <th>Etat</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for postulation in postulations %}
+            <tr>
+                <td>{{postulation.annoncePostulation.titre }}</td>
+                <td>{{postulation.annoncePostulation.Societe }}</td>
+                <td>{{ postulation.date ? postulation.date|date('Y-m-d') : '' }}</td>
+{#                {% if postulation.etat == "en cours" %}#}
+
+                <td style="text-align: center">
+                    {% if (postulation.etat=="en cours") %}
+                        <a   class="genric-btn success radius"> <i class="fa fa-check ml-3" aria-hidden="true"></i>En cours</a>
+
+                    {% elseif ((postulation.etat=="Refuser")) %}
+                        <a href="#" class="genric-btn danger radius"> {{ postulation.etat }}</a>
+                    {% elseif(postulation.etat=="Passer quiz") %}
+
+                        <a href="{{ path('app_quiz_play', {'idAnnonce':postulation.annoncePostulation.idAnnonce,'idQuiz': postulation.annoncePostulation.quiz.idQuiz})  }}"  class="genric-btn success radius"> Clicker pour passer le quiz</a>
+{%  elseif (postulation.etat=="en attent apres quiz" ) %}
+    <a href="#"  class="genric-btn success radius">{{ postulation.etat }} </a>
+{% elseif (postulation.etat=="accepter") %}
+    <a href="#"  class="genric-btn success radius">Accepter verifier mail </a>
+
+                    {% endif %}
+
+                </td>
+{#                    <td><a href="{{ path('deletepost', {'id': postulation.id}) }}" class="boxed-btn3"></a></td>#}
+{#                {% else %}#}
+{#                {% endif %}#}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
