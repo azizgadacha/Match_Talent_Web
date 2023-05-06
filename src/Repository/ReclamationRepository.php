@@ -50,10 +50,13 @@ class ReclamationRepository extends ServiceEntityRepository
     }
 
 
-    public function findAllStatuts()
+    public function findAllStatuts($user)
     {
         $qb = $this->createQueryBuilder('r')
+            ->join("userReclamation","u")
             ->select('r.statut')
+            ->where("u.id= :idUser")
+            ->setParameter("idUser",$user->getId())
             ->distinct(true);
 
         $query = $qb->getQuery();
@@ -68,11 +71,15 @@ class ReclamationRepository extends ServiceEntityRepository
         return $statuts;
     }
 
-    public function findByStatut($statut)
+    public function findByStatut($statut,$user)
     {
         return $this->createQueryBuilder('r')
+            ->join("userReclamation","u")
+            ->where("u.id= :idUser")
+            ->setParameter("idUser",$user->getId())
             ->andWhere('r.statut = :statut')
             ->setParameter('statut', $statut)
+
             ->getQuery()
             ->getResult();
     }

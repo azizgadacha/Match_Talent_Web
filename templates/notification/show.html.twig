@@ -1,0 +1,39 @@
+    {% extends 'base1.html.twig' %}
+
+{% block title %}Notification{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+                <h1>Notification Details</h1>
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">{{ notification.idNotification }}</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            {{ include('notification/_delete_form.html.twig') }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                   <h5 class="m-0 font-weight-bold text-primary"> Description : </h5> {{ notification.description }} <br>
+                                   <h5 class="m-0 font-weight-bold text-primary"> Date : </h5> {{ notification.date ? notification.date|date('Y-m-d') : '' }} <br>
+                                </div>
+                                </div>
+
+                                <a href="{{ path('app_notification_index') }}">
+                                        <i class="fas fa-arrow-left"></i>
+                                    </a>
+
+
+    </div>
+    <!-- End of Page Wrapper -->
+    {% endblock %}

@@ -73,7 +73,6 @@ class AnnonceRepository extends ServiceEntityRepository
             ->getResult();
     }   public function findAnnonceByPOstForUser($id)
 {
-    echo "fdsdss ".$id;
     return $this->createQueryBuilder('a')
         ->leftjoin('a.listePostulationInAnnonce', 'p')
         ->leftjoin('p.userPostulation', 'u2')

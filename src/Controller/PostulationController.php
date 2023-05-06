@@ -100,7 +100,6 @@ class PostulationController extends AbstractController
     public function new(Security $security,FlashyNotifier $flashy,Request $request,$idAnnonce, AnnonceRepository $annonceRepository, FileRepository $fileRepository, PostulationRepository $postulationRepository, UserRepository $UserRepository): Response
     {
         $user = $security->getUser();
-         echo "ttttt".$user->getId();
         $annonce=$annonceRepository->find($idAnnonce);
         $postulation = new Postulation();
             $file=$fileRepository->findOneBy(array('userFile'=>$user));
@@ -111,7 +110,6 @@ class PostulationController extends AbstractController
                 return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
 
             }else {
-                echo "tttttsss  ".$user->getId();
 
                 $postulation->setEtat("en cours");
                 $postulation->setFileAssocier($file);

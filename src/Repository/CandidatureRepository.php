@@ -18,7 +18,7 @@ class CandidatureRepository extends ServiceEntityRepository
 {
 
     public function  getCandidatureForAnnonce($annonceId){
-        echo "ddezez ".$annonceId;
+
      //  $result=$this->createQueryBuilder("c")->where('c.annonceAssocier.idAnnonce= 1 ') ->getQuery()->getResult();
         $result =$this->createQueryBuilder('c')
             ->join('c.utilisateurAssocier', 'u')

@@ -4,9 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Reclamation;
 use App\Entity\ReponseReclamation;
+use App\Entity\Notification;
 use App\Form\ReclamationType;
 use App\Repository\ReclamationRepository;
 use App\Repository\ReponseReclamationRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +18,7 @@ use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Entity\Utilisateur;
+use Symfony\Component\Security\Core\Security;
 use Twig\Environment;
 
 
@@ -109,7 +111,7 @@ public function index(Request $request, ReclamationRepository $reclamationReposi
     
         return $this->json($chartData);
     }
-    #[Route('/statistic', name:'statistic', methods: ['GET'])]
+    #[Route('/statistic', name:'statisticcs', methods: ['GET'])]
 public function getReclamationsCount(Request $request, ReclamationRepository $reclamationRepository, ReponseReclamationRepository $reponseReclamationRepository): Response
 {
     // Retrieve the Reclamation entity by ID using Doctrine entity manager
@@ -143,12 +145,14 @@ public function findByDate(string $order = 'DESC'): Response
         ]);
     }*/
     #[Route('/myy', name: 'app_listt', methods: ['GET', 'POST'])]
-    public function my(Request $request, ReclamationRepository $reclamationRepository)
+    public function my(Security $security,Request $request, ReclamationRepository $reclamationRepository)
     {
+        $user = $security->getUser();
+
         $order = $request->query->get('order', 'DESC'); // Default order is DESC if not provided
     
         // Query the reclamation data from the database and sort it based on the order
-        $reclamations = $this->getDoctrine()->getRepository(Reclamation::class)->findByDate($order);
+        $reclamations = $this->getDoctrine()->getRepository(Reclamation::class)->findByDate($order,$user);
     
         // Render the sorted reclamation data to a Twig template
         $html = $this->twig->render('reclamation/list.html.twig', ['reclamations' => $reclamations]);
@@ -157,10 +161,12 @@ public function findByDate(string $order = 'DESC'): Response
     }
     
     #[Route('/my', name: 'app_list', methods: ['GET', 'POST'])]
-    public function list(ReclamationRepository $reclamationRepository): Response
+    public function list(Security $security,ReclamationRepository $reclamationRepository): Response
     {
+        $user = $security->getUser();
+
         return $this->render('reclamation/listt.html.twig', [
-            'reclamations' => $reclamationRepository->findAll(),
+            'reclamations' => $reclamationRepository->findBy(["userReclamation"=>$user]),
         ]);
     }
    
@@ -184,17 +190,18 @@ public function findByDate(string $order = 'DESC'): Response
     
     #[Route('/suivi/{statut}', name: 'app_suivi', methods: ['GET', 'POST'], requirements: ['statut' => 'NotYet|Done'])]
     #[Route('/suivi', name: 'app_suivi_without_statut', methods: ['GET', 'POST'])]
-    public function getByStatut(Request $request, ReclamationRepository $reclamationRepository, $statut = null): Response
+    public function getByStatut(Security $security,Request $request, ReclamationRepository $reclamationRepository, $statut = null): Response
     {
-        $statuts = $reclamationRepository->findAllStatuts();
+        $user = $security->getUser();
+        $statuts = $reclamationRepository->findAllStatuts($user);
         // If "statut" value is not provided as a route parameter, check if it is sent as a query parameter
         if (!$statut) {
             $statut = $request->query->get('statut');
         }
         if ($statut) {
-            $reclamations = $reclamationRepository->findByStatut($statut);
+            $reclamations = $reclamationRepository->findByStatut($statut,$user);
         } else {
-            $reclamations = $reclamationRepository->findAll();
+            $reclamations = $reclamationRepository->findBy(["userReclamation"=>$user]);
         }
         return $this->render('reclamation/statut.html.twig', [
             'reclamations' => $reclamations,
@@ -214,25 +221,29 @@ public function findByDate(string $order = 'DESC'): Response
             'reclamations' => $reclamationRepository->findAll(),
         ]);
     }*/
-    #[Route('/home', name: 'app_home', methods: ['GET', 'POST'])]
-    public function test(): Response
-    {
-        return $this->renderForm('FrontOffice/index/index.html.twig'
-        );
-    }
+
 
     #[Route('/ajout', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ReclamationRepository $reclamationRepository): Response
+    public function new(Security $security,UserRepository $userRepository,Request $request, EntityManagerInterface $entityManager, ReclamationRepository $reclamationRepository): Response
     {
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
-    
+        $user = $security->getUser();
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $userReclamation = $this->getDoctrine()->getRepository(Utilisateur::class)->findOneBy(['username' => 'hend']);
+            $userReclamation = $userRepository->find($user->getId());
             $reclamation->setUserReclamation($userReclamation);
     
             $reclamationRepository->save($reclamation, true);
+
+            // Create a new notification record
+            $notification = new Notification();
+            $notification->setDescription('A new reclamation has been added with ID ' . $reclamation->getIdReclamation());
+
+            $notification->setUserNotification($userReclamation);
+            $entityManager->persist($notification);
+            $entityManager->flush();
     
             return $this->redirectToRoute('app_list', [], Response::HTTP_SEE_OTHER);
         }
@@ -240,6 +251,7 @@ public function findByDate(string $order = 'DESC'): Response
         return $this->renderForm('reclamation/new.html.twig', [
             'reclamation' => $reclamation,
             'form' => $form,
+            //'notifications' => $notifications
         ]);
     }
     
@@ -260,6 +272,7 @@ public function show_json(Reclamation $reclamation): JsonResponse
         ]);
     }
 
+
     #[Route('/{idReclamation}', name: 'app_reclamation_client', methods: ['GET'])]
     public function showClient(Reclamation $reclamation): Response
     {
@@ -277,7 +290,7 @@ public function show_json(Reclamation $reclamation): JsonResponse
         if ($form->isSubmitted() && $form->isValid()) {
             $reclamationRepository->save($reclamation, true);
 
-            return $this->redirectToRoute('app_reclamation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_list', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('reclamation/edit.html.twig', [

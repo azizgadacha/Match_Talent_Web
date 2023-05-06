@@ -22,6 +22,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/candidature')]
 class CandidatureController extends AbstractController
 {
+
     public function __construct(MailerInterface $mailer) {
         $this->mailer = $mailer;
     }
@@ -37,7 +38,14 @@ class CandidatureController extends AbstractController
         return $this->render('FooTransBundle:Default:search.html.twig', array(
             'res' => $res));}*/
 
+    #[Route('/admin', name: 'indexadmin_admin_interface', methods: ['GET'])]
+    public function index_admin(CandidatureRepository $candidatureRepository): Response
+    {
 
+        return $this->render('candidature/indexAdmin.html.twig', [
+            'candidatures' => $candidatureRepository->findAll(),
+        ]);
+    }
     #[Route('/{annonceId}', name: 'app_candidature_index', methods: ['GET'])]
     public function index(SerializerInterface $serializerInterface,AnnonceRepository $annonceRepository,$annonceId,CandidatureRepository $candidatureRepository,MailerInterface $mailer): Response
 
@@ -82,6 +90,8 @@ class CandidatureController extends AbstractController
     {
         //            'candidatures' => $candidatureRepository->gettrie(),
         return $this->render('candidature/index.html.twig', [
+            'annonceId'=>$annonceId,
+
             'candidatures' => $candidatureRepository->gettrie($annonceId),
         ]);
     }
@@ -90,16 +100,12 @@ class CandidatureController extends AbstractController
 
     {
         return $this->render('candidature/index.html.twig', [
+            'annonceId'=>$annonceId,
+
             'candidatures' => $candidatureRepository->gettrieNom($annonceId),
         ]);
     }
-    #[Route('/admin', name: 'app_candidature_index_admin', methods: ['GET'])]
-    public function index_admin(CandidatureRepository $candidatureRepository): Response
-    {
-        return $this->render('candidature/indexAdmin.html.twig', [
-            'candidatures' => $candidatureRepository->getCandidatureForAnnonce(),
-        ]);
-    }
+
 
     #[Route('/new', name: 'app_candidature_new', methods: ['GET', 'POST'])]
     public function new(Request $request,AnnonceRepository $annonceRepository, CandidatureRepository $candidatureRepository): Response
@@ -153,7 +159,7 @@ class CandidatureController extends AbstractController
 
     #[Route('/delete/{idCandidature}', name: 'app_candidature_delete', methods: ['POST'])]
     public function delete(PostulationRepository $postulationRepository, ManagerRegistry $doctrine,Request $request, Candidature $candidature, CandidatureRepository $candidatureRepository): Response
-    {echo "hello";
+    {
         //if ($this->isCsrfTokenValid('delete'.$candidature->getIdCandidature(), $request->request->get('_token'))) {
         $entityManager = $doctrine->getManager();
         $postulation = $postulationRepository->findOneBy([
@@ -171,7 +177,6 @@ class CandidatureController extends AbstractController
     public function deleteMobile(ManagerRegistry $doctrine,Request $request, CandidatureRepository $candidatureRepository): Response
     {
         $candidature= $candidatureRepository->find($request->get("idCandidature"));
-echo "dddddd".$candidature->getIdCandidature();
         //if ($this->isCsrfTokenValid('delete'.$candidature->getIdCandidature(), $request->request->get('_token'))) {
         $entityManager = $doctrine->getManager();
         //$postulation = $entityManager->getRepository(Postulation::class)->findOneBy([

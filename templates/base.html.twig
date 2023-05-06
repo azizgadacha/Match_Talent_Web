@@ -214,6 +214,7 @@
     }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
+
 {% endblock %}
 
 <body>
@@ -236,7 +237,6 @@
                                     <li><a href="/">Home</a></li>
                                     <li><a href="/annonce">Annnonce</a></li>
 
-{{'Demandeur'== app.user.roles|first}}
                                     {% if 'Demandeur'== app.user.roles|first  %}
 
 
@@ -245,16 +245,19 @@
 
                                     <li><a href="{{ path('app_postulation_index') }}">Mes Postulation</a></li>
                                     {% endif %}
+                                    <li><a href="{{ path('app_list') }}">Mes Reclamation</a></li>
+
+                                    {% if 'Offreur'== app.user.roles|first  %}
 
                                     <li><a href="#">Page</a>
                                         <ul class="submenu">
-                                            {% if 'Offreur'== app.user.roles|first  %}
 
                                             <li><a href="{{ path('app_quiz_index') }}">Mes Quiz</a></li>
                                             <li><a href="{{ path('app_rendez_vous_index') }}">Mes Rendez vous</a></li>
-                                        {%endif %}
                                         </ul>
                                     </li>
+                                    {%endif %}
+
                                 </ul>
                             </nav>
                             {%endif %}

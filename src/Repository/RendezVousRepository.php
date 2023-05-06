@@ -42,7 +42,7 @@ class RendezVousRepository extends ServiceEntityRepository
 
     public function getrdv($id1)
     {
-echo "dsdsdsd".$id1;
+
         $qb = $this->createQueryBuilder('r')
             ->join('r.annonceAssocierRendezVous', 'a')
 ->join("a.utilisateur",'u1')

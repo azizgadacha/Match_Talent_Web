@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\NotificationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 #[ORM\Entity(repositoryClass: NotificationRepository::class)]
-
 class Notification
 {
     #[ORM\Id]
@@ -17,13 +19,19 @@ class Notification
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, nullable: true)]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy:'listeNotification' )]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
     private ?User $userNotification=null;
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
 
     public function getIdNotification(): ?int
     {

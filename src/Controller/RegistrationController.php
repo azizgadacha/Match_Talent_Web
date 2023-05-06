@@ -45,10 +45,10 @@ class RegistrationController extends AbstractController
                 $user->setEmailVerified(true);
                 // Save
                 $em = $this->getDoctrine()->getManager();
-                echo "heello8";
+
 
                 $em->persist($user);
-                echo "heello9";
+
 
                 $em->flush();
 
@@ -61,8 +61,7 @@ class RegistrationController extends AbstractController
 
         } catch (\Exception $e) {
 
-            echo "rrrrrrrrrrrrrrr";
-            echo $e->getMessage();
+
             $this->addFlash('error', "ffff".$e->getMessage());
 
            return $this->redirectToRoute('register');

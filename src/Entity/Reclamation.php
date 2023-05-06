@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Entity;
+
 use App\Repository\ReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Validator;
+use App\Validator\CustomAssert;
+
+
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
-
 class Reclamation
 {
     #[ORM\Id]
@@ -19,19 +23,24 @@ class Reclamation
 
 
     #[ORM\Column(length: 50)]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
     private ?string $titre = null;
 
 
 
     #[ORM\Column(length: 50)]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+
+
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
     private ?string $description = null;
 
 
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $statut = null;
 
 
@@ -42,7 +51,16 @@ class Reclamation
 
     #[ORM\OneToOne(mappedBy:'reclamation' ,cascade:['persist','remove'])]
     private ?ReponseReclamation $reponseReclamation=null;
+    
 
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+        $this->statut = 'NotYet';
+    }
+
+    
     public function getIdReclamation(): ?int
     {
         return $this->idReclamation;
@@ -113,12 +131,40 @@ class Reclamation
         return $this->userReclamation;
     }
 
-    public function setUserReclamation(?User $userReclamation): self
+    //public function setUserReclamation(?string $username, EntityManagerInterface $entityManager): self
+    //{
+        //$UtilisateurRepository = $entityManager->getRepository(Utilisateur::class);
+        //$userReclamation = $UtilisateurRepository->findOneBy(['username' => $username]);
+        //$this->userReclamation = $userReclamation;
+    
+        //return $this;
+   //}
+    
+
+
+    //public function setUserReclamation(?string $username): self
+//{
+    //$UtilisateurRepository = $this->getDoctrine()->getRepository(Utilisateur::class);
+    //$userReclamation = $UtilisateurRepository->findOneBy(['username' => $username]);
+    //$this->userReclamation = $userReclamation;
+
+    //return $this;
+//}
+
+public function setUserReclamation(?User $userReclamation): self
     {
         $this->userReclamation = $userReclamation;
 
         return $this;
     }
+
+
+    //public function setUserReclamation(?Utilisateur $userReclamation): self
+    //{
+        //$this->userReclamation = $userReclamation;
+
+        //return $this;
+    //}
 
     public function getReponseReclamation(): ?ReponseReclamation
     {

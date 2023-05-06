@@ -53,6 +53,15 @@ class QuizController extends AbstractController
             'quizzes' => $quizRepository->findBy(["userQuiz"=>$user]),
         ]);
     }
+    #[Route('/adminQuiz', name: 'admin_app_quiz_index', methods: ['GET'])]
+    public function indexadmin(Security $security,QuizRepository $quizRepository): Response
+    {
+        $user = $security->getUser();
+
+        return $this->render('quiz/indexbackend.html.twig', [
+            'quizzes' => $quizRepository->findAll(),
+        ]);
+    }
 
     #[Route('/new', name: 'app_quiz_new', methods: ['GET', 'POST'])]
     public function new(Security $security,Request $request, QuizRepository $quizRepository,UserRepository $UserRepository ): Response
@@ -122,7 +131,6 @@ class QuizController extends AbstractController
     {
         // Récupérer les questions associées à un quiz par son ID
         $questions = $questionRepository->findBy(['QuizAssocier' => $quiz->getIdQuiz()]);
-    echo  "dddsdsdqdq ".$idAnnonce;
         // Initialiser le score
         $score = 0;
 
@@ -170,24 +178,17 @@ $chart->getOptions()->setColors([ '#90EE90','#FFA07A']); // Couleurs plus claire
             $user = $security->getUser();
 
            $candidature=new Candidature();
-echo "dfffff  ".$idAnnonce;
             $annonce=$annonceRepository->find($idAnnonce);
-            echo  "ffdsfsdfds ".$annonce->getTitre();
-            echo  "ffdsfsdssqdzzfds ".$annonce->getIdAnnonce();
            $candidature->setAnnonceAssocier($annonce);
-echo 'frrrr'.$user->getId();
            $candidature->setUtilisateurAssocier($user);
-           echo "ddzezezez ".$pourcentage;
            $candidature->setNote($pourcentage);
-echo "ddqzdq".$candidature->getNote();
-            echo "ddzezezez ".$candidature->getNote();
+
 
 
             $candidatureRepository->save($candidature,true);
            $postulation= $postulationRepository->findOneBy(["annoncePostulation"=>$annonce,"userPostulation"=>$user]);
            $postulation->setEtat("en attent apres quiz");
            $postulationRepository->save($postulation,true);
-           echo "eeee ".$idAnnonce;
             // Renvoyer le score sous forme de pourcentage dans un template Twig
             return $this->render('quiz/score.html.twig', [
                 'score' => $pourcentage,

@@ -45,6 +45,18 @@ class RendezVousController extends AbstractController
         return $this->render('rendez_vous/index.html.twig', [
             'pagination' => $pagination,]);
     }
+    #[Route('/admin', name: 'admin_app_rendez_vous_index', methods: ['GET'])]
+    public function indexAdmin(Security $security,Request $request,PaginatorInterface $paginator,RendezVousRepository $rendezVousRepository): Response
+    {
+        $user = $security->getUser();
+         //$id=$us->getId();
+        $data=$rendezVousRepository->getrdv($user->getId());
+        $pagination = $paginator->paginate($rendezVousRepository->findAll(), $request->query->getInt('page', 1),
+            1 // items per page
+        );
+        return $this->render('rendez_vous/indexAdminPage.html.twig', [
+            'pagination' => $pagination,]);
+    }
 
     #[Route('/ListeTrie', name: 'app_rendez_vous_index_trie', methods: ['GET'])]
     public function indexTrie(Request $request,PaginatorInterface $paginator,RendezVousRepository $rendezVousRepository): Response
@@ -111,12 +123,10 @@ class RendezVousController extends AbstractController
 
     {
         $idUser=$request->get("iduser");
-        echo "dzdqddqsd ".$idUser;
 
         $idAnnonce=$request->get("idannoce");
        $user= $userRepository->find($idUser);
-       echo "dzdqddqsd ".$idUser;
-       echo "dyyyyd ".$user->getId();
+
 
 $annonce=$annonceRepository->find($idAnnonce);
         $rendezVou = new RendezVous();
