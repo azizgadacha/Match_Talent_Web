@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ReponseReclamation;
+use App\Entity\Reclamation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,14 +22,28 @@ class ReponseReclamationRepository extends ServiceEntityRepository
         parent::__construct($registry, ReponseReclamation::class);
     }
 
-    public function save(ReponseReclamation $entity, bool $flush = false): void
+    /*public function save(ReponseReclamation $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }*/
+    public function save(ReponseReclamation $reponseReclamation, bool $flush = false): void
+    {
+        $reclamation = $reponseReclamation->getReclamation();
+        $reclamation->setStatut('Done');
+
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($reclamation);
+        $entityManager->persist($reponseReclamation);
+
+        if ($flush) {
+            $entityManager->flush();
+        }
     }
+
 
     public function remove(ReponseReclamation $entity, bool $flush = false): void
     {
@@ -63,4 +78,20 @@ class ReponseReclamationRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function findOneByReclamation(Reclamation $reclamation): ?ReponseReclamation
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.reclamation = :reclamation')
+            ->setParameter('reclamation', $reclamation)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function countReponses(): int
+    {
+        return $this->createQueryBuilder('rr')
+            ->select('COUNT(rr.idReponse)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Entity;
+
 use App\Repository\ReclamationRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\SerializerInterface;
+
 
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
-
 class Reclamation
 {
     #[ORM\Id]
@@ -15,33 +19,50 @@ class Reclamation
     private ?int  $idReclamation=null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Assert\Date]
+    #[Groups("reclamations")]
     private ?\DateTimeInterface $date = null;
 
 
     #[ORM\Column(length: 50)]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    #[Groups("reclamations")]
     private ?string $titre = null;
 
 
 
     #[ORM\Column(length: 50)]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+
+    #[Groups("reclamations")]
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
+    //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    #[Groups("reclamations")]
     private ?string $description = null;
 
 
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
+    #[Groups("reclamations")]
     private ?string $statut = null;
 
 
     #[ORM\ManyToOne(inversedBy:'listeReclamation' )]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
-
     private ?Utilisateur $userReclamation;
 
     #[ORM\OneToOne(mappedBy:'reclamation' ,cascade:['persist','remove'])]
     private ?ReponseReclamation $reponseReclamation=null;
+
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+        $this->statut = 'NotYet';
+    }
+
 
     public function getIdReclamation(): ?int
     {
@@ -113,12 +134,40 @@ class Reclamation
         return $this->userReclamation;
     }
 
+    //public function setUserReclamation(?string $username, EntityManagerInterface $entityManager): self
+    //{
+    //$UtilisateurRepository = $entityManager->getRepository(Utilisateur::class);
+    //$userReclamation = $UtilisateurRepository->findOneBy(['username' => $username]);
+    //$this->userReclamation = $userReclamation;
+
+    //return $this;
+    //}
+
+
+
+    //public function setUserReclamation(?string $username): self
+//{
+    //$UtilisateurRepository = $this->getDoctrine()->getRepository(Utilisateur::class);
+    //$userReclamation = $UtilisateurRepository->findOneBy(['username' => $username]);
+    //$this->userReclamation = $userReclamation;
+
+    //return $this;
+//}
+
     public function setUserReclamation(?Utilisateur $userReclamation): self
     {
         $this->userReclamation = $userReclamation;
 
         return $this;
     }
+
+
+    //public function setUserReclamation(?Utilisateur $userReclamation): self
+    //{
+    //$this->userReclamation = $userReclamation;
+
+    //return $this;
+    //}
 
     public function getReponseReclamation(): ?ReponseReclamation
     {

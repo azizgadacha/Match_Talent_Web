@@ -5,7 +5,9 @@ namespace App\Entity;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
@@ -14,6 +16,7 @@ class Categorie
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
+#[Groups("categorie")]
     #[ORM\Column]
     private ?int $idCategorie=null;
 
@@ -23,6 +26,7 @@ class Categorie
         max: 50,
         maxMessage: "Le nom de la catégorie ne peut pas contenir plus de {{ limit }} caractères."
     )]*/
+    #[Groups("categorie")]
     private ?string $nomCategorie = null;
     #[ORM\OneToMany(mappedBy: 'categorieAnnonce', targetEntity: Annonce::class, orphanRemoval: true)]
     private Collection $listeAnnonceInCategorie;

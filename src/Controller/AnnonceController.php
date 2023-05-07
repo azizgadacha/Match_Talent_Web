@@ -63,22 +63,71 @@ class AnnonceController extends AbstractController
 
 
     #[Route('/json', name: 'app_annonce_index', methods: ['GET'])]
-    public function index_json(AnnonceRepository $annonceRepository, CategorieRepository $categorieRepository, UtilisateurRepository $utilisateurRepository, RoleRepository $roleRepository): JsonResponse
+    public function index_json(AnnonceRepository $annonceRepository, CategorieRepository  $categorieRepository, UtilisateurRepository $utilisateurRepository, RoleRepository $roleRepository): Response
     {
         $utilisateur = $utilisateurRepository->find(3);
         $role = $utilisateur->getRoleUser();
+        $categories = $categorieRepository->find(4);
         $isDemander = $role->getNomRole() === 'DEMANDEUR';
 
-        $categories = $categorieRepository->findAll();
-        $annonces = $annonceRepository->findAll();
 
-        $responseData = [
-            'categories' => $categories,
-            'annonces' => $annonces,
-            'isDemander' => $isDemander
-        ];
+        if ($isDemander) {
+            //  $annonces = $annonceRepository->findAllByUtilisateur($utilisateur);
+            $categories = $categorieRepository->find(4);
 
-        return new JsonResponse($responseData);
+            $annonces = $annonceRepository->findAll();
+
+            $data = [];
+
+            foreach ($annonces as $annonce) {
+
+
+                $formattedDate1 =$annonce->getDatedebut()-> format('d/m/Y');
+                $formattedDate =$annonce->getDatefin()-> format('d/m/Y');
+
+
+
+
+                $data[] = [
+                    'idAnnonce' => $annonce->getIdAnnonce(),
+                    'DateDebut' => $formattedDate1,
+                    'DateFin' => $formattedDate,
+                    'Titre' => $annonce->getTitre(),
+                    'Description' => $annonce->getDescription(),
+                    //'CategorieId' => $categories->getIdCategorie(),
+                    //'id'=>$annonce >getC(),
+                    'nomCategorie'=>$categories->getNomCategorie(),
+                    // 'idAnnonce'=>$rendezvous->getAnnonceAssocierRendezVous()->getIdAnnonce(),
+                    'TypeContrat' => $annonce->getTypeContrat(),
+                ];}return new JsonResponse($data);}
+
+        else {
+            $categories = $categorieRepository->find(4);
+            $annonces = $annonceRepository->findAll();
+
+            $data = [];
+
+            foreach ($annonces as $annonce) {
+
+
+                $formattedDate1 =$annonce->getDatedebut()-> format('d/m/Y');
+                $formattedDate =$annonce->getDatefin()-> format('d/m/Y');
+
+
+
+
+                $data[] = [
+                    'idAnnonce' => $annonce->getIdAnnonce(),
+                    'DateDebut' => $formattedDate1,
+                    'DateFin' => $formattedDate,
+                    'Titre' => $annonce->getTitre(),
+                    'Description' => $annonce->getDescription(),
+                    // 'CategorieId' => $categories->getIdCategorie(),
+                    //'id'=>$annonce >getC(),
+                     'nomCategorie'=>$categories->getNomCategorie(),
+                    // 'idAnnonce'=>$rendezvous->getAnnonceAssocierRendezVous()->getIdAnnonce(),
+                    'TypeContrat' => $annonce->getTypeContrat(),
+                ];}return new JsonResponse($data);}
     }
 
 
