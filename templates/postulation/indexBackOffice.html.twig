@@ -50,13 +50,23 @@
                 <td><a href="{{ asset('Upload/')}}{{ postulation.fileAssocier.namecv  }}">{{ postulation.fileAssocier.namecv }}</a></td>
                 <td><a href="{{ asset('Upload/')}}{{ postulation.fileAssocier.namedeplome  }}">{{ postulation.fileAssocier.namedeplome }}</a></td>
                 <td><a href="{{ asset('Upload/')}}{{ postulation.fileAssocier.namemotivation  }}">{{ postulation.fileAssocier.namemotivation }}</a></td>
-                {% if postulation.etat == "en cours" %}
-                <td>
-                    <a href="{{ path('accepter', {'id': postulation.id}) }}" class="btn btn-secondary">Accepter</a>
-                    <a href="{{ path('refuser', {'id': postulation.id}) }}" class="btn btn-danger">Refuser</a>
+                <td style="text-align: center">
+                    {% if (postulation.etat=="en cours") %}
+                        <a href="{{ path('app_Tranferer_Quiz_Postulation', {'id': postulation.id}) }}"  class="genric-btn success radius"> <i class="fa fa-check ml-3" aria-hidden="true"></i>tranferer vers le teste</a>
+                        <a href="{{ path('app_refuser_Postulation', {'id': postulation.id}) }}" class="genric-btn danger radius"> <i class="fa fa-ban ml-3" aria-hidden="true"></i>refuser</a>
+                        e
+                    {% elseif ((postulation.etat=="refuser")) %}
+                        <a href="#" class="genric-btn danger radius"> {{ postulation.etat }}</a>
+                    {% elseif(postulation.etat=="Passer quiz") %}
+                        <a  class="genric-btn success radius"> En attend la passasion du quiz</a>
+                    {%  elseif (postulation.etat=="en attent apres quiz" ) %}
 
+                        <a href="#"  class="genric-btn success radius">en attend votre decision de la candidature</a>
+                    {% elseif (postulation.etat=="accepter") %}
+                        <a href="#"  class="genric-btn success radius">Accepter  </a>
+
+                    {% endif %}
                 </td>
-                {% else %}{% endif %}
             </tr>
         {% else %}
             <tr>
