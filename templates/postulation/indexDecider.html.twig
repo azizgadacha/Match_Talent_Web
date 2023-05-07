@@ -31,7 +31,7 @@
                <a href="{{ path('app_Tranferer_Quiz_Postulation', {'id': postulation.id}) }}"  class="genric-btn success radius"> <i class="fa fa-check ml-3" aria-hidden="true"></i>tranferer vers le teste</a>
                         <a href="{{ path('app_refuser_Postulation', {'id': postulation.id}) }}" class="genric-btn danger radius"> <i class="fa fa-ban ml-3" aria-hidden="true"></i>refuser</a>
 e
-                    {% elseif ((postulation.etat=="Refuser")) %}
+                    {% elseif ((postulation.etat=="refuser")) %}
                         <a href="#" class="genric-btn danger radius"> {{ postulation.etat }}</a>
                         {% elseif(postulation.etat=="Passer quiz") %}
                             <a  class="genric-btn success radius"> En attend la passasion du quiz</a>

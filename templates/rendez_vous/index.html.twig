@@ -67,7 +67,7 @@
                                                 {{ rendez_vous.dateRendezVous ? rendez_vous.dateRendezVous|date('Y-m-d') : '' }} à  {{ rendez_vous.heureRendezVous }}                                       </td>
                                             <td>
                                                 <ul class="list-unstyled mb-0 d-flex justify-content-end">
-                                                    <li><a  class="MainNavText text-primary"  href="{{ path('app_rendez_vous_show', {'idRendezVous': rendez_vous.idRendezVous}) }}" ><i class="far fa-eye"></i></a></li>
+                                                    <li><a  class="MainNavText text-info"  href="{{ path('app_rendez_vous_show', {'idRendezVous': rendez_vous.idRendezVous}) }}" ><i class="far fa-eye"></i></a></li>
 
                                                     <li><form action="{{ path('app_rendez_vous_delete', {'idRendezVous': rendez_vous.idRendezVous}) }}"
                                                                 method="POST">
@@ -79,7 +79,7 @@
                                                     </li>
                                                 
                                                     <li><a href="{{ path('app_rendez_vous_edit', {'idRendezVous': rendez_vous.idRendezVous}) }}" #}
-                                                                class="text-primary"   data-original-title="add"><i class="fas fa-edit"></i></a></li>
+                                                                class="text-info"   data-original-title="add"><i class="fas fa-edit"></i></a></li>
                                                   
                                                 </ul>
                                             </td>

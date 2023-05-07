@@ -14,7 +14,7 @@
 
         <td>{{ form_widget (form.dateRendezVous,{'attr': {'class': 'form-control'}}) }}</td>
 
-        <td>{{ form_errors (form.dateRendezVous, {'attr': {'class': 'color-danger'}}) }}</td>
+        <div class="alert alert-danger">{{ form_errors (form.dateRendezVous, {'attr': {'class': 'color-danger'}}) }}</div>
 
 
     </div>

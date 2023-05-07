@@ -57,13 +57,12 @@ class CandidatureController extends AbstractController
         ]);
     }
     #[Route('/mobile/{annonceId}', name: 'app_candidature_index_mobile', methods: ['GET'])]
-    public function indexMobile(SerializerInterface $serializerInterface,AnnonceRepository $annonceRepository,$annonceId,CandidatureRepository $candidatureRepository,MailerInterface $mailer)
+    public function indexMobile(Request $request,SerializerInterface $serializerInterface,AnnonceRepository $annonceRepository,$annonceId,CandidatureRepository $candidatureRepository,MailerInterface $mailer)
 
     {
-        $candidatures = $candidatureRepository->findAll();
-
+        $annonceRepository->find($request->get('annonceId'));
         $data = [];
-
+        $candidatures=  $candidatureRepository->getCandidatureForAnnonce($annonceId);
         foreach ($candidatures as $candidature) {
 
             $data[] = [
