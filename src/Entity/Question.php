@@ -4,6 +4,7 @@ namespace App\Entity;
 use App\Repository\QuestionRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass:QuestionRepository::class)]
 
@@ -12,34 +13,41 @@ class Question
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups("questions")]
     private ?int $idQuestion=null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Le champ question ne peut pas être vide")]
     #[Assert\Length(max:10, maxMessage:"La question  ne peut pas contenir plus de {{ 10 }} caractères")]
+    #[Groups("questions")]
     private ?string $question=null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Le champ proposition A ne peut pas être vide")]
     #[Assert\Regex(pattern:"/^[a-zA-Z0-9 ]*$/", message:"Le champ proposition ne peut contenir que des lettres, des chiffres et des espaces")]
+    #[Groups("questions")]
     private ?string $propositiona=null;
+
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Le champ proposition B ne peut pas être vide")]
     #[Assert\Regex(pattern:"/^[a-zA-Z0-9 ]*$/", message:"Le champ proposition ne peut contenir que des lettres, des chiffres et des espaces")]
+    #[Groups("questions")]
     private ?string $propositionb=null;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message:"Le champ proposition C ne peut pas être vide")]
     #[Assert\Regex(pattern:"/^[a-zA-Z0-9 ]*$/", message:"Le champ proposition ne peut contenir que des lettres, des chiffres et des espaces")]
+    #[Groups("questions")]
     private ?string $propositionc=null;
 
     #[ORM\Column(length: 255)]
-   
+    #[Groups("questions")]
     private ?string $idBonnereponse=null;
 
 
     #[ORM\ManyToOne(inversedBy:'listeQuestion' )]
     #[ORM\JoinColumn(name: 'id_quiz', referencedColumnName: 'id_quiz')]
+   // #[Groups("questions")]
     private ?Quiz $QuizAssocier=null;
 
     public function getIdQuestion(): ?int
