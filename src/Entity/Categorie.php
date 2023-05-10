@@ -60,12 +60,12 @@ class Categorie
     /**
      * @return Collection<int, Annonce>
      */
-    public function getListeAnnonce(): Collection
+   /* public function getListeAnnonce(): Collection
     {
         return $this->listeAnnonce;
-    }
+    }*/
 
-    public function addListeAnnonce(Annonce $listeAnnonce): self
+ /*   public function addListeAnnonce(Annonce $listeAnnonce): self
     {
         if (!$this->listeAnnonce->contains($listeAnnonce)) {
             $this->listeAnnonce->add($listeAnnonce);
@@ -90,7 +90,7 @@ class Categorie
     /**
      * @return Collection<int, Annonce>
      */
-    public function getListeAnnonceInCategorie(): Collection
+   /* public function getListeAnnonceInCategorie(): Collection
     {
         return $this->listeAnnonceInCategorie;
     }
@@ -115,6 +115,6 @@ class Categorie
         }
 
         return $this;
-    }
+    }*/
 
 }

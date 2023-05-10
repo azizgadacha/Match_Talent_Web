@@ -125,6 +125,16 @@ class CategorieController extends AbstractController
             'categorie' => $categorie,
         ]);
     }
+    #[Route('/CategorieJSON/{id}', name: 'show', methods: ['GET'])]
+    public function show_json($id, CategorieRepository $categorieRepository, NormalizerInterface $normalizer)
+    {
+        $categorie= $categorieRepository->find($id);
+        $categorieNormalieses =  $normalizer->normalize($categorie,'json');
+        $json=json_encode($categorieNormalieses);
+        return New Response($json);
+
+    }
+
 
     #[Route('/{idCategorie}/edit', name: 'app_categorie_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Categorie $categorie, CategorieRepository $categorieRepository): Response
@@ -142,6 +152,19 @@ class CategorieController extends AbstractController
             'categorie' => $categorie,
             'form' => $form,
         ]);
+    }
+
+    #[Route('/UpdateCategorieJSON/{id}', name: 'UpdateUserJSON')]
+    public function UpdateCategorieJSON($id,Request $request,NormalizerInterface $normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $categorie=$em->getRepository(Categorie::class)->find($id);
+        $categorie->setNomCategorie($request->get('nomCategorie'));
+       // $user->setEtat("activé");
+        $em->flush();
+        $jsonContent = $normalizer->normalize($categorie, 'json');
+        return new Response("Mise a jour avec succées   ".json_encode($jsonContent));
+
     }
 
     #[Route('/{idCategorie}', name: 'app_categorie_delete', methods: ['POST'])]
@@ -163,4 +186,6 @@ class CategorieController extends AbstractController
         $em->flush();
 
         return new Response("categorie deleted successfully.");}
+
+
 }
