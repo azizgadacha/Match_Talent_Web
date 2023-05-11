@@ -95,7 +95,7 @@ $question->setQuizAssocier(null);
         return new Response("La questiona bien été modifiee". json_encode($jsonContent) );
     
     }
-    #[Route('/deleteQjson/{id}', name: 'app_question_deletejson', methods: ['GET'])]
+    #[Route('/deleteQjson/{id}', name: 'app_question_deletejson', methods: ['GET', 'POST'])]
     public function delete($id,Request $request, Question $question, QuestionRepository $questionRepository,NormalizerInterface $Normalizer): Response
     {
         $question = $questionRepository->find($id);
