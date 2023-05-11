@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 #[ORM\Entity(repositoryClass: FileRepository::class)]
@@ -15,27 +16,35 @@ class File
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['off'])]
     private $idFile;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
+    #[Groups(['off'])]
     private $cv = null;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
+    #[Groups(['off'])]
     private $deplome = null;
 
     #[ORM\Column(type: Types::BLOB, nullable: true)]
+    #[Groups(['off'])]
     private $lettermotivation = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['off'])]
     private ?string $namecv = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['off'])]
     private ?string $namedeplome = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['off'])]
     private ?string $namemotivation = null;
 
     #[ORM\OneToOne(inversedBy:'file')]
+    #[Groups(['off'])]
     #[ORM\JoinColumn(name: 'id_utilisateur', referencedColumnName: 'id')]
 
     private ?Utilisateur $userFile;

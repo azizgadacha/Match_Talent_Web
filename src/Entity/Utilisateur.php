@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 
@@ -15,6 +16,7 @@ class Utilisateur
     #[ORM\Id]
     #[ORM\Column(type: Types::INTEGER)]
     #[ORM\GeneratedValue ]
+    #[Groups(['off','postulation'])]
     private ?int $id=null;
 
     #[ORM\Column(length: 70)]
@@ -171,17 +173,7 @@ class Utilisateur
         return $this;
     }
 
-    public function getRole(): ?Role
-    {
-        return $this->Role;
-    }
 
-    public function setRole(?Role $Role): self
-    {
-        $this->Role = $Role;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Annonce>

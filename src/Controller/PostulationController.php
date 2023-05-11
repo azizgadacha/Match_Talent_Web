@@ -21,13 +21,14 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/postulation')]
 class PostulationController extends AbstractController
 {
 
 
     #[Route('/chart', name: 'my_chart')]
-    public function myChart(PostulationRepository $postulationRepository): Response
+    public function myChart(PostulationRepository $postulationRepository, SerializerInterface $serializer): Response
     {
         $postulationStatistics = $postulationRepository->getPostulationStatisticsByAnnonce();
 
@@ -51,6 +52,8 @@ class PostulationController extends AbstractController
             'piechart' => $pieChart
         ]);
     }
+
+
     #[Route('/annoce', name: 'app_ann_index', methods: ['GET'])]
     public function annaoncef(AnnonceRepository $annonceRepository): Response
     {

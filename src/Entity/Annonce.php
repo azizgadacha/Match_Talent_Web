@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
 
@@ -15,26 +16,33 @@ class Annonce
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['ann','postulation'])]
     private ?int  $idAnnonce =null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['ann'])]
     private ?string $titre = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $nomSocieté = null;
+    #[Groups(['ann'])]
+    private ?string $nomSociete = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['ann'])]
     private ?\DateTimeInterface $datedebut = null;
 
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['ann'])]
     private ?\DateTimeInterface $datefin = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['ann'])]
     private ?string $description = null;
 
 
     #[ORM\Column(length: 50)]
+    #[Groups(['ann'])]
     private ?string $typeContrat = null;
 
     #[ORM\ManyToOne(inversedBy:'AnnoceAssocier' )]
@@ -86,21 +94,12 @@ class Annonce
         return $this;
     }
 
-    public function getCategorie(): ?string
-    {
-        return $this->categorie;
-    }
 
-    public function setCategorie(string $categorie): self
-    {
-        $this->categorie = $categorie;
 
-        return $this;
-    }
 
-    public function getNomSocieté(): ?string
+    public function getNomSociete(): ?string
     {
-        return $this->nomSocieté;
+        return $this->nomSociete;
     }
 
     public function setNomSocieté(string $nomSocieté): self
@@ -194,23 +193,6 @@ class Annonce
         return $this;
     }
 
-    /**
-     * @return Collection<int, Candidature>
-     */
-    public function getListeCandidature(): Collection
-    {
-        return $this->listeCandidature;
-    }
-
-    public function addListeCandidature(Candidature $listeCandidature): self
-    {
-        if (!$this->listeCandidature->contains($listeCandidature)) {
-            $this->listeCandidature->add($listeCandidature);
-            $listeCandidature->setAnnonceAssocier($this);
-        }
-
-        return $this;
-    }
 
     public function removeListeCandidature(Candidature $listeCandidature): self
     {
@@ -224,13 +206,7 @@ class Annonce
         return $this;
     }
 
-    /**
-     * @return Collection<int, Postulation>
-     */
-    public function getListePostulationInUser(): Collection
-    {
-        return $this->listePostulationInUser;
-    }
+
 
     public function addListePostulationInUser(Postulation $listePostulationInUser): self
     {
