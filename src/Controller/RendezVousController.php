@@ -75,6 +75,7 @@ class RendezVousController extends AbstractController
         $Rendezvous=$rendezVousRepository->findAll();
 
 
+
         $data = [];
 
         foreach ($Rendezvous as $rendezvous) {
@@ -265,6 +266,43 @@ $rendezVousRepository->save($rendezVou,true);
             'rendez_vou' => $rendezVou,
             'form' => $form,
         ]);
+    }
+    #[Route("/mobile/edit/{idRendezVous}/{iduser}/{idAnnocne}/{heure}/{date}", name: 'app_rendez_vous_edit', methods: ['GET', 'POST'])]
+    public function editMobile(UserRepository $userRepository,AnnonceRepository $annonceRepository,Request $request,  RendezVousRepository $rendezVousRepository): Response
+    {
+        echo "helllo".$request->get("idRendezVous");
+        $idRendezVous=$request->get("idRendezVous");
+        $annonce=$annonceRepository->find($request->get("idAnnocne"));
+        $user=$userRepository->find($request->get("iduser"));
+        $date=new \DateTime($request->get("date"));
+        echo "wa sahbi hay il date il jdida".$request->get("date");
+
+        /*  $rendez_vous=new RendezVous();
+          $rendez_vous->setIdRendezVous($request->get("idRendezVous"));
+          echo "hoee ".$rendez_vous->getIdRendezVous();
+
+          $rendez_vous->setDateRendezVous($date);
+          $rendez_vous->setHeureRendezVous($request->get("heure"));
+          $rendez_vous->setAnnonceAssocierRendezVous($annonce);
+          $rendez_vous->setUserRendezVous($user);
+          $rendez_vous->setHeureRendezVous($request->get("heure"));
+      */
+
+        $em = $this->getDoctrine()->getManager();
+        $rect = $em->getRepository(RendezVous::class)->find($idRendezVous);
+        $rect-> setDateRendezVous($date);
+        $rect->setHeureRendezVous($request->get("heure"));
+        $rect->setAnnonceAssocierRendezVous($annonce);
+        $rect->setUserRendezVous($user);
+        $rect->setHeureRendezVous($request->get("heure"));
+
+        $em->flush();
+
+
+        //$rendezVousRepository->save($rendez_vous, true);
+
+
+        return new JsonResponse(["result"=>"succes"]);
     }
 
     #[Route('/{idRendezVous}', name: 'app_rendez_vous_delete', methods: ['POST'])]

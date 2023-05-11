@@ -7,13 +7,68 @@ use App\Form\CategorieType;
 use App\Repository\AnnonceRepository;
 use App\Repository\CategorieRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 #[Route('/categorie')]
 class CategorieController extends AbstractController
 {
+    #[Route('/allcategories', name: "list")]
+    public function index_json(CategorieRepository $categorieRepository, NormalizerInterface $normalizer): Response
+    {
+
+        $categories = $categorieRepository->findAll();
+        $data = [];
+
+        foreach ($categories as $categorie) {
+
+
+
+
+            $data[] = [
+                'idcategorie' => $categorie->getIdCategorie(),
+                'nomCategorie' => $categorie->getNomCategorie(),
+
+            ];}
+        return new JsonResponse($data);
+    }
+    #[Route('/new-json', name: 'app_categorie_new_json')]
+    public function new_json(Request $request, NormalizerInterface $normalizer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categorie = new Categorie;
+        $categorie->setNomCategorie($request->get('nomCategorie'));
+        $em->persist($categorie);
+        $em->flush();
+
+        $json = $normalizer->normalize($categorie, 'json', ['groups' => 'categorie']);
+        return new Response(json_encode($json));
+
+    }
+    #[Route('/CategorieJSON/{id}', name: 'show', methods: ['GET'])]
+    public function show_json($id, CategorieRepository $categorieRepository, NormalizerInterface $normalizer)
+    {
+        $categorie= $categorieRepository->find($id);
+        $categorieNormalieses =  $normalizer->normalize($categorie,'json');
+        $json=json_encode($categorieNormalieses);
+        return New Response($json);
+
+    }
+    #[Route('/UpdateCategorieJSON/{id}', name: 'UpdateUserJSON')]
+    public function UpdateCategorieJSON($id,Request $request,NormalizerInterface $normalizer)
+    {
+        $em= $this->getDoctrine()->getManager();
+        $categorie=$em->getRepository(Categorie::class)->find($id);
+        $categorie->setNomCategorie($request->get('nomCategorie'));
+        // $user->setEtat("activé");
+        $em->flush();
+        $jsonContent = $normalizer->normalize($categorie, 'json');
+        return new Response("Mise a jour avec succées   ".json_encode($jsonContent));
+
+    }
     #[Route('/', name: 'app_categorie_index', methods: ['GET'])]
     public function index(CategorieRepository $categorieRepository): Response
     {
