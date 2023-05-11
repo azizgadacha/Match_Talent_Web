@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Validator\Constraints as CustomAssert;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: ReclamationRepository::class)]
@@ -23,11 +25,13 @@ class Reclamation
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Date]
+    #[Groups("reclamations")]
     private ?\DateTimeInterface $date = null;
 
 
     #[ORM\Column(length: 50)]
     //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    #[Groups("reclamations")]
     private ?string $titre = null;
 
 
@@ -37,21 +41,23 @@ class Reclamation
     /**
  * @CustomAssert\ValidType
  */
+    #[Groups("reclamations")]
     private ?string $type = null;
 
     #[ORM\Column(length: 255)]
     //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    #[Groups("reclamations")]
     private ?string $description = null;
 
 
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups("reclamations")]
     private ?string $statut = null;
 
 
     #[ORM\ManyToOne(inversedBy:'listeReclamation' )]
     #[ORM\JoinColumn(name: 'utilisater_id', referencedColumnName: 'id')]
-
     private ?Utilisateur $userReclamation;
 
     #[ORM\OneToOne(mappedBy:'reclamation' ,cascade:['persist','remove'])]

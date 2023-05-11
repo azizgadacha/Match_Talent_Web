@@ -8,6 +8,10 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NomralizerInterface;
+
 
 #[ApiResource]
 #[ORM\Entity(repositoryClass: ReponseReclamationRepository::class)]
@@ -20,10 +24,12 @@ class ReponseReclamation
 
     #[ORM\Column(length: 50)]
     //#[Assert\NotBlank(message: 'Ce champ est obligatoire')]
+    #[Groups("reply")]
     private ?string $reponse = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     #[Assert\Date]
+    #[Groups("reply")]
     private ?\DateTimeInterface $date = null;
 
 

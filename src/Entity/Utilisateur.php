@@ -175,6 +175,7 @@ class Utilisateur
     {
         return $this->Role;
     }
+    
 
     public function setRole(?Role $Role): self
     {

@@ -20,6 +20,11 @@ use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\Utilisateur;
 use Twig\Environment;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 
 #[Route('/reclamation')]
@@ -32,16 +37,78 @@ class ReclamationController extends AbstractController
         $this->twig = $twig;
     }
 
-    #[Route('/json_findall', name: 'app_reclamation_index_json', methods: ['GET'])]
-public function index_json(ReclamationRepository $reclamationRepository): JsonResponse
+    #[Route('/delete_reclamation/{idReclamation}', name: 'app_reclamation_delete_json')]
+public function delete_json($idReclamation, Request $request, Reclamation $reclamation, ReclamationRepository $reclamationRepository): JsonResponse
 {
-    $reclamations = $reclamationRepository->findAll();
+    $entityManager = $this->getDoctrine()->getManager();
+    $reclamation = $entityManager->getRepository(Reclamation::class)->find($idReclamation);
 
-    return $this->json([
-        'reclamations' => $reclamations,
-    ]);
+    $reclamationRepository->remove($reclamation, true);
+
+    $response['success'] = true;
+    $response['message'] = 'Reclamation deleted successfully.';
+
+    return new JsonResponse($response);
+}
+    #[Route('/get_reclamation', name: 'app_reclamation_index_json')]
+public function index_json(EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
+{
+    $query = $entityManager->createQuery(
+        'SELECT r.idReclamation, u.id as id_utilisateur, r.date, r.titre, r.type, r.description, r.statut
+         FROM App\Entity\Reclamation r
+         JOIN r.userReclamation u'
+    );
+    $reclamations = $query->getResult();
+
+    $json = $serializer->serialize($reclamations, 'json');
+
+    return new Response($json, 200, ['Content-Type' => 'application/json']);
 }
 
+/*#[Route('/json_find', name: 'app_reclamation_index_json', methods: ['GET'])]
+public function index_j(Request $request, ReclamationRepository $reclamationRepository): JsonResponse
+{
+    // Call the countReclamations method from the repository
+    $count = $reclamationRepository->countReclamations();
+    $em = $this->getDoctrine()->getManager();
+    $repo = $em->getRepository(Reclamation::class);
+
+    $type = $request->query->get('type');
+
+    if ($type) {
+        $queryBuilder = $repo->createQueryBuilder('r')
+            ->where('r.type = :type')
+            ->setParameter('type', $type);
+    } else {
+        $queryBuilder = $repo->createQueryBuilder('r');
+    }
+
+    $adapter = new QueryAdapter($queryBuilder);
+    $maxPerPage = 4;
+
+    $pagerfanta = new Pagerfanta($adapter);
+    $pagerfanta->setMaxPerPage($maxPerPage);
+
+    $page = $request->query->getInt('page', 1);
+    $pagerfanta->setCurrentPage($page);
+
+    $reclamations = $pagerfanta->getCurrentPageResults();
+
+
+
+    $responseData = [
+        'reclamations' => $reclamations,
+        'pagerfanta' => [
+            'currentPage' => $pagerfanta->getCurrentPage(),
+            'nbPages' => $page,
+            'maxPerPage' => $maxPerPage,
+            'nbResults' => $pagerfanta->getNbResults(),
+        ],
+        'count' => $count,
+    ];
+
+    return new JsonResponse($responseData);
+}*/
     
 
 #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
@@ -223,6 +290,27 @@ public function findByDate(string $order = 'DESC'): Response
         );
     }
 
+    #[Route('/post_reclamation', name: 'app_reclamation_new_json')]
+    public function new_json(Request $request, NormalizerInterface $normalizer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $utilisateur = $em->getRepository(Utilisateur::class)->find(2);
+        if(!$utilisateur){
+            throw $this->createNotFoundException('No Utilisateur found for id 2');
+        }
+        
+        $reclamation = new Reclamation;
+        $reclamation->setTitre($request->get('titre'));
+        $reclamation->setType($request->get('type'));
+        $reclamation->setDescription($request->get('description'));
+        $reclamation->setUserReclamation($utilisateur);
+        $em->persist($reclamation);
+        $em->flush();
+        
+        $json = $normalizer->normalize($reclamation, 'json', ['groups' => 'reclamations']);
+        return new Response(json_encode($json));
+    }
+
     #[Route('/ajout', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, ReclamationRepository $reclamationRepository): Response
     {
@@ -306,5 +394,21 @@ public function show_json(Reclamation $reclamation): JsonResponse
 
         return $this->redirectToRoute('app_list', [], Response::HTTP_SEE_OTHER);
     }
+
+    
+
+
+
+   // #[Route('/delete_reclamation/{idReclamation}', name: 'app_reclamation_delete_json')]
+   //// public function delete_json(Request $request, $idReclamation, NormalizerInterface $normalizer)
+  //{ 
+   //$em = $this->getDoctrine()->getManager();
+   //$reclamation =  $em ->getRepository(Reclamation::class)->find($idReclamation);
+   //$em->remove($reponseReclamation);
+   //$em->flush();
+
+   //return new Response("Reclamation deleted successfully.");
+//}
+
 
 }
